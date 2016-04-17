@@ -1,0 +1,68 @@
+# Suppose a sorted array is rotated at some pivot unknown to you beforehand.
+
+# (i.e., 0 1 2 4 5 6 7 might become 4 5 6 7 0 1 2).
+
+# Find the minimum element.
+
+# You may assume no duplicate exists in the array.
+
+class Solution:
+    # @param {integer[]} nums
+    # @return {integer}
+    def findMin_1(self, nums):
+        # time complexity: O(logn)
+        # space complexity: O(1)/O(logn)
+        # recursive
+        if nums[0] <= nums[-1]:
+            return nums[0]
+        mid = len(nums)/2
+        if nums[mid-1] >= nums[mid]:
+            return nums[mid]
+        if nums[mid] > nums[-1]:
+            return self.findMin_1(nums[mid+1:])
+        else:
+            return self.findMin_1(nums[:mid])
+
+
+    # @param {integer[]} nums
+    # @return {integer}
+    def findMin_2(self, nums):
+        # time complexity: O(logn)
+        # space complexity: O(1)
+        # iterative
+        min = nums[0]
+        start, end = 0, len(nums) - 1
+        while start <= end:
+            mid = (start + end) / 2
+            if nums[mid] >= min:
+                start = mid + 1
+            else:
+                end = mid
+                min = nums[mid]
+        return min
+
+
+    def findMin_2_2(self, nums):
+        # time complexity: O(logn)
+        # space complexity: O(1)
+        # iterative
+        if nums[0] <= nums[-1]:
+            return nums[0]
+        min = nums[0]
+        start, end = 0, len(nums) - 1
+        while start < end:
+            mid = (start + end) / 2
+            if nums[mid] >= min:
+                start = mid + 1
+            else:
+                end = mid
+                min = nums[mid]
+            if start == end:
+                return nums[start]
+
+
+s = Solution()
+for solution in ['findMin_1', 'findMin_2', 'findMin_2_2']:
+    for testcase in ([1],[1,2],[2,1],[2,3,1],[3,1,2]):
+        print "%s: %s, %s" % (solution, getattr(s, solution)(testcase), testcase)
+

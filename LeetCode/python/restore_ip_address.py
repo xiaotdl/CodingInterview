@@ -34,7 +34,7 @@ class Solution(object):
             return
 
         curr_num  = ''
-        for i in range(pos, len(s)):
+        for i in range(pos, min(pos + 3, len(s))):
             curr_num += s[i]
             if self.is_valid(curr_num):
                 curr_nums.append(curr_num)

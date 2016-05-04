@@ -14,12 +14,11 @@
 # n == 4: 1211
 
 class Solution:
-    # @return a string
     def countAndSay_1_iterative(self, n):
         # base result for n=1
         res = "1"
         # iterate till getting result for n=n
-        for i in xrange(n - 1):
+        for i in range(n - 1):
             tmp_res = ""
             prev = res[0]
             count = 1
@@ -28,7 +27,7 @@ class Solution:
             # Otherwise store curr res, reset char and count
             for curr in res[1:]:
                 if curr == prev:
-                    count  += 1
+                    count += 1
                 else:
                     tmp_res += str(count) + prev
                     prev = curr
@@ -36,3 +35,32 @@ class Solution:
             tmp_res += str(count) + prev
             res = tmp_res
         return res
+
+    def countAndSay_2_recursive(self, n):
+        """
+        :type n: int
+        :rtype: str
+        """
+        if n == 1:
+            return '1'
+
+        last_result = self.countAndSay_2_recursive(n - 1)
+
+        result = ''
+
+        count = 1
+        prev = last_result[0]
+        for curr in last_result[1:]:
+            if curr == prev:
+                count += 1
+            else:
+                result += str(count) + prev
+                count = 1
+                prev = curr
+        result += str(count) + prev
+
+        return result
+
+
+for i in range(1, 6):
+    print i, Solution().countAndSay_1_iterative(i), Solution().countAndSay_2_recursive(i)

@@ -23,10 +23,10 @@ public class Solution {
         hm.put('D', 500);
         hm.put('M', 1000);
 
-        Integer result = 0;
+        int result = 0;
 
         Character prevChar = s.charAt(0);
-        Integer prevValue = hm.get(prevChar);
+        int prevValue = hm.get(prevChar);
         for (int i = 1; i < s.length(); i++) {
             Character currChar = s.charAt(i);
             if (hm.get(prevChar) < hm.get(currChar)) {

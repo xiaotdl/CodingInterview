@@ -25,9 +25,9 @@ public class Solution {
 
         StringBuilder sb = new StringBuilder();
 
-        Integer digit = 1;
+        int digit = 1;
         while (num > 0) {
-            Integer currDigit = num % 10;
+            int currDigit = num % 10;
             if (1 <= currDigit && currDigit <= 3) {
                 for (int i = 0; i < currDigit; i++) {
                     sb.insert(0, hm.get(digit));
@@ -46,8 +46,8 @@ public class Solution {
                 sb.insert(0, hm.get(10 * digit));
                 sb.insert(0, hm.get(digit));
             }
-            digit *= 10;
             num /= 10;
+            digit *= 10;
         }
 
         return sb.toString();

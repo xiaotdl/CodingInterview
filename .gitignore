@@ -5,3 +5,5 @@ test.py
 LeetCode/java/.idea/
 
 *.iml
+
+*.class

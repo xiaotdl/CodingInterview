@@ -16,13 +16,12 @@ public class Solution {
             return result;
         }
 
-        StringBuilder tmpResult = new StringBuilder();
-        helper(n, n, n, tmpResult, result);
+        helper(n, n, n, new StringBuilder(), result);
 
         return result;
     }
 
-    private void helper(int n, int leftN, int rightN, StringBuilder tmpResult, List<String>result) {
+    private void helper(int n, int leftN, int rightN, StringBuilder tmpResult, List<String> result) {
         if (leftN == 0 && rightN == 0) {
             result.add(tmpResult.toString());
             return;

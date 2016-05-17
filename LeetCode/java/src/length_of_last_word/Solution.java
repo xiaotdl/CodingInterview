@@ -13,16 +13,13 @@ public class Solution {
         }
 
         int count = 0;
-
         int i = s.length() - 1;
-        // skip tail spaces
-        while (i >= 0) {
-            if (s.charAt(i) != ' ') break;
+        // skip tailing spaces
+        while (i >= 0 && s.charAt(i) == ' ') {
             i--;
         }
         // count last word's length
-        while (i >= 0) {
-            if (s.charAt(i) == ' ') break;
+        while (i >= 0 && s.charAt(i) != ' ') {
             count++;
             i--;
         }

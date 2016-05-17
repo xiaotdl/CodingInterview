@@ -25,9 +25,11 @@ public class Solution {
         while (i < j) {
             while (i < j && !vowels.contains(charArray[i])) i++;
             while (i < j && !vowels.contains(charArray[j])) j--;
-            swap(charArray, i, j);
-            i++;
-            j--;
+            if (vowels.contains(charArray[i]) && vowels.contains(charArray[j])) {
+                swap(charArray, i, j);
+                i++;
+                j--;
+            }
         }
 
         return new String(charArray);
@@ -37,5 +39,10 @@ public class Solution {
         char tmp = charArray[i];
         charArray[i] = charArray[j];
         charArray[j] = tmp;
+    }
+
+    public static void main(String[] args) {
+        System.out.println(new Solution().reverseVowels("bcdf"));
+        System.out.println(new Solution().reverseVowels("hello"));
     }
 }

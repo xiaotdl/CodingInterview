@@ -11,7 +11,7 @@ public class Solution {
     // time: O(m+n), one pass through string
     // space: O(mn), used two dimensional matrix to save path
     public int numDistinct(String s, String t) {
-        // dp[i][j]: tracks the num of subsequences of t[:j](t[0,...,j-1]) in s[:i](s[0,...,i-1])
+        // dp[i][j]: tracks the num of subsequences of t[:j](t[0...j-1]) in s[:i](s[0...i-1])
         int[][] dp = new int[s.length() + 1][t.length() + 1];
 
         // when s is empty

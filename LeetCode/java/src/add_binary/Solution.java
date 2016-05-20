@@ -17,11 +17,10 @@ public class Solution {
         int i = a.length() - 1;
         int j = b.length() - 1;
         int carry = 0;
-
         while (i >= 0 || j >= 0) {
-            Character charA = (i >= 0) ? a.charAt(i) : '0';
-            Character charB = (j >= 0) ? b.charAt(j) : '0';
-            int sum = (int)(charA-'0') + (int)(charB-'0') + carry;
+            char charA = (i >= 0) ? a.charAt(i) : '0';
+            char charB = (j >= 0) ? b.charAt(j) : '0';
+            int sum = (int)(charA - '0') + (int)(charB - '0') + carry;
             sb.insert(0, sum % 2);
             carry = sum / 2;
             i--;

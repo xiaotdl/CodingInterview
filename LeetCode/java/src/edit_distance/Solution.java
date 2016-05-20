@@ -15,20 +15,20 @@ public class Solution {
             return -1;
         }
 
-        // dp[i][j]: minDistance(word1[:i], word2[:j])
+        // dp[i][j]: tracks minDistance(word1[:i], word2[:j])
         int[][] dp = new int[word1.length() + 1][word2.length() + 1];
 
         // when word1 is empty
-        for (int j = 0; j <= word2.length(); j++) {
+        for (int j = 0; j < word2.length() + 1; j++) {
             dp[0][j] = j;
         }
         // when word2 is empty
-        for (int i = 1; i <= word1.length(); i++) {
+        for (int i = 0; i < word1.length() + 1; i++) {
             dp[i][0] = i;
         }
 
-        for (int i = 1; i <= word1.length(); i++) {
-            for (int j = 1; j <= word2.length(); j++) {
+        for (int i = 1; i < word1.length() + 1; i++) {
+            for (int j = 1; j < word2.length() + 1; j++) {
                 if (word1.charAt(i - 1) == word2.charAt(j - 1)) {
                     dp[i][j] = dp[i - 1][j - 1];
                 } else {
@@ -42,5 +42,4 @@ public class Solution {
 
         return dp[word1.length()][word2.length()];
     }
-
 }

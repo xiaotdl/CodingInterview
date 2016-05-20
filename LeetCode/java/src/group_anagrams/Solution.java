@@ -30,7 +30,7 @@ public class Solution {
             hm.get(sortedStr).add(str);
         }
 
-        for (Map.Entry<String, ArrayList<String>> entry: hm.entrySet()){
+        for (Map.Entry<String, ArrayList<String>> entry: hm.entrySet()) {
             ArrayList<String> anagrams = entry.getValue();
             Collections.sort(anagrams);
             result.add(anagrams);

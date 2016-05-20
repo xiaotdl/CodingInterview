@@ -11,6 +11,7 @@ public class Solution {
         if (str == null || subStr == null) {
             return -1;
         }
+
         if (subStr.length() == 0) {
             return 0;
         }

@@ -20,7 +20,7 @@ public class Solution {
 
         HashMap<Character, ArrayList<Character>> hm = new HashMap<Character, ArrayList<Character>>();
         hm.put('0', new ArrayList<Character>());
-        hm.put('1', new ArrayList<Character>();
+        hm.put('1', new ArrayList<Character>());
         hm.put('2', new ArrayList<Character>(Arrays.asList('a', 'b', 'c')));
         hm.put('3', new ArrayList<Character>(Arrays.asList('d', 'e', 'f')));
         hm.put('4', new ArrayList<Character>(Arrays.asList('g', 'h', 'i')));

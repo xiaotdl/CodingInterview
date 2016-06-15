@@ -21,6 +21,9 @@ public class Solution {
     }
 
     private void helper(String s, int pos, ArrayList<String> ipNums, List<String> result) {
+        if (ipNums.size() > 4) {
+            return;
+        }
         if (pos == s.length() && ipNums.size() == 4) {
             String ip = ipNums.get(0);
             for (int i = 1; i < ipNums.size(); i++) {
@@ -31,7 +34,7 @@ public class Solution {
         }
 
         String currNum = "";
-        for (int i = pos; i < s.length() && i < pos + 3; i++) {
+        for (int i = pos; i < Math.min(s.length(), pos + 3); i++) {
             currNum += Character.toString(s.charAt(i));
             if (isValid(currNum)) {
                 ipNums.add(currNum);
@@ -44,12 +47,11 @@ public class Solution {
     private boolean isValid(String num) {
         if (num.length() == 0 || num.length() > 3) {
             return false;
-        } else if (Integer.parseInt(num) < 0 || Integer.parseInt(num) > 255) {
-            return false;
         } else if (num.length() > 1 && num.charAt(0) == '0') {
             return false;
+        } else if (Integer.parseInt(num) < 0 || Integer.parseInt(num) > 255) {
+            return false;
         }
-
         return true;
     }
 

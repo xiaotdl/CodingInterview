@@ -7,7 +7,7 @@ import java.util.HashMap;
  */
 public class Solution {
 }
-private class TwoSum {
+class TwoSum {
     // tag: hash table
     // time: O(n), one pass through all keys
     // space: O(n)

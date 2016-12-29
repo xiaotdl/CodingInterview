@@ -6,10 +6,10 @@ import java.util.Collections;
 /**
  * Created by xili on 5/18/16.
  */
+// tag: string, dp
+// time: O(mn)
+// space: O(mn), used two dimensional matrix to save path
 public class Solution {
-    // tag: string, dp
-    // time: O(m + n), one pass through each string
-    // space: O(mn), used two dimensional matrix to save path
     public int minDistance(String word1, String word2) {
         if (word1 == null || word2 == null) {
             return -1;

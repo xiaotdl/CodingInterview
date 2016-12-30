@@ -5,11 +5,11 @@ import java.util.concurrent.TimeUnit;
 /**
  * Created by Xiaotian on 5/15/16.
  */
+//"When you see a string problem about subsequence or matching, dynamic programming should come to your mind naturally."
+// tag: string, dp
+// time: O(m+n), one pass through string
+// space: O(mn), used two dimensional matrix to save path
 public class Solution {
-    //"When you see a string problem about subsequence or matching, dynamic programming should come to your mind naturally."
-    // tag: string, dp
-    // time: O(m+n), one pass through string
-    // space: O(mn), used two dimensional matrix to save path
     public int numDistinct(String s, String t) {
         // dp[i][j]: tracks the num of subsequences of t[:j](t[0...j-1]) in s[:i](s[0...i-1])
         int[][] dp = new int[s.length() + 1][t.length() + 1];
@@ -45,5 +45,33 @@ public class Solution {
     public static void main(String[] args) {
         System.out.println("Hello World!");
         new Solution().numDistinct("rabbbit", "rabbit");
+    }
+}
+
+// same as SolutionI
+class SolutionII {
+    public int numDistinct(String s, String t) {
+        if (s == null || t == null || s.length() < t.length()) return 0;
+
+        int m = s.length();
+        int n = t.length();
+        // dp[i][j]: numDistinct of ""||s[0..i-1] and ""||t[0..j-1]
+        int[][] dp = new int[m + 1][n + 1];
+        dp[0][0] = 1;
+        for (int i = 0; i < m; i++) {
+            dp[i][0] = 1;
+        }
+
+        for (int i = 1; i <= m; i++) {
+            for (int j = 1; j <= i && j <= n; j++) {
+                if (s.charAt(i - 1) == t.charAt(j - 1)) {
+                    dp[i][j] = dp[i - 1][j] + dp[i - 1][j - 1];
+                }
+                else {
+                    dp[i][j] = dp[i - 1][j];
+                }
+            }
+        }
+        return dp[m][n];
     }
 }

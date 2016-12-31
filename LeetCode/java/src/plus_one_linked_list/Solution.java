@@ -16,29 +16,29 @@ public class Solution {
     public ListNode plusOne(ListNode head) {
         head = reverse(head);
         int carry = 1;
-        ListNode node = head;
-        ListNode tail = node;
-        while (node != null) {
-            int sum = node.val + carry;
-            node.val = sum % 10;
+        ListNode curr = head;
+        ListNode tail = curr;
+        while (curr != null) {
+            int sum = curr.val + carry;
+            curr.val = sum % 10;
             carry = sum / 10;
-            tail = node;
-            node = node.next;
+            tail = curr;
+            curr = curr.next;
         }
         if (carry == 1) tail.next = new ListNode(1);
         return reverse(head);
     }
 
     public ListNode reverse(ListNode head) {
-        ListNode currNode = head;
-        ListNode nextNode = null;
-        ListNode prevNode = null;
-        while (currNode != null) {
-            nextNode = currNode.next;
-            currNode.next = prevNode;
-            prevNode = currNode;
-            currNode = nextNode;
+        ListNode prev = null;
+        ListNode curr = head;
+        ListNode next = head.next;
+        while (curr != null) {
+            next = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = next;
         }
-        return prevNode; // new head
+        return prev; // new head
     }
 }

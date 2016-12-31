@@ -14,37 +14,33 @@ public class Solution {
         if (s1.length() != s2.length()) {
             return false;
         }
-        int len = s1.length();
-        if (len == 0) {
-            return true;
-        }
 
-        // dp[k][i][j]: tracks isScramble(s1[i...i+k], s2[j...j+k])
-        boolean[][][] dp = new boolean[len][len][len + 1];
-
-        // when there is only one char, k = 1
-        for (int i = 0; i < len; i++) {
-            for (int j = 0; j < len; j++) {
+        int n = s1.length();
+        // dp[i][j][l]: tracks isScramble(s1[i...i+l-1], s2[j...j+l-1])
+        boolean[][][] dp = new boolean[n][n][n + 1];
+        // when there is only one char, l = 1
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
                 dp[i][j][1] = s1.charAt(i) == s2.charAt(j);
             }
         }
 
-        for (int k = 2; k <= len; k++) { // substring length
-            for (int i = 0; i < len - k + 1; i++) {  // s1[i...i+k]
-                for (int j = 0; j < len - k + 1; j++) { // s2.[j...j+k]
+        for (int l = 2; l <= n; l++) { // substring length
+            for (int i = 0; i <= n - l; i++) {  // s1[i...i+l-1]
+                for (int j = 0; j <= n - l; j++) { // s2.[j...j+l-1]
                     boolean canScramble = false;
-                    for (int l = 1; l < k; l++) {
+                    for (int k = 1; k < l; k++) {
                         // canScramble = isScramble(s11, s21) && isScramble(s12, s22)
                         //            || isScramble(s11, s22) && isScramble(s12, s21)
-                        canScramble = dp[i][j][l] && dp[i + l][j + l][k - l]
-                                   || dp[i][j + k - l][l] && dp[i + l][j][k - l];
+                        canScramble = dp[i][j][k] && dp[i + k][j + k][l - k]
+                                   || dp[i][j + l - k][k] && dp[i + k][j][l - k];
                         if (canScramble) break;
                     }
-                    dp[i][j][k] = canScramble;
+                    dp[i][j][l] = canScramble;
                 }
             }
         }
 
-        return dp[0][0][len];
+        return dp[0][0][n];
     }
 }

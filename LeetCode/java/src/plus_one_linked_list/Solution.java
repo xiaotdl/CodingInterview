@@ -30,9 +30,10 @@ public class Solution {
     }
 
     public ListNode reverse(ListNode head) {
+        if (head == null) return null;
         ListNode prev = null;
         ListNode curr = head;
-        ListNode next = head.next;
+        ListNode next = null;
         while (curr != null) {
             next = curr.next;
             curr.next = prev;

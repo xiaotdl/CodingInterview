@@ -1,0 +1,10 @@
+Trees:
+    Ref: https://en.wikipedia.org/wiki/Template:CS_trees
+
+BST (Binary Search Tree):
+    Definition: left_subtree (keys)  ≤  node (key)  ≤  right_subtree (keys)
+
+Self-Balancing (a.k.a Height-Balanced) BST:
+    Definition: any node-based binary search tree that automatically keeps its height (maximal number of levels below the root) small in the face of arbitrary item insertions and deletions.
+    E.g.: red-black-tree
+    Ref: https://en.wikipedia.org/wiki/Self-balancing_binary_search_tree

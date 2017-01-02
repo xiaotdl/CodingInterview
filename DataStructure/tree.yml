@@ -1,6 +1,9 @@
 Trees:
     Ref: https://en.wikipedia.org/wiki/Template:CS_trees
 
+Height-Balanced Binary Tree:
+    Definition: A BT in which the depth of the two subtrees of every node never differ by more than 1.
+
 Full Binary Tree:
     Definition: A BT that each node has exactly 0 or 2 children.
     Ref: https://xlinux.nist.gov/dads//HTML/fullBinaryTree.html

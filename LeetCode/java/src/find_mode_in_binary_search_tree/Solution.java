@@ -41,6 +41,17 @@ public class Solution {
     }
 }
 
+class SolutionII {
+    // TODO
+    // credit:
+    // - https://discuss.leetcode.com/topic/77335/proper-o-1-space
+    // - http://www.cnblogs.com/AnnieKim/archive/2013/06/15/MorrisTraversal.html
+    // tag: morris traversal
+    // time: O(n)
+    // space: O(n)
+
+}
+
 /**
  * Definition for a binary tree node.
  */

@@ -3,9 +3,8 @@ package range_sum_query_immutable;
 /**
  * Created by Xiaotian on 12/29/16.
  */
-// tag: dp
 public class NumArray {
-
+    // tag: dp
     // time: O(n)
     // space: O(n)
     int[] dp;

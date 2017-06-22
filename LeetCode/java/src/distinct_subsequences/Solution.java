@@ -5,7 +5,8 @@ import java.util.concurrent.TimeUnit;
 /**
  * Created by Xiaotian on 5/15/16.
  */
-//"When you see a string problem about subsequence or matching, dynamic programming should come to your mind naturally."
+// "When you see a string problem about subsequence or matching, dynamic programming should come to your mind naturally."
+//  empty string is a subsequence of any string but only 1 time."
 // tag: string, dp
 // time: O(m+n), one pass through string
 // space: O(mn), used two dimensional matrix to save path

@@ -4,33 +4,32 @@ package count_and_say;
  * Created by Xiaotian on 5/15/16.
  */
 public class Solution {
-    // tag: string, iteration
+    // tag: str, iteration
     // time: O(n^2), each string wouldn't exceeds length of 2n, one pass on all strings, which is 2+..+2n => O(n^2).
     // space: O(n^2), ditto
     public String countAndSay(int n) {
-        if (n == 0) {
-            return "";
-        }
-
-        String prevString = "1";
-        for (int i = 1; i < n; i++) {
-            String currString = "";
-            char prevChar = prevString.charAt(0);
-            int charCount = 1;
-            for (int j = 1; j < prevString.length(); j++) {
-                char currChar = prevString.charAt(j);
-                if (currChar == prevChar) {
-                    charCount++;
-                } else {
-                    currString += String.valueOf(charCount) + String.valueOf(prevChar);
-                    charCount = 1;
+        StringBuffer prevStr = new StringBuffer("1");
+        StringBuffer currStr = new StringBuffer();
+        while (n - 1 > 0) {
+            int cnt = 1;
+            char num = prevStr.charAt(0);
+            for (int i = 1; i < prevStr.length(); i++) {
+                if (prevStr.charAt(i) == num) {
+                    cnt++;
                 }
-                prevChar = currChar;
+                else {
+                    currStr.append(cnt);
+                    currStr.append(num);
+                    cnt = 1;
+                    num = prevStr.charAt(i);
+                }
             }
-            currString += String.valueOf(charCount) + String.valueOf(prevChar);
-            prevString = currString;
+            currStr.append(cnt);
+            currStr.append(num);
+            prevStr = currStr;
+            currStr = new StringBuffer();
+            n--;
         }
-
-        return prevString;
+        return prevStr.toString();
     }
 }

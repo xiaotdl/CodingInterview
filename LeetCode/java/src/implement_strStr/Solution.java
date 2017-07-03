@@ -4,7 +4,7 @@ package implement_strStr;
  * Created by Xiaotian on 5/19/16.
  */
 public class Solution {
-    // tag: string, two pointers
+    // tag: str, ptr
     // time: O(n^2), two for loops
     // space: O(1), no additional space used
     public int strStr(String str, String subStr) {
@@ -25,6 +25,29 @@ public class Solution {
             }
         }
 
+        return -1;
+    }
+}
+
+class SolutionII {
+    // sliding window
+    // tag: str, ptr
+    // time: O(n^2), two loops
+    // space: O(1), no additional space used
+    public int strStr(String str, String substr) {
+        if (str == null || substr == null) return -1;
+        if (substr.length() == 0) return 0;
+
+        int l = 0;
+        int r = substr.length() - 1;
+        while (r < str.length()) {
+            for (int i = l; i <= r; i++) {
+                if (str.charAt(i) != substr.charAt(i - l)) break;
+                if (i == r) return l;
+            }
+            l++;
+            r++;
+        }
         return -1;
     }
 }

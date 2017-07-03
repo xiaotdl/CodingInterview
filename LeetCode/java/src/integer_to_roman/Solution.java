@@ -1,55 +1,62 @@
 package integer_to_roman;
 
-import java.util.HashMap;
+import java.util.*;
 
 /**
  * Created by Xiaotian on 5/14/16.
  */
 public class Solution {
-    // tag: string, math
+    // 0~3: I~III
+    // 4:   IV
+    // 5:   V
+    // 6~8: VI~VIII
+    // 9:   IX
+    // 10:  X
+    // ----------------
+    // I, X, C: 1 * digit
+    // V, L, D: 5 * digit
+    // X, C, M: 10 * digit
+    // ----------------
+    // tag: str, math
     // time: O(n), one pass through number
     // space: O(1), only used integer to roman numeral mapping
     public String intToRoman(int num) {
-        if (num < 1 || num > 3999) {
-            return "";
-        }
+        if (num < 1 || num > 3999) return "";
 
-        HashMap<Integer, Character> hm = new HashMap<Integer, Character>();
-        hm.put(1, 'I');
-        hm.put(5, 'V');
-        hm.put(10, 'X');
-        hm.put(50, 'L');
-        hm.put(100, 'C');
-        hm.put(500, 'D');
-        hm.put(1000, 'M');
+        Map<Integer, Character> m = new HashMap<>();
+        m.put(1, 'I');
+        m.put(5, 'V');
+        m.put(10, 'X');
+        m.put(50, 'L');
+        m.put(100, 'C');
+        m.put(500, 'D');
+        m.put(1000, 'M');
 
-        StringBuilder sb = new StringBuilder();
-
+        StringBuffer sb = new StringBuffer();
         int digit = 1;
         while (num > 0) {
-            int currDigit = num % 10;
-            if (1 <= currDigit && currDigit <= 3) {
-                for (int i = 0; i < currDigit; i++) {
-                    sb.insert(0, hm.get(digit));
-                }
-            } else if (currDigit == 4) {
-                sb.insert(0, hm.get(5 * digit));
-                sb.insert(0, hm.get(digit));
-            } else if (currDigit == 5) {
-                sb.insert(0, hm.get(5 * digit));
-            } else if (6 <= currDigit && currDigit <= 8) {
-                for (int i = 0; i < currDigit - 5; i++) {
-                    sb.insert(0, hm.get(digit));
-                }
-                sb.insert(0, hm.get(5 * digit));
-            } else if (currDigit == 9) {
-                sb.insert(0, hm.get(10 * digit));
-                sb.insert(0, hm.get(digit));
+            int d = num % 10; // currDigit
+            if (1 <= d && d <= 3) {
+                for (int i = 0; i < d; i++) sb.insert(0, m.get(1 * digit));
+            }
+            else if (d == 4) {
+                sb.insert(0, m.get(5 * digit));
+                sb.insert(0, m.get(1 * digit));
+            }
+            else if (d == 5) {
+                sb.insert(0, m.get(5 * digit));
+            }
+            else if (6 <= d && d <= 8) {
+                for (int i = 0; i < d - 5; i++) sb.insert(0, m.get(1 * digit));
+                sb.insert(0, m.get(5 * digit));
+            }
+            else if (d == 9) {
+                sb.insert(0, m.get(10 * digit));
+                sb.insert(0, m.get(1 * digit));
             }
             num /= 10;
             digit *= 10;
         }
-
         return sb.toString();
     }
 }

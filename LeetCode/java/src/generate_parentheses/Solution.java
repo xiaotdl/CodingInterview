@@ -1,29 +1,26 @@
 package generate_parentheses;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by Xiaotian on 5/15/16.
  */
 public class Solution {
-    // tag: string, backtracking
+    // tag: str, dfs
     // time: O(2^2n), recursion tree height is 2n
     // space: O(2n), recursion tree height is 2n
     public List<String> generateParenthesis(int n) {
-        List<String> result = new ArrayList<String>();
-        if (n <= 0) {
-            return result;
-        }
+        List<String> res = new ArrayList<>();
+        if (n <= 0) return res;
 
-        helper(n, n, n, new StringBuilder(), result);
+        dfs(n, n, new StringBuffer(), res);
 
-        return result;
+        return res;
     }
 
-    private void helper(int n, int leftN, int rightN, StringBuilder tmpResult, List<String> result) {
+    private void dfs(int leftN, int rightN, StringBuffer tmpRes, List<String> res) {
         if (leftN == 0 && rightN == 0) {
-            result.add(tmpResult.toString());
+            res.add(tmpRes.toString());
             return;
         }
 
@@ -32,15 +29,14 @@ public class Solution {
         }
 
         if (leftN > 0) {
-            tmpResult.append("(");
-            helper(n, leftN - 1, rightN, tmpResult, result);
-            tmpResult.deleteCharAt(tmpResult.length() - 1);
+            tmpRes.append('(');
+            dfs(leftN - 1, rightN, tmpRes, res);
+            tmpRes.deleteCharAt(tmpRes.length() - 1);
         }
-
         if (rightN > 0) {
-            tmpResult.append(")");
-            helper(n, leftN, rightN - 1, tmpResult, result);
-            tmpResult.deleteCharAt(tmpResult.length() - 1);
+            tmpRes.append(')');
+            dfs(leftN, rightN - 1, tmpRes, res);
+            tmpRes.deleteCharAt(tmpRes.length() - 1);
         }
     }
 }

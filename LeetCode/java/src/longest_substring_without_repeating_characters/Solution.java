@@ -7,8 +7,8 @@ import java.util.*;
  */
 public class Solution {
     // sliding window
-    // tag: hash
-    // time: O(n)
+    // tag: str, hash
+    // time: O(n), at most 2n steps for i and j
     // space: O(1)
     public int lengthOfLongestSubstring(String s) {
         if (s == null || s.length() == 0) return 0;

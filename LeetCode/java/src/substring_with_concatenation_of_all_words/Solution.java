@@ -39,10 +39,11 @@ public class Solution {
 }
 
 class SolutionII {
-    // TODO
     // credit: http://www.programcreek.com/2014/06/leetcode-substring-with-concatenation-of-all-words-java/
-    // tag: hash, ptr, sliding window
-    // time: O(n)
+    // sliding window
+    // iterate through words, think of a word as a char
+    // tag: str, hash, ptr
+    // time: O(n * m)
     // space: O(n)
     public List<Integer> findSubstring(String s, String[] words) {
         List<Integer> result = new ArrayList<>();
@@ -55,47 +56,45 @@ class SolutionII {
             map.put(w, map.containsKey(w) ? map.get(w) + 1 : 1);
         }
 
-        int len = words[0].length();
+        int n = words.length;
+        int m = words[0].length();
 
-        for (int j = 0; j < len; j++) {
+        // iterate through all possible words of length m
+        for (int j = 0; j < m; j++) {
             Map<String, Integer> currentMap = new HashMap<>(); // word2cnt
-            int start = j; //start index of start
             int count = 0; //count total qualified words so far
+            int start = j; //start index of each iteration
 
-            for (int i = j; i <= s.length() - len; i = i + len) {
-                String sub = s.substring(i, i + len);
+            for (int i = j; i <= s.length() - m; i = i + m) {
+                String sub = s.substring(i, i + m);
                 if (map.containsKey(sub)) {
                     currentMap.put(sub, currentMap.containsKey(sub) ? currentMap.get(sub) + 1 : 1);
-
                     count++;
 
                     while (currentMap.get(sub) > map.get(sub)) {
-                        String left = s.substring(start, start + len);
+                        String left = s.substring(start, start + m);
                         currentMap.put(left, currentMap.get(left) - 1);
-
                         count--;
-                        start = start + len;
+                        start += m;
                     }
 
-
-                    if (count == words.length) {
+                    if (count == n) {
                         result.add(start); //add to result
-
                         //shift right and reset currentMap, count & start point
-                        String left = s.substring(start, start + len);
+                        String left = s.substring(start, start + m);
                         currentMap.put(left, currentMap.get(left) - 1);
                         count--;
-                        start = start + len;
+                        start += m;
                     }
                 }
                 else {
                     currentMap.clear();
-                    start = i + len;
                     count = 0;
+                    start = i + m;
                 }
             }
         }
-
         return result;
     }
 }
+

@@ -6,7 +6,7 @@ import java.util.*;
  * Created by xili on 5/18/16.
  */
 public class Solution {
-    // tag: string, hash table
+    // tag: str, hash
     // time: O(n*m*logm), where n is length of strs, m is average length of strings
     // space: O(n), used a hash to save all strings
     public List<List<String>> groupAnagrams(String[] strs) {
@@ -37,5 +37,37 @@ public class Solution {
         }
 
         return result;
+    }
+}
+
+class SolutionII {
+    // same as SolutionI
+    // tag: str, hash
+    // time: O(n*m*logm), where n is length of strs, m is average length of strings
+    // space: O(n), used a hash to save all strings
+    public List<List<String>> groupAnagrams(String[] strs) {
+        List<List<String>> res = new ArrayList<>();
+        if (strs == null || strs.length == 0) return res;
+
+        Map<String, ArrayList<String>> m = new HashMap<>();
+        for (String s : strs) {
+            String sortedStr = sorted(s);
+            if (!m.containsKey(sortedStr)) {
+                m.put(sortedStr, new ArrayList<String>());
+            }
+            m.get(sortedStr).add(s);
+        }
+        Iterator it = m.entrySet().iterator();
+        while (it.hasNext()) {
+            Map.Entry<String, ArrayList<String>> pair = (Map.Entry) it.next();
+            res.add(pair.getValue());
+        }
+        return res;
+    }
+
+    private String sorted(String s) {
+        char[] S = s.toCharArray();
+        Arrays.sort(S);
+        return new String(S);
     }
 }

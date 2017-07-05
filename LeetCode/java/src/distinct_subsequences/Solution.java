@@ -5,12 +5,12 @@ import java.util.concurrent.TimeUnit;
 /**
  * Created by Xiaotian on 5/15/16.
  */
-// "When you see a string problem about subsequence or matching, dynamic programming should come to your mind naturally."
-//  empty string is a subsequence of any string but only 1 time."
-// tag: string, dp
-// time: O(m+n), one pass through string
-// space: O(mn), used two dimensional matrix to save path
 public class Solution {
+    // "When you see a string problem about subsequence or matching, dynamic programming should come to your mind naturally."
+    //  empty string is a subsequence of any string but only 1 time."
+    // tag: str, dp
+    // time: O(m+n), one pass through string
+    // space: O(mn), used two dimensional matrix to save path
     public int numDistinct(String s, String t) {
         // dp[i][j]: tracks the num of subsequences of t[:j](t[0...j-1]) in s[:i](s[0...i-1])
         int[][] dp = new int[s.length() + 1][t.length() + 1];
@@ -49,8 +49,11 @@ public class Solution {
     }
 }
 
-// same as SolutionI
 class SolutionII {
+    // same as SolutionI
+    // tag: str, dp
+    // time: O(m+n), one pass through string
+    // space: O(mn), used two dimensional matrix to save path
     public int numDistinct(String s, String t) {
         if (s == null || t == null || s.length() < t.length()) return 0;
 

@@ -6,56 +6,50 @@ import java.util.*;
  * Created by Xiaotian on 5/24/16.
  */
 public class Solution {
-    // tag: string, pointer, recursion, backtracking
+    // tag: str, ptr, recursion, backtracking, dfs
     // time: O(n!), recursion tree
     // space: O(n), tree height
     public List<String> restoreIpAddresses(String s) {
-        List<String> result = new ArrayList<String>();
-        if (s == null || s.length() < 4 || s.length() > 12) {
-            return result;
-        }
+        List<String> res = new ArrayList<>();
+        if (s == null || s.length() < 4 || s.length() > 12) return res;
 
-        helper(s, 0, new ArrayList<String>(), result);
+        dfs(s, 0, new ArrayList<String>(), res);
 
-        return result;
+        return res;
     }
 
-    private void helper(String s, int pos, ArrayList<String> ipNums, List<String> result) {
-        if (ipNums.size() > 4) {
-            return;
-        }
+    private void dfs(String s, int pos, ArrayList<String> ipNums, List<String> res) {
+        if (ipNums.size() > 4) return;
+
         if (pos == s.length() && ipNums.size() == 4) {
             String ip = ipNums.get(0);
-            for (int i = 1; i < ipNums.size(); i++) {
-                ip += "." + ipNums.get(i);
-            }
-            result.add(ip);
+            for (int i = 1; i < ipNums.size(); i++) ip += '.' + ipNums.get(i);
+            res.add(ip);
             return;
         }
 
-        String currNum = "";
+        StringBuffer num = new StringBuffer();
         for (int i = pos; i < Math.min(s.length(), pos + 3); i++) {
-            currNum += Character.toString(s.charAt(i));
-            if (isValid(currNum)) {
-                ipNums.add(currNum);
-                helper(s, i + 1, ipNums, result);
+            num.append(s.charAt(i));
+            if (isValidIPNum(num.toString())) {
+                ipNums.add(num.toString());
+                dfs(s, i + 1, ipNums, res);
                 ipNums.remove(ipNums.size() - 1);
             }
         }
     }
 
-    private boolean isValid(String num) {
+    private boolean isValidIPNum(String num) {
         if (num.length() == 0 || num.length() > 3) {
             return false;
-        } else if (num.length() > 1 && num.charAt(0) == '0') {
+        }
+        else if (num.length() > 1 && num.charAt(0) == '0') {
             return false;
-        } else if (Integer.parseInt(num) < 0 || Integer.parseInt(num) > 255) {
+        }
+        else if (Integer.parseInt(num) < 0 || Integer.parseInt(num) > 255) {
             return false;
         }
         return true;
     }
-
-    public static void main(String[] args) {
-        System.out.println(new Solution().restoreIpAddresses("25525511135"));
-    }
 }
+

@@ -7,7 +7,7 @@ import java.util.*;
  */
 public class Solution {
     // sliding window
-    // tag: hash, ptr
+    // tag: str, hash, ptr
     // time: O(n)
     // space: O(t), t:length of str t
     public String minWindow(String s, String t) {

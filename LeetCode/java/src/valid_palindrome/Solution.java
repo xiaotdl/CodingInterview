@@ -4,13 +4,11 @@ package valid_palindrome;
  * Created by Xiaotian on 5/23/16.
  */
 public class Solution {
-    // tag: string, two pointers
+    // tag: str, ptr
     // time: O(n), one pass through string
     // space: O(1), no additional space used
     public boolean isPalindrome(String s) {
-        if (s == null || s.length() == 0) {
-            return true;
-        }
+        if (s == null) return false;
 
         int i = 0;
         int j = s.length() - 1;
@@ -23,7 +21,6 @@ public class Solution {
             i++;
             j--;
         }
-
         return true;
     }
 }

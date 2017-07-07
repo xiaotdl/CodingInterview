@@ -8,7 +8,7 @@ import java.util.Set;
  * Created by Xiaotian on 5/15/16.
  */
 public class Solution {
-    // tag: string, two pointers
+    // tag: str, ptr
     // time: O(n), one pass through string
     // space: O(1), only used vowels hashset
     public String reverseVowels(String s) {
@@ -44,5 +44,33 @@ public class Solution {
     public static void main(String[] args) {
         System.out.println(new Solution().reverseVowels("bcdf"));
         System.out.println(new Solution().reverseVowels("hello"));
+    }
+}
+
+class SolutionII {
+    // same as SolutionI
+    // tag: str, ptr
+    // time: O(n), one pass through string
+    // space: O(1), only used vowels hashset
+    public String reverseVowels(String s) {
+        if (s == null || s.length() <= 1) return s;
+
+        Set<Character> vowels = new HashSet<>(Arrays.asList('a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U'));
+
+        char[] S = s.toCharArray();
+        int l = 0;
+        int r = S.length - 1;
+        while (l < r) {
+            while (l < r && !vowels.contains(S[l])) l++;
+            while (l < r && !vowels.contains(S[r])) r--;
+            if (l < r) {
+                char tmp = S[l];
+                S[l] = S[r];
+                S[r] = tmp;
+                l++;
+                r--;
+            }
+        }
+        return new String(S);
     }
 }

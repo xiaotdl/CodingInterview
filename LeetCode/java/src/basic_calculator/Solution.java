@@ -6,7 +6,7 @@ import java.util.Stack;
  * Created by Xiaotian on 5/21/16.
  */
 public class Solution {
-    // tag: string, stack, math
+    // tag: str, stack, math
     // time: O(n), one pass through the string
     // space: O(n), use a stack to save tmp results
     public int calculate(String s) {

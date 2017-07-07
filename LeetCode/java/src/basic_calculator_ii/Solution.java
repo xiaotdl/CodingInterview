@@ -7,7 +7,7 @@ import java.util.*;
  */
 public class Solution {
     // init solution, TLE, can't pass all test cases
-    // tag: string, pointer
+    // tag: str, ptr
     // time: O(n), three pass through string
     // space: O(n), parse string into token arrays
     public int calculate(String s) {
@@ -78,15 +78,15 @@ public class Solution {
     }
 
     public static void main (String[] args) {
-//        new Solution2().calculate("(1 + (2 * 3) - 4) / 3");
-        System.out.println(new Solution2().calculate("1*(2+3)*4"));
+//        new SolutionII().calculate("(1 + (2 * 3) - 4) / 3");
+        System.out.println(new SolutionII().calculate("1*(2+3)*4"));
     }
 }
 
-class Solution2 {
+class SolutionII {
     // Ref: https://leetcode.com/discuss/39454/accepted-infix-postfix-based-solution-explaination-600ms?show=39454#q39454
     // Ref: http://scriptasylum.com/tutorials/infix_postfix/algorithms/infix-postfix/
-    // tag: string, stack
+    // tag: str, stack
     // time: O(n), one pass through string
     // space: O(n), used two stacks to save num and operator tokens
     public int calculate(String s) {
@@ -179,5 +179,61 @@ class Solution2 {
             case ')': return 0;
         }
         throw new RuntimeException("unknown op!");
+    }
+}
+
+class SolutionIII {
+    // credit: https://discuss.leetcode.com/topic/16935/share-my-java-solution
+    // tag: str, stack
+    // time: O(n)
+    // space: O(n)
+    public int calculate(String s) {
+        if (s == null || s.length() == 0) return 0;
+
+        Stack<Integer> stack = new Stack<>();
+
+        int num = 0;
+        char sign = '+';
+        for (int i = 0; i < s.length(); i++) {
+            char c = s.charAt(i);
+            if (c == ' ') continue;
+            if (Character.isDigit(c)) {
+                num = num * 10 + (c - '0');
+                continue;
+            }
+
+            if (sign == '+') {
+                stack.push(num);
+            }
+            else if (sign == '-') {
+                stack.push(-num);
+            }
+            else if (sign == '*') {
+                stack.push(stack.pop() * num);
+            }
+            else if (sign == '/') {
+                stack.push(stack.pop() / num);
+            }
+
+            sign = c;
+            num = 0;
+        }
+
+        if (sign == '+') {
+            stack.push(num);
+        }
+        else if (sign == '-') {
+            stack.push(-num);
+        }
+        else if (sign == '*') {
+            stack.push(stack.pop() * num);
+        }
+        else if (sign == '/') {
+            stack.push(stack.pop() / num);
+        }
+
+        int res = 0;
+        while (!stack.isEmpty()) res += stack.pop();
+        return res;
     }
 }

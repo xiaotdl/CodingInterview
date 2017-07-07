@@ -5,11 +5,11 @@ import java.util.*;
 /**
  * Created by Xiaotian on 6/13/17.
  */
-// tag: string
-// time: O(n)
-// space: O(1)
 public class Solution {
 
+    // tag: str
+    // time: O(n)
+    // space: O(1)
     // Encodes a list of strings to a single string.
     public String encode(List<String> strs) {
         StringBuilder sb = new StringBuilder();
@@ -21,6 +21,9 @@ public class Solution {
         return sb.toString();
     }
 
+    // tag: str
+    // time: O(n)
+    // space: O(1)
     // Decodes a single string to a list of strings.
     public List<String> decode(String s) {
         List<String> res = new ArrayList<String>();

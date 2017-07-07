@@ -7,29 +7,27 @@ package read_n_characters_given_read4;
       int read4(char[] buf); */
 
 public class Solution extends Reader4 {
-    /**
-     * @param buf Destination buffer
-     * @param n   Maximum number of characters to read
-     * @return    The number of characters read
-     */
-    // tag: str
+    // tag: str, ptr
     // time: O(n)
     // space: O(1)
+    private int buffReadCnt = 0;
+    private int buffCnt = 0;
+    private char[] buff = new char[4];
     public int read(char[] buf, int n) {
+        int readCnt = 0;
         boolean eof = false;
-        int total = 0; // total bytes read so far
-        char[] tmp = new char[4]; // tmp buffer
-
-        while (!eof && total < n) {
-            int count = read4(tmp);
-            eof = count < 4; // in case eof
-            count = Math.min(count, n - total); // in case n chars in the middle of file
-            for (int i = 0; i < count; i++) {
-                buf[total++] = tmp[i];
+        while (!eof && readCnt < n) {
+            if (buffReadCnt >= buffCnt) {
+                buffReadCnt = 0;
+                buffCnt = read4(buff);
+                eof = buffCnt < 4;
+            }
+            int toReadCnt = Math.min(buffCnt - buffReadCnt, n - readCnt);
+            for (int i = 0; i < toReadCnt; i++) {
+                buf[readCnt++] = buff[buffReadCnt++];
             }
         }
-
-        return total;
+        return readCnt;
     }
 }
 

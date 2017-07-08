@@ -6,7 +6,7 @@ package reverse_string;
 public class Solution {
     // tag: str, ptr
     // time: O(n), one pass through string
-    // time: O(n), String is immutable in Java
+    // space: O(n), String is immutable in Java
     public String reverseString(String s) {
         if (s == null) {
             return "";
@@ -25,7 +25,7 @@ class SolutionII {
     // same as SolutionI
     // tag: str, ptr
     // time: O(n), one pass through string
-    // time: O(n), String is immutable in Java
+    // space: O(n), String is immutable in Java
     public String reverseString(String s) {
         if (s == null || s.length() <= 1) return s;
 

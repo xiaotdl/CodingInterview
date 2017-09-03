@@ -3,10 +3,10 @@ package unique_paths_ii;
 /**
  * Created by Xiaotian on 12/26/16.
  */
-// tag: dp
-// time: O(mn)
-// space: O(mn)
 public class Solution {
+    // tag: array, dp
+    // time: O(mn)
+    // space: O(mn)
     public int uniquePathsWithObstacles(int[][] obstacleGrid) {
         if (obstacleGrid == null || obstacleGrid.length == 0 || obstacleGrid[0].length == 0) {
             return 0;

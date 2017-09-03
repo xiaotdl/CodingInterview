@@ -3,12 +3,12 @@ package unique_paths;
 /**
  * Created by Xiaotian on 12/26/16.
  */
-// tag: dp
-// time: O(mn)
-// space: O(mn)
 public class Solution {
+    // tag: array, dp
+    // time: O(mn)
+    // space: O(mn)
     public int uniquePaths(int m, int n) {
-        // dp[i][j]: uniquePaths from top-left to i-j grid
+        // dp[i][j]: uniquePaths(i+1, j+1), uniquePaths from top-left to i-j grid
         int[][] dp = new int[m][n];
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < n; j++) {
@@ -24,11 +24,11 @@ public class Solution {
     }
 }
 
-// same as SolutionI, init outside for loop
-// tag: dp
-// time: O(mn)
-// space: O(mn)
 class SolutionII {
+    // same as SolutionI, init outside for loop
+    // tag: array, dp
+    // time: O(mn)
+    // space: O(mn)
     public int uniquePaths(int m, int n) {
         // dp[i][j]: uniquePaths from top-left to i-j grid
         int[][] dp = new int[m][n];
@@ -48,11 +48,11 @@ class SolutionII {
     }
 }
 
-// dp[i][j] = dp[i-1][j] + dp[i][j-1]. Can save space by using dp[j] = dp[j-1] + dp[j].
-// tag: dp
-// time: O(mn)
-// space: O(n)
 class SolutionIII {
+    // dp[i][j] = dp[i-1][j] + dp[i][j-1]. Can save space by using dp[j] = dp[j-1] + dp[j].
+    // tag: array, dp
+    // time: O(mn)
+    // space: O(n)
     public int uniquePaths(int m, int n) {
         // dp[j]: uniquePaths from top-left to i-j grid
         int[] dp = new int[n];

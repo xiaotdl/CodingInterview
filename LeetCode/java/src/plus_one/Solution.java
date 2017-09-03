@@ -3,10 +3,10 @@ package plus_one;
 /**
  * Created by Xiaotian on 12/30/16.
  */
-// tag: array, math
-// time: O(n)
-// space: O(1)
 public class Solution {
+    // tag: array, math
+    // time: O(n)
+    // space: O(1)
     public int[] plusOne(int[] digits) {
         int carry = 1;
         for (int i = digits.length - 1; i >= 0; i--) {

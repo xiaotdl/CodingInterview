@@ -3,10 +3,10 @@ package minimum_path_sum;
 /**
  * Created by Xiaotian on 12/26/16.
  */
-// tag: dp
-// time: O(mn)
-// space: O(mn)
 public class Solution {
+    // tag: array, dp
+    // time: O(mn)
+    // space: O(mn)
     public int minPathSum(int[][] grid) {
         if (grid == null || grid.length == 0 || grid[0].length == 0) {
             return 0;

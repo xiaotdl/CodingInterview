@@ -3,11 +3,11 @@ package jump_game;
 /**
  * Created by Xiaotian on 12/29/16.
  */
-// TLE
-// tag: dp
-// time: O(n^2)
-// space: O(n)
 public class Solution {
+    // TLE
+    // tag: array, dp
+    // time: O(n^2)
+    // space: O(n)
     public boolean canJump(int[] nums) {
         if (nums == null || nums.length == 0) return true;
 
@@ -26,10 +26,10 @@ public class Solution {
     }
 }
 
-// tag: greedy
-// time: O(n)
-// space: O(1)
 class SolutionII {
+    // tag: array, greedy
+    // time: O(n)
+    // space: O(1)
     public boolean canJump(int[] nums) {
         if (nums == null || nums.length == 0) return true;
         int reach = 0;

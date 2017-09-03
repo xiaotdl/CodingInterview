@@ -4,7 +4,7 @@ package sort_colors;
  * Created by Xiaotian on 6/28/17.
  */
 public class Solution {
-    // tag: ptr
+    // tag: array, ptr
     // time: O(n)
     // space: O(1)
     public void sortColors(int[] nums) {

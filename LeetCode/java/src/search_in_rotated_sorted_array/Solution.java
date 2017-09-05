@@ -4,7 +4,7 @@ package search_in_rotated_sorted_array;
  * Created by Xiaotian on 11/12/16.
  */
 public class Solution {
-    // tag: binary search
+    // tag: array, binary search
     // time: O(logn)
     // space: O(1)
     public int search(int[] nums, int target) {

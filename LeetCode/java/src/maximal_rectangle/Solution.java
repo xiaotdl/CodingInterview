@@ -1,12 +1,14 @@
 package maximal_rectangle;
 
+import java.util.*;
+
 /**
  * Created by Xiaotian on 12/29/16.
  */
-// tag: dp
-// time: O(n^2)
-// space: O(n^2)
 public class Solution {
+    // tag: array, dp
+    // time: O(n^2)
+    // space: O(n^2)
     public int maximalRectangle(char[][] matrix) {
         if (matrix == null || matrix.length == 0 || matrix[0].length == 0) return 0;
 
@@ -38,25 +40,36 @@ public class Solution {
             }
             for (int j = n - 1; j >= 0; j--) {
                 if (matrix[i][j] == '1') {
-                    right[i][j] = Math.min((i - 1 < 0 ? n : right[i - 1][j]), curr_right);
+                    right[i][j] = Math.min((i - 1 < 0 ? n - 1 : right[i - 1][j]), curr_right);
                 }
                 else {
-                    right[i][j] = n;
-                    curr_right = j;
+                    right[i][j] = n - 1;
+                    curr_right = j - 1;
                 }
             }
             for (int j = 0; j < n; j++) {
-                area[i][j] = (right[i][j] - left[i][j]) * height[i][j];
+                area[i][j] = (right[i][j] - left[i][j] + 1) * height[i][j];
                 max = Math.max(max, area[i][j]);
             }
         }
 
-        // ["10100","10111","11111","10010"]
-        // System.out.println(Arrays.deepToString(left));
-        // System.out.println(Arrays.deepToString(right));
-        // System.out.println(Arrays.deepToString(height));
-        // System.out.println(Arrays.deepToString(area));
+         System.out.println(Arrays.deepToString(matrix));
+         System.out.println(Arrays.deepToString(left));
+         System.out.println(Arrays.deepToString(right));
+         System.out.println(Arrays.deepToString(height));
+         System.out.println(Arrays.deepToString(area));
 
         return max;
     }
+
+    public static void main(String[] args) {
+        System.out.println(new Solution().maximalRectangle(
+            new char[][]{
+                {'1','0','1','0','0'},
+                {'1','0','1','1','1'},
+                {'1','1','1','1','1'},
+                {'1','0','0','1','0'}
+            }));
+    }
+
 }

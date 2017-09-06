@@ -5,10 +5,10 @@ import java.util.List;
 /**
  * Created by Xiaotian on 12/29/16.
  */
-// tag: dp
-// time: O(mn)
-// space: O(n)
 public class Solution {
+    // tag: dp
+    // time: O(mn)
+    // space: O(n)
     public int minimumTotal(List<List<Integer>> triangle) {
         if (triangle == null
                 || triangle.size() == 0

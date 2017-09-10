@@ -5,10 +5,10 @@ import java.util.*;
 /**
  * Created by Xiaotian on 12/24/16.
  */
-// tag: dfs
-// time: O(9k)
-// space: O(k)
 public class Solution {
+    // tag: array, dfs, backtracking
+    // time: O(9k)
+    // space: O(k)
     public List<List<Integer>> combinationSum3(int k, int n) {
         List<List<Integer>> res = new ArrayList<List<Integer>>();
         int[] candidates = {1, 2, 3, 4, 5, 6, 7, 8, 9};
@@ -23,10 +23,11 @@ public class Solution {
         else if (left < 0 || currSum > target) {
             return;
         }
+
         for (int i = pos; i < candidates.length; i++) {
             currRes.add(candidates[i]);
             dfs(candidates, left - 1, target, i + 1, currSum + candidates[i], currRes, res);
-            currRes.remove(currRes.size() - 1 );
+            currRes.remove(currRes.size() - 1);
         }
     }
 

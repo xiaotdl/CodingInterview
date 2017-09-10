@@ -5,7 +5,7 @@ package minimum_size_subarray_sum;
  */
 public class Solution {
     // sliding window
-    // tag: ptr
+    // tag: array, ptr
     // time: O(n)
     // space: O(1)
     public int minSubArrayLen(int s, int[] nums) {

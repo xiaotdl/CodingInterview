@@ -6,7 +6,7 @@ import java.util.HashSet;
  * Created by Xiaotian on 10/30/16.
  */
 public class Solution {
-    // tag: hash set
+    // tag: hash
     // time: O(n), one pass through all keys
     // space: O(n)
     public int[] intersection(int[] nums1, int[] nums2) {
@@ -14,9 +14,9 @@ public class Solution {
             return new int[0];
         }
 
-        HashSet<Integer> resultSet = new HashSet<Integer>();
+        HashSet<Integer> resultSet = new HashSet<>();
 
-        HashSet<Integer> hs1 = new HashSet<Integer>();
+        HashSet<Integer> hs1 = new HashSet<>();
 
         for (int num : nums1) {
             hs1.add(num);

@@ -6,7 +6,7 @@ import java.util.HashMap;
  * Created by Xiaotian on 10/30/16.
  */
 public class Solution {
-    // tag: hash map
+    // tag: hash
     // time: O(n), two pass through all keys
     // space: O(n)
     public int[] intersect(int[] nums1, int[] nums2) {

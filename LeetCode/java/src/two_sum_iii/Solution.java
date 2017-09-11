@@ -8,7 +8,7 @@ import java.util.*;
 public class Solution {
 }
 class TwoSum {
-    // tag: hash table
+    // tag: hash
     // time: O(n), one pass through all keys
     // space: O(n)
 

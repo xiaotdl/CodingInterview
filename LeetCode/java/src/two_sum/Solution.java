@@ -25,7 +25,7 @@ public class Solution {
         return null;
     }
 
-    // tag: hash table
+    // tag: hash
     // time: O(n)
     // space: O(n)
     public int[] twoSum2(int[] nums, int target) {

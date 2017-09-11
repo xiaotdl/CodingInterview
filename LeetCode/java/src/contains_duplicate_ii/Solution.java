@@ -6,7 +6,7 @@ import java.util.*;
  * Created by Xiaotian on 9/9/17.
  */
 public class Solution {
-    // tag: array, hashmap
+    // tag: array, hash
     // time: O(n)
     // space: O(n)
     public boolean containsNearbyDuplicate(int[] nums, int k) {

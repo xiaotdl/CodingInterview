@@ -49,3 +49,45 @@ public class Solution {
         return num;
     }
 }
+
+class SolutionII {
+    // board[i][j] = xy, x => next state, y => curr state
+    // tag: array
+    // time: O(mn)
+    // space: O(1)
+    public void gameOfLife(int[][] board) {
+        if (board == null || board.length == 0) return;
+
+        int m = board.length;
+        int n = board[0].length;
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                int num = getNumOfLiveNeighbors(board, m, n, i, j);
+                if (board[i][j] == 1 && 2 <= num && num <= 3) {
+                    board[i][j] = 3; // 01 => 11
+                }
+                if (board[i][j] == 0 && num == 3) {
+                    board[i][j] = 2; // 00 => 10
+                }
+            }
+        }
+
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                board[i][j] >>= 1;
+            }
+        }
+    }
+
+    private int getNumOfLiveNeighbors(int[][] board, int m, int n, int x, int y) {
+        int num = 0;
+        for (int i = Math.max(x - 1, 0); i <= Math.min(x + 1, m - 1); i++) {
+            for (int j = Math.max(y - 1, 0); j <= Math.min(y + 1, n - 1); j++) {
+                num += board[i][j] & 1;
+            }
+        }
+        num -= board[x][y] & 1;
+        return num;
+    }
+}
+

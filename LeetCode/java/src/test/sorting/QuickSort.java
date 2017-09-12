@@ -25,9 +25,9 @@ public class QuickSort {
     private void sort(int[] nums, int l, int r) {
         if (l >= r) return;
 
-        int pivot = partition(nums, l, r);
-        sort(nums, l, pivot - 1);
-        sort(nums, pivot + 1, r);
+        int p = partition(nums, l, r);
+        sort(nums, l, p - 1);
+        sort(nums, p + 1, r);
     }
 
     // returns index of pivot

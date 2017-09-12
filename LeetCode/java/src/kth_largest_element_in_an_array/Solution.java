@@ -24,3 +24,48 @@ public class Solution {
         return pq.peek();
     }
 }
+
+class SolutionII {
+    // quickselect
+    // tag: array
+    // time: O(n)
+    // space: O(1)
+    public int findKthLargest(int[] nums, int k) {
+        if (nums == null || nums.length == 0 || k <= 0 || k > nums.length) return -1;
+
+        k = nums.length - k;
+        int l = 0;
+        int r = nums.length - 1;
+        while (l < r) {
+            int p = partition(nums, l, r);
+            if (p < k) {
+                l = p + 1;
+            }
+            else if (p > k) {
+                r = p - 1;
+            }
+            else {
+                break;
+            }
+        }
+        return nums[k];
+    }
+
+    private int partition(int[] nums, int l, int r) {
+        int pivot = nums[r];
+        int i = l - 1;
+        for (int j = l; j < r; j++) {
+            if (nums[j] < pivot) {
+                swap(nums, ++i, j);
+            }
+        }
+        swap(nums, r, i + 1);
+        return i + 1;
+    }
+
+    private void swap(int[] nums, int i, int j) {
+        int tmp = nums[i];
+        nums[i] = nums[j];
+        nums[j] = tmp;
+    }
+}

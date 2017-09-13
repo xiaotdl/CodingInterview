@@ -6,7 +6,7 @@ import java.util.*;
  * Created by Xiaotian on 6/20/17.
  */
 public class Solution {
-    // tag: hash
+    // tag: array, hash
     // time: O(n)
     // space: O(1)
     public int subarraySum(int[] nums, int k) {
@@ -22,7 +22,7 @@ public class Solution {
             if (m.containsKey(sum - k)) {
                 res += m.get(sum - k);
             }
-            m.put(sum, (m.containsKey(sum) ? m.get(sum) + 1 : 1));
+            m.put(sum, m.containsKey(sum) ? m.get(sum) + 1 : 1);
         }
         return res;
     }

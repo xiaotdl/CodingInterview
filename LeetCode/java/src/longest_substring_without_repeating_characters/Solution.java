@@ -32,3 +32,24 @@ public class Solution {
         return max;
     }
 }
+
+class SolutionII {
+    // Same as Solution
+    public int lengthOfLongestSubstring(String s) {
+        if (s == null || s.length() == 0) return 0;
+
+        boolean[] ascii = new boolean[256]; // ascii2isShown
+        int max = Integer.MIN_VALUE;
+        int l, r;
+        for (l = 0, r = 0; l < s.length(); l++) {
+            while (r < s.length() && ascii[s.charAt(r)] == false) {
+                ascii[s.charAt(r)] = true;
+                r++;
+            }
+            max = Math.max(max, r - l);
+            ascii[s.charAt(l)] = false;
+        }
+        return max;
+    }
+}
+

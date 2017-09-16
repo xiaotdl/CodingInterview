@@ -56,3 +56,41 @@ public class Solution {
         return s.substring(minWinLeft, minWinLeft + minWinLen);
     }
 }
+
+
+class SolutionII {
+    // Same as Solution
+    public String minWindow(String S, String T) {
+        int[] ascii = new int[256]; // save T's char count
+        for (char c : T.toCharArray()) {
+            ascii[c]++;
+        }
+        int matchedCnt = 0; // t chars matched so far
+        int minWin = Integer.MAX_VALUE;
+        String minStr = "";
+        int l, r;
+        for(l = 0, r = 0; l < S.length(); l++) {
+            while(r < S.length() && matchedCnt < T.length()) {
+                if (ascii[S.charAt(r)] > 0) {
+                    matchedCnt++;
+                }
+                ascii[S.charAt(r)]--;
+                r++;
+            }
+
+            if (matchedCnt == T.length()) {
+                int currWin = r - l;
+                if (currWin < minWin) {
+                    minWin = currWin;
+                    minStr = S.substring(l, r);
+                }
+            }
+
+            if (ascii[S.charAt(l)] >= 0) {
+                matchedCnt--;
+            }
+            ascii[S.charAt(l)]++;
+        }
+        return minStr;
+    }
+}

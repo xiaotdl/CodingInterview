@@ -7,7 +7,7 @@ import java.util.PriorityQueue;
  * Created by Xiaotian on 10/31/16.
  */
 public class Solution {
-    // tag: Heap
+    // tag: heap
     // time: O(klogk)
     // space: O(k)
     class Element {

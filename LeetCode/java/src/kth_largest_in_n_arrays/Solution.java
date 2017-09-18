@@ -6,7 +6,7 @@ import java.util.*;
  * Created by Xiaotian on 9/16/17.
  */
 public class Solution {
-    // tag: Heap
+    // tag: heap
     // time: O(m*nlogn+(m+k)logk)
     // space: O(k)
     class Element {

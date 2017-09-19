@@ -4,9 +4,9 @@ package word_search;
  * Created by Xiaotian on 9/4/17.
  */
 public class Solution {
-    // tag: array, backtracking
+    // tag: array, backtracking, dfs
     // time: O(depth*leafs), depth = word.length, leafs = 4
-    // space: O(mn)
+    // space: O(mn), in place flip board[][] to '*' to improve space to O(1)
     public boolean exist(char[][] board, String word) {
         if (board == null || board.length == 0 || board[0].length == 0) return false;
 
@@ -38,5 +38,42 @@ public class Solution {
         }
         visited[i][j] = false;
         return false;
+    }
+}
+
+class SolutionII {
+    // Same as Solution
+    public boolean exist(char[][] board, String word) {
+        if (board == null || board.length == 0 || board[0].length == 0) return false;
+
+        int m = board.length;
+        int n = board[0].length;
+
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if (dfs(board, i, j, word, 0)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    private boolean dfs(char[][] board, int x, int y, String word, int pos) {
+        if (pos == word.length()) return true;
+        if (!inBound(board.length, board[0].length, x, y) || board[x][y] != word.charAt(pos)) return false;
+
+        board[x][y] = '*';
+        boolean found = dfs(board, x, y + 1, word, pos + 1)
+                     || dfs(board, x, y - 1, word, pos + 1)
+                     || dfs(board, x + 1, y, word, pos + 1)
+                     || dfs(board, x - 1, y, word, pos + 1);
+        board[x][y] = word.charAt(pos);
+        return found;
+    }
+
+    private boolean inBound(int m, int n, int x, int y) {
+        return 0 <= x && x <= m - 1
+            && 0 <= y && y <= n - 1;
     }
 }

@@ -35,3 +35,28 @@ public class Solution {
         return cnt <= 1;
     }
 }
+
+class SolutionII {
+    // tag: array
+    // time: O(n)
+    // space: O(1)
+    public boolean checkPossibility(int[] nums) {
+        if (nums == null || nums.length == 0) return false;
+
+        int pos = 0;
+        int cnt = 0;
+        for (int i = 1; i < nums.length; i++) {
+            if (nums[i - 1] > nums[i]) { // modify either i - 1 or i
+                pos = i;
+                cnt++;
+            }
+        }
+
+        if (cnt == 0) return true;
+        if (cnt > 1) return false;
+        return pos == 1
+                || pos == nums.length - 1
+                || nums[pos - 1] <= nums[pos + 1] // modify i
+                || nums[pos - 2] <= nums[pos];    // modify i - 1
+    }
+}

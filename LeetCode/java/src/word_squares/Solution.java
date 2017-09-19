@@ -64,11 +64,8 @@ public class Solution {
             trie.insert(word);
         }
 
-        List<String> currRes = new ArrayList<>();
         for (String word : words) {
-            currRes.add(word);
-            search(trie, wordLen, currRes, res);
-            currRes.remove(currRes.size() - 1);
+            search(trie, wordLen, new ArrayList<>(Arrays.asList(word)), res);
         }
         return res;
     }
@@ -80,7 +77,7 @@ public class Solution {
         }
 
         int i = currRes.size();
-        StringBuilder prefixBuilder = new StringBuilder();
+        StringBuilder prefixBuilder = new StringBuilder(); // vertical word
         for (String w : currRes) {
             prefixBuilder.append(w.charAt(i));
         }

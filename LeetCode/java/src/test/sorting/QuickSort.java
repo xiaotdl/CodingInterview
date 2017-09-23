@@ -33,14 +33,15 @@ public class QuickSort {
     // returns index of pivot
     private int partition(int[] nums, int l, int r) {
         int pivot = nums[r]; // use randomized position instead of last one for optimization
-        int i = l - 1; // starting index of smaller elements
+        int i = l; // starting index of smaller elements
         for (int j = l; j < r; j++) {
             if (nums[j] <= pivot) {
-                swap(nums, ++i, j);
+                swap(nums, i, j);
+                i++;
             }
         }
-        swap(nums, i + 1, r);
-        return i + 1;
+        swap(nums, i, r);
+        return i;
     }
 
     private void swap(int[] nums, int i, int j) {
@@ -50,8 +51,8 @@ public class QuickSort {
     }
 
     public static void main(String[] args) {
-        int[] nums = new int[]{3,5,4,1,2};
-        new QuickSortIterative().sort(nums, 0, nums.length - 1);
+        int[] nums = new int[]{1,2,3,4,5,6,8,9,10,7};
+        new QuickSort().sort(nums, 0, nums.length - 1);
         System.out.println(Arrays.toString(nums));
     }
 }

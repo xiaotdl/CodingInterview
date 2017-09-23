@@ -53,14 +53,15 @@ class SolutionII {
 
     private int partition(int[] nums, int l, int r) {
         int pivot = nums[r];
-        int i = l - 1;
+        int i = l;
         for (int j = l; j < r; j++) {
             if (nums[j] < pivot) {
-                swap(nums, ++i, j);
+                swap(nums, i, j);
+                i++;
             }
         }
-        swap(nums, r, i + 1);
-        return i + 1;
+        swap(nums, r, i);
+        return i;
     }
 
     private void swap(int[] nums, int i, int j) {

@@ -7,19 +7,24 @@ import java.util.*;
  */
 public class Solution {
     // tag: heap, priority queue
-    // time: O(nlogk)
+    // time: O(n(logk+n))
     // space: O(k)
     public int[] maxSlidingWindow(int[] nums, int k) {
-        if (nums == null || k == 0 || nums.length < k) return new int[0];
+        if (nums == null || nums.length == 0) return new int[]{};
+
         int[] res = new int[nums.length - k + 1];
-        // max heap
-        PriorityQueue<Integer> pq = new PriorityQueue<>(
-            (PriorityQueue<? extends Integer>) Collections.reverseOrder()
-        );
-        for (int i = 0; i < nums.length; i++) {
-            if (i > k - 1) pq.remove(nums[i - k]);
-            pq.add(nums[i]);
-            if (i >= k - 1) res[i - k + 1] = pq.peek();
+        PriorityQueue<Integer> maxHeap = new PriorityQueue<>(k, Collections.reverseOrder());
+
+        for (int i = 0; i < k; i++) {
+            maxHeap.add(nums[i]);
+        }
+        res[0] = maxHeap.peek();
+
+        int l, r;
+        for (l = 0, r = k; r < nums.length; l++, r++) {
+            maxHeap.remove(nums[l]);
+            maxHeap.add(nums[r]);
+            res[l + 1] = maxHeap.peek();
         }
         return res;
     }

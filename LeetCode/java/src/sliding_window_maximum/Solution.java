@@ -50,3 +50,45 @@ class SolutionII {
         return res;
     }
 }
+
+class SolutionIII {
+    // Same as SolutionII
+    /*
+     * @param nums: A list of integers
+     * @param k: An integer
+     * @return: The maximum number inside the window at each moving
+     */
+    public ArrayList<Integer> maxSlidingWindow(int[] nums, int k) {
+        ArrayList<Integer> res = new ArrayList<>();
+        if (nums == null || nums.length == 0) return res;
+
+        Deque<Integer> deque = new ArrayDeque<>(); // decreasing deque, first num in deque is the current max num
+
+        for (int i = 0; i < k; i++) {
+            inQueue(deque, nums[i]);
+        }
+        res.add(deque.peekFirst());
+
+
+        int l, r;
+        for (l = 0, r = k; r < nums.length; l++, r++) {
+            outQueue(deque, nums[l]);
+            inQueue(deque, nums[r]);
+            res.add(deque.peekFirst());
+        }
+        return res;
+    }
+
+    private void inQueue(Deque<Integer> deque, int num) {
+        while (!deque.isEmpty() && deque.peekLast() < num) {
+            deque.pollLast();
+        }
+        deque.offerLast(num);
+    }
+
+    private void outQueue(Deque<Integer> deque, int num) {
+        if (!deque.isEmpty() && deque.peekFirst() == num) {
+            deque.pollFirst();
+        }
+    }
+}

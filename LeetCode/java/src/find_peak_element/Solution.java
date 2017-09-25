@@ -10,9 +10,8 @@ public class Solution {
     public int findPeakElement(int[] nums) {
         if (nums == null || nums.length == 0 ) return -1;
 
-        for (int i = 0; i < nums.length; i++) {
-            if (i == 0) continue;
-            if (nums[i] < nums[i - 1]) {
+        for (int i = 1; i < nums.length; i++) {
+            if (nums[i - 1] > nums[i]) {
                 return i - 1;
             }
         }
@@ -43,5 +42,30 @@ class SolutionII {
         else {
             return helper(nums, mid + 1, end);
         }
+    }
+}
+
+class SolutionIII {
+    // Same as SolutionII
+    public int findPeakElement(int[] nums) {
+        if (nums == null || nums.length == 0) return -1;
+
+        int start = 0;
+        int end = nums.length - 1;
+        while (start + 1 < end) {
+            int mid = start + (end - start) / 2;
+            // left side must have a peak
+            if (nums[mid - 1] > nums[mid]) {
+                end = mid;
+            }
+            // right side must have a peak
+            else {
+                start = mid;
+            }
+        }
+        if (nums[start] > nums[end]) {
+            return start;
+        }
+        return end;
     }
 }

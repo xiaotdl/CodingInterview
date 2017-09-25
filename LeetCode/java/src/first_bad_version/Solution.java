@@ -11,7 +11,7 @@ public class Solution {
     // time: O(logn)
     // space: O(1)
     public int firstBadVersion(int n) {
-        int l = 0;
+        int l = 1;
         int r = n;
         while (l + 1 < r) {
             int m = l + (r - l) / 2;

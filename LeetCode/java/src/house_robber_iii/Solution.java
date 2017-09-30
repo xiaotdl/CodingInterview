@@ -3,16 +3,17 @@ package house_robber_iii;
 /**
  * Created by xili on 7/21/16.
  */
-// tag: DFS
-// time: O(n)
-// space: O(1), no additional space
 public class Solution {
+    // tag: dfs
+    // time: O(n)
+    // space: O(1), no additional space
     class TreeNode {
         int val;
         TreeNode left;
         TreeNode right;
         TreeNode(int x) { val = x; }
     }
+
     public int rob(TreeNode root) {
         if (root == null) {
             return 0;
@@ -30,14 +31,15 @@ public class Solution {
     }
 }
 
-// same as SolutionI
 class SolutionII {
+    // same as SolutionI
     class TreeNode {
         int val;
         TreeNode left;
         TreeNode right;
         TreeNode(int x) { val = x; }
     }
+
     public int rob(TreeNode root) {
         if (root == null) return 0;
         // money1: rob root
@@ -54,11 +56,11 @@ class SolutionII {
     }
 }
 
-// saves both rob/not rob value, thus much faster than SolutionI
-// tag: dp
-// time: O(n)
-// space: O(1), no additional space
 class SolutionIII {
+    // saves both rob/not rob value, thus much faster than SolutionI
+    // tag: dp
+    // time: O(n)
+    // space: O(1), no additional space
     class TreeNode {
         int val;
         TreeNode left;

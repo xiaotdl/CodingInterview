@@ -69,3 +69,37 @@ class SolutionIII {
         return dp[n - 1];
     }
 }
+
+class SolutionIV {
+    // 滚动数组优化
+    // tag: array, dp
+    // time: O(mn)
+    // space: O(n)
+    /**
+     * @param n, m: positive integer (1 <= n ,m <= 100)
+     * @return an integer
+     */
+    public int uniquePaths(int m, int n) {
+        if (m == 0 || n == 0) {
+            return 0;
+        }
+
+        int[][] sum = new int[2][n];
+        for (int i = 0; i < n; i++) {
+            sum[0][i] = 1;
+        }
+        for (int j = 0; j < m; j++) {
+            sum[j%2][0] = 1;
+        }
+
+        for (int i = 1; i < m; i++) {
+            for (int j = 1; j < n; j++) {
+                sum[i%2][j] = sum[(i - 1)%2][j] + sum[i%2][j - 1];
+            }
+        }
+
+        return sum[(m - 1)%2][n - 1];
+    }
+}
+
+

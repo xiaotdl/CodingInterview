@@ -7,7 +7,7 @@ import java.util.*;
  */
 public class Solution {
     // Space can be improved to O(k) if we replace isVisited[][] with visitedPairs hashset,
-    // which needs to implement compareTo/equals method in Pair Class
+    // in which case hashCode&equals method needs to be overridden in Pair class
     // tag: heap
     // time: O(k)
     // space: O(k+mn)
@@ -27,19 +27,19 @@ public class Solution {
      * @return: An integer
      */
     public int kthSmallestSum(int[] A, int[] B, int k) {
-        int[] dx = new int[]{0, 1};
-        int[] dy = new int[]{1, 0};
         boolean[][] isVisited = new boolean[A.length][B.length];
 
-        PriorityQueue<Pair> minHeap = new PriorityQueue<>(k,
-                new Comparator<Pair>(){
-                    @Override
-                    public int compare(Pair a, Pair b) {
-                        return a.sum - b.sum;
-                    }
+        Queue<Pair> minHeap = new PriorityQueue<>(k,
+            new Comparator<Pair>(){
+                @Override
+                public int compare(Pair a, Pair b) {
+                    return a.sum - b.sum;
                 }
+            }
         );
 
+        int[] dx = new int[]{0, 1};
+        int[] dy = new int[]{1, 0};
         minHeap.add(new Pair(0, 0, A[0] + B[0]));
         for (int i = 0; i < k - 1; i++) {
             Pair curr = minHeap.poll();

@@ -5,10 +5,10 @@ import java.util.*;
 /**
  * Created by Xiaotian on 12/27/16.
  */
-// tag: dp
-// time: O(n^2)
-// space: O(n)
 public class Solution {
+    // tag: dp
+    // time: O(n^2)
+    // space: O(n)
     public int lengthOfLIS(int[] nums) {
         if (nums == null || nums.length == 0) return 0;
         if (nums.length == 1) return 1;
@@ -31,10 +31,10 @@ public class Solution {
     }
 }
 
-// tag: dp, binary search
-// time: O(nlogn)
-// space: O(n)
 class SolutionII {
+    // tag: dp, binary search
+    // time: O(nlogn)
+    // space: O(n)
     public int lengthOfLIS(int[] nums) {
         // dp[i]: min num that subseq of length i+1 can end with, thus dp[] is not the LIS
         int[] dp = new int[nums.length];

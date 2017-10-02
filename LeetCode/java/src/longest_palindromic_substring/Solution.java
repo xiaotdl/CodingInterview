@@ -67,3 +67,46 @@ class SolutionII {
     }
 }
 
+class SolutionIII {
+    // insert # at even indexes to make a string always odd
+    // #a#
+    // #a#b#a#
+    // Note: i < 2n, cnt <= 2n
+    // tag: str, ptr
+    // time: O(n^2)
+    // space: O(1)
+    /*
+     * @param s: input string
+     * @return: the longest palindromic substring
+     */
+    public String longestPalindrome(String s) {
+        if (s == null || s.length() == 0) {
+            return "";
+        }
+
+        int n = s.length();
+        int max = 0;
+        String res = "";
+        for (int i = 0; i < 2*n; i++) {
+            int cnt = 1;
+            while (i - cnt >= 0 && i + cnt <= 2*n && get(s, i - cnt) == get(s, i + cnt)) {
+                cnt++;
+            };
+            cnt--;
+            if (cnt > max) {
+                res = s.substring((i - cnt) / 2, (i + cnt) / 2);
+                max = cnt;
+            }
+        }
+        return res;
+    }
+
+    private char get(String s, int i) {
+        if (i % 2 == 0) {
+            return '#';
+        } else {
+            return s.charAt(i / 2);
+        }
+    }
+}
+

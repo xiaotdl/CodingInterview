@@ -51,10 +51,10 @@ class SolutionII {
         for (int i = 0; i < A.length; i++) {
             dp[i] = 1;
         }
-        int max = dp[0];
+        int max = 1;
         for (int i = 1; i < A.length; i++) {
             if (A[i] > A[i - 1]) {
-                dp[i] = Math.max(dp[i], dp[i - 1] + 1);
+                dp[i] = dp[i - 1] + 1;
             }
             max = Math.max(max, dp[i]);
         }

@@ -16,11 +16,11 @@ public class Solution {
         int[][] dp = new int[s.length() + 1][t.length() + 1];
 
         // when s is empty
-        for (int j = 1; j < t.length(); j++) {
+        for (int j = 1; j <= t.length(); j++) {
             dp[0][j] = 0;
         }
         // when t is empty
-        for (int i = 0; i < s.length(); i++) {
+        for (int i = 0; i <= s.length(); i++) {
             dp[i][0] = 1;
         }
 
@@ -30,11 +30,11 @@ public class Solution {
                 if (s.charAt(i - 1) == t.charAt(j - 1)) {
                     dp[i][j] += dp[i - 1][j - 1];
                 }
-                try {
-                    TimeUnit.SECONDS.sleep(1);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+            }
+        }
+
+        for (int i = 0; i <= s.length(); i++) {
+            for (int j = 0; j <= t.length(); j++) {
                 System.out.print(String.valueOf(dp[i][j]) + " ");
             }
             System.out.println();
@@ -46,6 +46,15 @@ public class Solution {
     public static void main(String[] args) {
         System.out.println("Hello World!");
         new Solution().numDistinct("rabbbit", "rabbit");
+        //   ''r a b b i t
+        // ''1 0 0 0 0 0 0
+        // r 1 1 0 0 0 0 0
+        // a 1 1 1 0 0 0 0
+        // b 1 1 1 1 0 0 0
+        // b 1 1 1 2 1 0 0
+        // b 1 1 1 3 3 0 0
+        // i 1 1 1 3 3 3 0
+        // t 1 1 1 3 3 3 3
     }
 }
 

@@ -17,7 +17,7 @@ public class Solution {
             return 0;
         }
 
-        // dp[i][j]: can pick from first i items with a total size of j, backpack(0..j, 0..i)
+        // dp[i][j]: can pick from first i items(0/1 A[i-1]) with a total size of j, backpack(0..j, 0..i)
         boolean[][] dp = new boolean[A.length + 1][m + 1];
 
         dp[0][0] = true;

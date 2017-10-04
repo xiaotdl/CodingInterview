@@ -17,7 +17,7 @@ public class Solution {
             return 0;
         }
 
-        // dp[i][j]: max value when pick from first i items with a total size of j, backpack(0..j, A[0..i], V[0..i])
+        // dp[i][j]: max value when pick from first i items(0/1 A[i-1]) with a total size of j, backpack(0..j, A[0..i], V[0..i])
         int[][] f = new int[A.length + 1][m + 1];
 
         for (int i = 1; i < A.length + 1; i++) {

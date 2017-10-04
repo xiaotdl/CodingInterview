@@ -17,10 +17,10 @@ public class Solution {
         boolean[] dp = new boolean[n + 1];
         boolean[] isVisited = new boolean[n + 1];
 
-        return MemorySearch(dp, isVisited, n);
+        return memSearch(dp, isVisited, n);
     }
 
-    private boolean MemorySearch(boolean[] dp, boolean[] isVisited, int n) {
+    private boolean memSearch(boolean[] dp, boolean[] isVisited, int n) {
         if (isVisited[n]) {
             return dp[n];
         }
@@ -36,9 +36,9 @@ public class Solution {
             dp[n] = false;
         } else {
             // take 1 coin
-            if ((MemorySearch(dp, isVisited, n - 2) && MemorySearch(dp, isVisited, n - 3))
+            if ((memSearch(dp, isVisited, n - 2) && memSearch(dp, isVisited, n - 3))
             // take 2 coins
-             || (MemorySearch(dp, isVisited, n - 3) && MemorySearch(dp, isVisited, n - 4))) {
+             || (memSearch(dp, isVisited, n - 3) && memSearch(dp, isVisited, n - 4))) {
                 dp[n] = true;
             } else {
                 dp[n] = false;

@@ -22,10 +22,10 @@ public class Solution {
             sum += v;
         }
 
-        return MemorySearch(values, dp, isVisited, 0, n - 1) > sum / 2;
+        return memSearch(values, dp, isVisited, 0, n - 1) > sum / 2;
     }
 
-    private int MemorySearch(int[] values, int[][] dp, boolean[][] isVisited, int l, int r) {
+    private int memSearch(int[] values, int[][] dp, boolean[][] isVisited, int l, int r) {
         if (isVisited[l][r]) {
             return dp[l][r];
         }
@@ -42,14 +42,14 @@ public class Solution {
                 // pick left
                 values[l]
                 + Math.min(
-                    MemorySearch(values, dp, isVisited, l + 2, r),     // other pick left
-                    MemorySearch(values, dp, isVisited, l + 1, r - 1)  // other pick right
+                    memSearch(values, dp, isVisited, l + 2, r),     // other pick left
+                    memSearch(values, dp, isVisited, l + 1, r - 1)  // other pick right
                 ),
                 // pick right
                 values[r]
                 + Math.min(
-                    MemorySearch(values, dp, isVisited, l + 1, r - 1), // other pick left
-                    MemorySearch(values, dp, isVisited, l, r - 2)      // other pick right
+                    memSearch(values, dp, isVisited, l + 1, r - 1), // other pick left
+                    memSearch(values, dp, isVisited, l, r - 2)      // other pick right
                 )
             );
         }

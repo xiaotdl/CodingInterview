@@ -22,10 +22,10 @@ public class Solution {
             sum += v;
         }
 
-        return MemorySearch(values, dp, isVisited, values.length) > sum / 2;
+        return memSearch(values, dp, isVisited, values.length) > sum / 2;
     }
 
-    private int MemorySearch(int[] values, int[] dp, boolean[] isVisited, int n) {
+    private int memSearch(int[] values, int[] dp, boolean[] isVisited, int n) {
         if (isVisited[n]) {
             return dp[n];
         }
@@ -45,15 +45,15 @@ public class Solution {
                 // take 1 coin
                 values[l - n]
                 + Math.min(
-                    MemorySearch(values, dp, isVisited, n - 2),
-                    MemorySearch(values, dp, isVisited, n - 3)
+                    memSearch(values, dp, isVisited, n - 2),
+                    memSearch(values, dp, isVisited, n - 3)
                 ),
                 // take 2 coins
                 values[l - n]
                 + values[l - n + 1]
                 + Math.min(
-                    MemorySearch(values, dp, isVisited, n - 3),
-                    MemorySearch(values, dp, isVisited, n - 4)
+                    memSearch(values, dp, isVisited, n - 3),
+                    memSearch(values, dp, isVisited, n - 4)
                 )
             );
         }

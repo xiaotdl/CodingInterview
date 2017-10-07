@@ -53,7 +53,8 @@ public class Solution {
                 swap(A, j, i);
                 i++;
                 j++;
-            } else if (compare.cmp(A[j], pivot) == 0 && compare.cmp(A[r], pivot) != 0) { // ==
+            } else if ((compare.cmp(A[j], pivot) == 0 || compare.cmp(pivot, A[j]) == 0)
+                    && (compare.cmp(A[r], pivot) != 0 || compare.cmp(pivot, A[r]) != 0)) { // ==
                 swap(A, j, r);
             } else {
                 j++;

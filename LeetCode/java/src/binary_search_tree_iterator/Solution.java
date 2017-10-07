@@ -5,10 +5,13 @@ import java.util.Stack;
 /**
  * Created by Xiaotian on 06/13/17.
  */
-// tag: stack
-// time: O(1)
-// space: O(h)
 public class Solution {
+    // inorder(left)   ^
+    // root            | stack
+    // inorder(right)
+    // tag: stack
+    // time: O(1)
+    // space: O(h)
 }
 
 class TreeNode {
@@ -21,10 +24,11 @@ class TreeNode {
 
 class BSTIterator {
 
-    private Stack<TreeNode> stack = new Stack<TreeNode>();
+    private Stack<TreeNode> stack;
 
     public BSTIterator(TreeNode root) {
-        pushAllLeft(root);
+        stack = new Stack<>();
+        pushNodeAndLeftToStackRecursively(root);
     }
 
     /** @return whether we have a next smallest number */
@@ -35,11 +39,11 @@ class BSTIterator {
     /** @return the next smallest number */
     public int next() {
         TreeNode curr = stack.pop();
-        pushAllLeft(curr.right);
+        pushNodeAndLeftToStackRecursively(curr.right);
         return curr.val;
     }
 
-    private void pushAllLeft(TreeNode node) {
+    private void pushNodeAndLeftToStackRecursively(TreeNode node) {
         while (node != null) {
             stack.push(node);
             node = node.left;

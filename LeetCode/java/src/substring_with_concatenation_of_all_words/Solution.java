@@ -9,7 +9,8 @@ public class Solution {
     // TODO
     // credit: https://discuss.leetcode.com/topic/17943/naive-c-solution-using-two-unordered_map-about-20-lines/7
     // TLE
-    // tag: hash, ptr, sliding window
+    // sliding window
+    // tag: hash, ptr
     // time: O(n*words.size)
     // space: O(words.size)
     public List<Integer> findSubstring(String s, String[] words) {

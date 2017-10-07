@@ -27,7 +27,7 @@ public class BucketSort {
             min = Math.min(min, num);
             max = Math.max(max, num);
         }
-        int bucketSize = (max - min) / bucketNum + 1;
+        int bucketSize = (max - min) / bucketNum + 1; // +1 otherwise max number will OutOfIndexBound
 
         // init buckets
         List<List<Integer>> bucketList = new ArrayList<>();

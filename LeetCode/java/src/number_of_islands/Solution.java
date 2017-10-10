@@ -126,7 +126,6 @@ class SolutionIII {
 
         public void connect(int a, int b) {
             union(a, b);
-            return;
         }
 
         private int find(int x) {

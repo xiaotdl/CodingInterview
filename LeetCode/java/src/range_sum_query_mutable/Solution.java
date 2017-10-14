@@ -82,10 +82,6 @@ class NumArrayII {
     class SegmentTree {
         public SegmentTreeNode root;
 
-        public SegmentTree() {
-            root = null;
-        }
-
         public SegmentTreeNode build(int[] nums, int l, int r) {
             if (l > r) return null;
 

@@ -61,102 +61,82 @@ class NumArray {
 
 
 class NumArrayII {
-    // credit: https://discuss.leetcode.com/topic/29918/17-ms-java-solution-with-segment-tree
-    // Segment Tree
     // tag: segment tree
     // time:
     //   build: O(n)
     //   insert: O(logn)
     //   search: O(logn)
     // space: O(n)
+    class SegmentTreeNode {
+        public int l, r, sum;
+        public SegmentTreeNode left, right;
 
-    private SegmentTreeNode root;
-    private int[] nums;
+        public SegmentTreeNode(int l, int r, int sum) {
+            this.l = l;
+            this.r = r;
+            this.sum = sum;
+            left = right = null;
+        }
+    }
 
+    class SegmentTree {
+        public SegmentTreeNode root;
+
+        public SegmentTree() {
+            root = null;
+        }
+
+        public SegmentTreeNode build(int[] nums, int l, int r) {
+            if (l > r) return null;
+
+            if (l == r) return new SegmentTreeNode(l, r, nums[l]);
+
+            SegmentTreeNode root = new SegmentTreeNode(l, r, 0);
+            int m = l + (r - l) / 2;
+            root.left = build(nums, l, m);
+            root.right = build(nums, m + 1, r);
+            root.sum = root.left.sum + root.right.sum;
+            return root;
+        }
+
+        public void modify(SegmentTreeNode root, int i, int val) {
+            if (root.r < i || root.l > i) return;
+
+            if (i == root.l && i == root.r) {
+                root.sum = val;
+                return;
+            }
+
+            int m = root.l + (root.r - root.l) / 2;
+            if (i <= m) {
+                modify(root.left, i, val);
+            } else {
+                modify(root.right, i, val);
+            }
+            root.sum = root.left.sum + root.right.sum;
+        }
+
+        public int query(SegmentTreeNode root, int l, int r) {
+            if (root.r < l || root.l > r) return 0;
+
+            if (l <= root.l && root.r <= r) return root.sum;
+
+            return query(root.left, l, r) + query(root.right, l, r);
+        }
+    }
+
+    SegmentTree tree;
     public NumArrayII(int[] nums) {
-        this.nums = nums;
-        root = buildTree(nums, 0, nums.length - 1);
+        tree = new SegmentTree();
+        tree.root = tree.build(nums, 0, nums.length - 1);
     }
 
     public void update(int i, int val) {
-        nums[i] = val;
-        updateHelper(root, i, val);
+        tree.modify(tree.root, i, val);
     }
 
     public int sumRange(int i, int j) {
-        return sumRangeHelper(root, i, j);
-    }
-
-    private SegmentTreeNode buildTree(int[] nums, int start, int end) {
-        if (nums == null || nums.length == 0 || start > end) {
-            return null;
-        }
-        if (start == end) {
-            return new SegmentTreeNode(start, start, nums[start]);
-        }
-
-        SegmentTreeNode node = new SegmentTreeNode(start, end);
-        int mid = start + (end - start) / 2;
-        node.left = buildTree(nums, start, mid);
-        node.right = buildTree(nums, mid + 1, end);
-        node.sum = node.left.sum + node.right.sum;
-        return node;
-    }
-
-    private void updateHelper(SegmentTreeNode root, int index, int val) {
-        if (root.start == root.end) {
-            root.sum = val;
-            return;
-        }
-
-        int mid = root.start + (root.end - root.start) / 2;
-        if (index <= mid) {
-            updateHelper(root.left, index, val);
-        }
-        else {
-            updateHelper(root.right, index, val);
-        }
-        root.sum = root.left.sum + root.right.sum;
-    }
-
-    private int sumRangeHelper(SegmentTreeNode root, int i, int j) {
-        if (i > j || i < root.start || j > root.end) {
-            return 0;
-        }
-        if (i == root.start & j == root.end) {
-            return root.sum;
-        }
-        int mid = root.start + (root.end - root.start) / 2;
-        if (j <= mid) {
-            return sumRangeHelper(root.left, i, j);
-        }
-        else if (i >= mid + 1) {
-            return sumRangeHelper(root.right, i, j);
-        }
-        else {
-            return sumRangeHelper(root.left, i, mid)
-                    + sumRangeHelper(root.right, mid + 1, j);
-        }
-    }
-
-    class SegmentTreeNode {
-        int start;
-        int end;
-        int sum;
-        SegmentTreeNode left;
-        SegmentTreeNode right;
-
-        public SegmentTreeNode(int start, int end, int sum) {
-            this.start = start;
-            this.end = end;
-            this.sum = sum;
-        }
-
-        public SegmentTreeNode(int start, int end) {
-            this.start = start;
-            this.end = end;
-            this.sum = 0;
-        }
+        return tree.query(tree.root, i, j);
     }
 }
 
@@ -166,3 +146,4 @@ class NumArrayII {
  * obj.update(i,val);
  * int param_2 = obj.sumRange(i,j);
  */
+

@@ -1,4 +1,4 @@
-package test.sorting;
+package templates.sorting;
 
 /**
  * Created by Xiaotian on 9/12/17.

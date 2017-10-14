@@ -1,4 +1,4 @@
-package test.sorting;
+package templates.sorting;
 
 import java.util.*;
 

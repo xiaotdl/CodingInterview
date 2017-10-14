@@ -1,4 +1,4 @@
-package test;
+package templates.data_structures.heap;
 
 import java.util.*;
 

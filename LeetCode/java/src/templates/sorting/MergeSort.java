@@ -12,8 +12,8 @@ public class MergeSort{
     //   worst: O(nlogn)
     // space: O(n)
     // Steps:
-    //   1. Recursively find middle point and divide the array into two halves until each array has one element
-    //   2. Repeatedly merge sorted subarrays
+    //   1. (递归排序) Recursively find middle point and divide the array into two halves until each array has one element
+    //   2. (回溯合并) Repeatedly merge sorted subarrays
     // MergeSort is a Divide and Conquer algorithm.
     // MergeSort is preferred over QuickSort for sorting LinkedLists, as it's more stable and we can't random access elements like in array.
     public void sort(int[] nums) {

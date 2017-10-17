@@ -14,3 +14,4 @@ Algorithm/.idea
 LeetCode/java/src/test/Test.java
 
 LeetCode/java/out/
+*.log

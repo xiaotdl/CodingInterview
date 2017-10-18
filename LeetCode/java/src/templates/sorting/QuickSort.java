@@ -6,7 +6,7 @@ import java.util.Arrays;
  * Created by Xiaotian on 9/11/17.
  */
 public class QuickSort {
-    // 快速排序
+    // 快速排序 - top down
     // time:
     //   best:  O(nlogn)
     //   avg:   O(nlogn)
@@ -18,6 +18,10 @@ public class QuickSort {
     //   2. Recursively applies step 1 to left and right subarray
     // QuickSort is a Divide and Conquer algorithm.
     // QuickSort is preferred over MergeSort for sorting Arrays, as it's in-place.
+
+    //             ArrayList  LinkedList InPlace(Space) Stable(Time)
+    // QuickSort   Yes                   Yes
+    // MergeSort              Yes                       Yes
     public void sort(int[] nums) {
         sort(nums, 0, nums.length - 1);
     }

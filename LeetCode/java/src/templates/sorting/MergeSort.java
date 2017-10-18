@@ -6,16 +6,20 @@ import java.util.Arrays;
  * Created by Xiaotian on 9/11/17.
  */
 public class MergeSort{
-    // 归并排序
+    // 归并排序 - bottom up/backtracking
     // time:
     //   avg: O(nlogn)
     //   worst: O(nlogn)
     // space: O(n)
     // Steps:
-    //   1. (递归排序) Recursively find middle point and divide the array into two halves until each array has one element
+    //   1. (递归排序) Recursively find middle index and divide the array into two halves until each array has one element
     //   2. (回溯合并) Repeatedly merge sorted subarrays
     // MergeSort is a Divide and Conquer algorithm.
     // MergeSort is preferred over QuickSort for sorting LinkedLists, as it's more stable and we can't random access elements like in array.
+
+    //             ArrayList  LinkedList InPlace(Space) Stable(Time)
+    // QuickSort   Yes                   Yes
+    // MergeSort              Yes                       Yes
     public void sort(int[] nums) {
         sort(nums, 0, nums.length - 1);
     }

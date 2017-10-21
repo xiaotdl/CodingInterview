@@ -27,3 +27,26 @@ public class Solution {
         }
     }
 }
+
+class SolutionII {
+    // tag: bit
+    // time: O(2^n)
+    // space: O(1)
+    public List<List<Integer>> subsets(int[] nums) {
+        List<List<Integer>> res = new ArrayList<>();
+        if (nums == null || nums.length == 0) return res;
+
+        int n = nums.length;
+        for (int i = 0; i < (1 << n); i++) {
+            List<Integer> subset = new ArrayList<>();
+            for (int j = 0; j < n; j++) {
+                // check whether nums[j] is in this subset
+                if ((i & (1 << j)) != 0) {
+                    subset.add(nums[j]);
+                }
+            }
+            res.add(subset);
+        }
+        return res;
+    }
+}

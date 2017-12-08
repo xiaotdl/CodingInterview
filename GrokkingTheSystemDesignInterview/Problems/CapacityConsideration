@@ -1,0 +1,13 @@
+# Capacity
+
+## Compute
+CPU
+
+## Storage
+RAM(Cache), Hard Disk(Persist)
+
+## Network
+Bandwidth, IP
+
+Workload: Compute & Network
+Data: Storage

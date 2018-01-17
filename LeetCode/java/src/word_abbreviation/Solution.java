@@ -20,14 +20,14 @@ public class Solution {
         }
         for (int i = 0; i < n; i++) {
             while (true) {
-                Set<Integer> set = new HashSet<>();
+                Set<Integer> duplicates = new HashSet<>();
                 for (int j = i + 1; j < n; j++) {
                     // check all strings with the same abbr
-                    if (res[j].equals(res[i])) set.add(j);
+                    if (res[j].equals(res[i])) duplicates.add(j);
                 }
-                if (set.isEmpty()) break;
-                set.add(i);
-                for (int k : set) {
+                if (duplicates.isEmpty()) break; // no duplicates
+                duplicates.add(i);
+                for (int k : duplicates) {
                     prefix[k] += 1;
                     res[k] = getAbbr(dict.get(k), prefix[k]);
                 }

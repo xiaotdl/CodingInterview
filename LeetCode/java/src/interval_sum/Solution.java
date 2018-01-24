@@ -71,3 +71,40 @@ public class Solution {
         return res;
     }
 }
+
+/**
+ * Definition of Interval:
+ * public classs Interval {
+ *     int start, end;
+ *     Interval(int start, int end) {
+ *         this.start = start;
+ *         this.end = end;
+ *     }
+ */
+
+
+class SolutionII {
+    // tag: prefix sum
+    // time:
+    //   - build prefix sum: O(n)
+    //   - query: O(1)
+    // space: O(n)
+    /*
+     * @param A: An integer list
+     * @param queries: An query list
+     * @return: The result list
+     */
+    public List<Long> intervalSum(int[] A, List<Interval> queries) {
+        long[] prefixSum = new long[A.length+1];
+        prefixSum[0] = 0;
+        for (int i = 1; i < prefixSum.length; i++) {
+            prefixSum[i] = prefixSum[i - 1] + A[i - 1];
+        }
+
+        List<Long> res = new ArrayList<>();
+        for (Interval query : queries) {
+            res.add(prefixSum[query.end + 1] - prefixSum[query.start]);
+        }
+        return res;
+    }
+}

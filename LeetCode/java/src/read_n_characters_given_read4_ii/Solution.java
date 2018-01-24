@@ -37,3 +37,36 @@ class Reader4 {
         return 0;
     }
 }
+
+/* The read4 API is defined in the parent class Reader4.
+      int read4(char[] buf); */
+
+class SolutionII extends Reader4 {
+    // tag: str, ptr, queue
+    // time: O(n)
+    // space: O(1)
+    char[] sysBuf = new char[4];
+    int sysBufHead = 0;
+    int sysBufTail = 0;
+    /**
+     * @param buf destination buffer
+     * @param n maximum number of characters to read
+     * @return the number of characters read
+     */
+    public int read(char[] buf, int n) {
+        int i = 0;
+        while (i < n) {
+            if (sysBufHead == sysBufTail) { // q is empty
+                sysBufHead = 0;
+                sysBufTail = read4(sysBuf); // enqueue
+
+                if (sysBufTail == 0) break; // no more to read
+            }
+
+            while (i < n && sysBufHead < sysBufTail) {
+                buf[i++] = sysBuf[sysBufHead++]; // dequeue
+            }
+        }
+        return i;
+    }
+}

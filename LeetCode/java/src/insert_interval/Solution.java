@@ -40,3 +40,45 @@ class Solution {
         return res;
     }
 }
+
+/**
+ * Definition of Interval:
+ * public classs Interval {
+ *     int start, end;
+ *     Interval(int start, int end) {
+ *         this.start = start;
+ *         this.end = end;
+ *     }
+ */
+
+
+class SolutionII {
+    // tag: array
+    // time: O(n)
+    // space: O(n)
+    /*
+     * @param intervals: Sorted interval list.
+     * @param newInterval: new interval.
+     * @return: A new interval list.
+     */
+    public List<Interval> insert(List<Interval> intervals, Interval newInterval) {
+        List<Interval> result = new ArrayList<>();
+
+        int i = 0;
+        while (i < intervals.size() && intervals.get(i).start < newInterval.start) i++;
+        intervals.add(i, newInterval);
+
+        Interval prev = null;
+        for (Interval curr : intervals) {
+            if (prev == null || prev.end < curr.start) {
+                result.add(curr);
+                prev = curr;
+            }
+            else {
+                prev.end = Math.max(prev.end, curr.end);
+            }
+        }
+
+        return result;
+    }
+}

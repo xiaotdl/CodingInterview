@@ -40,3 +40,46 @@ public class Solution {
         return sign * num;
     }
 }
+
+class SolutionII {
+    // +/- integer
+    // tag: str, ptr, math
+    // time: O(n)
+    // space: O(1)
+    /*
+     * @param str: A string
+     * @return: An integer
+     */
+    public int atoi(String str) {
+        if (str == null || str.length() == 0) return 0;
+
+        str = str.trim();
+
+        int i = 0;
+
+        char sign = '+';
+        if (str.charAt(i) == '+') {
+            i++;
+        }
+        else if (str.charAt(i) == '-') {
+            sign = '-';
+            i++;
+        }
+
+        double res = 0;
+        while (i < str.length() && '0' <= str.charAt(i) && str.charAt(i) <= '9') {
+            res = 10 * res + str.charAt(i) - '0';
+            i++;
+        }
+
+        res = sign == '-' ? -res : res;
+
+        if (res > Integer.MAX_VALUE) {
+            return Integer.MAX_VALUE;
+        }
+        if (res < Integer.MIN_VALUE) {
+            return Integer.MIN_VALUE;
+        }
+        return (int) res;
+    }
+}

@@ -104,6 +104,54 @@ class SolutionIII {
     // https://discuss.leetcode.com/topic/30058/a-simple-solution-in-python-based-on-dfa
 }
 
+class SolutionIV {
+    // 符号 + 浮点数 + e + 符号 + 整数
+    // tag: str, ptr
+    // time: O(n)
+    // space: O(1)
+    /*
+     * @param s: the string that represents a number
+     * @return: whether the string is a valid number
+     */
+    public boolean isNumber(String s) {
+        int len = s.length();
+        int i = 0;
+        int e = len - 1;
 
+        // skip leading/trailing empty space
+        while (i <= e && s.charAt(i) == ' ') i++;
+        if (i > e) return false;
+        while (e > 0 && s.charAt(e) == ' ') e--;
 
+        // skip leading +/-
+        if (s.charAt(i) == '+' || s.charAt(i) == '-') i++;
 
+        boolean num = false; // digit
+        boolean dot = false; // '.'
+        boolean exp = false; // e
+        while (i <= e) {
+            char c = s.charAt(i);
+            if (Character.isDigit(c)) {
+                num = true;
+            }
+            else if (c == '.') {
+                if (dot || exp) return false;
+                dot = true;
+            }
+            else if (c == 'e') {
+                if (exp || !num) return false;
+                exp = true;
+                num = false;
+            }
+            else if ( c == '+' || c == '-') {
+                if (i - 1 >= 0 && s.charAt(i - 1) != 'e') return false;
+            }
+            else {
+                return false;
+            }
+            i++;
+        }
+
+        return num;
+    }
+}

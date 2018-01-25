@@ -1,7 +1,7 @@
-class UnionFind {
+class UnionFindSet {
     int[] parents;
 
-    UnionFind(int n) {
+    UnionFindSet(int n) {
         parents = new int[n];
         for (int x = 1; x <= n; x++) {
             parents[x] = x;

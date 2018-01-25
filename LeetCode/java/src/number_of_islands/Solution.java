@@ -108,11 +108,11 @@ class SolutionIII {
     // tag: union find
     // time: O(mn)
     // space: O(mn)
-    class UnionFind {
+    class UnionFindSet {
         int[] parents;
         int count;
 
-        UnionFind(int n, int count) {
+        UnionFindSet(int n, int count) {
             parents = new int[n + 1];
             for (int x = 1; x <= n; x++) {
                 parents[x] = x;
@@ -157,7 +157,7 @@ class SolutionIII {
             }
         }
 
-        UnionFind uf = new UnionFind(m * n, islandsCnt);
+        UnionFindSet ufs = new UnionFindSet(m * n, islandsCnt);
 
         int[] dx = {0, 0, 1, -1};
         int[] dy = {1, -1, 0, 0};
@@ -169,12 +169,12 @@ class SolutionIII {
                     int nextX = i + dx[k];
                     int nextY = j + dy[k];
                     if (inBound(m, n, nextX, nextY) && grid[nextX][nextY] == '1') {
-                        uf.connect(i * n + j, nextX * n + nextY);
+                        ufs.connect(i * n + j, nextX * n + nextY);
                     }
                 }
             }
         }
-        return uf.query();
+        return ufs.query();
     }
 
     private boolean inBound(int m, int n, int x, int y) {

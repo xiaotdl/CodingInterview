@@ -15,10 +15,10 @@ public class Solution {
     // tag: union find
     // time: O(n)
     // space: O(n)
-    class UnionFind {
+    class UnionFindSet {
         Map<Integer, Integer> parents;
 
-        UnionFind(Set<Integer> set) {
+        UnionFindSet(Set<Integer> set) {
             parents = new HashMap<>();
             for (Integer i : set) {
                 parents.put(i, i);
@@ -51,16 +51,16 @@ public class Solution {
         for (UndirectedGraphNode node : nodes) {
             set.add(node.label);
         }
-        UnionFind uf = new UnionFind(set);
+        UnionFindSet ufs = new UnionFindSet(set);
 
         for (UndirectedGraphNode node : nodes) {
             for (UndirectedGraphNode neighbor : node.neighbors) {
-                uf.union(node.label, neighbor.label);
+                ufs.union(node.label, neighbor.label);
             }
         }
 
         for (UndirectedGraphNode node : nodes) {
-            int root = uf.find(node.label);
+            int root = ufs.find(node.label);
             if (!m.containsKey(root)) {
                 m.put(root, new ArrayList<Integer>());
             }

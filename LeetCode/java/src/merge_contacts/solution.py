@@ -8,7 +8,7 @@ contacts = {
     "A5": ["b1", "e2"],
 }
 
-class UnionFind:
+class UnionFindSet:
     def __init__(self, n):
         self.parents = list(0 for x in range(n + 1))
         for x in range(1, n + 1):
@@ -36,18 +36,18 @@ class Solution:
         all_emails = list(all_emails)
 
         # union all related emails
-        self.uf = UnionFind(len(all_emails))
+        self.ufs = UnionFindSet(len(all_emails))
         for contact, emails in contacts.items():
             for i in range(1, len(emails)):
                 email_id1 = all_emails.index(emails[i - 1]) + 1
                 email_id2 = all_emails.index(emails[i]) + 1
-                self.uf.union(email_id1, email_id2)
+                self.ufs.union(email_id1, email_id2)
 
         # find related contact by find email
         grouped_contacts = {} # email_id2contacts
         for contact, emails in contacts.items():
             email_id = all_emails.index(emails[0]) + 1
-            root_email_id = self.uf.find(email_id)
+            root_email_id = self.ufs.find(email_id)
             if root_email_id not in grouped_contacts:
                 grouped_contacts[root_email_id] = []
             grouped_contacts[root_email_id].append(contact)

@@ -18,10 +18,10 @@ public class Solution {
     //   find: O(1)
     //   union: O(1)
     // space: O(n)
-    class UnionFind {
+    class UnionFindSet {
         int[] parents;
 
-        UnionFind(int n) {
+        UnionFindSet(int n) {
             parents = new int[n + 1];
             for (int x = 1; x <= n; x++) {
                 parents[x] = x;
@@ -57,7 +57,7 @@ public class Solution {
         int[] dx = {0, 0, 1, -1};
         int[] dy = {1, -1, 0, 0};
 
-        UnionFind uf = new UnionFind(m * n);
+        UnionFindSet ufs = new UnionFindSet(m * n);
         int islandCnt = 0;
         for (int i = 0; i < operators.length; i++) {
             int x = operators[i].x;
@@ -69,10 +69,10 @@ public class Solution {
                     int nextX = x + dx[k];
                     int nextY = y + dy[k];
                     if (inBound(m, n, nextX, nextY) && grid[nextX][nextY] == 1) {
-                        int rootCurr = uf.find(x * n + y);
-                        int rootNext = uf.find(nextX * n + nextY);
+                        int rootCurr = ufs.find(x * n + y);
+                        int rootNext = ufs.find(nextX * n + nextY);
                         if (rootCurr != rootNext) {
-                            uf.union(x * n + y, nextX * n + nextY);
+                            ufs.union(x * n + y, nextX * n + nextY);
                             islandCnt--;
                         }
                     }

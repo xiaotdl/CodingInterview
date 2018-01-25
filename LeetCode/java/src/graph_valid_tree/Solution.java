@@ -62,10 +62,10 @@ class SolutionII {
     // tag: union find
     // time: O(n)
     // space: O(n)
-    class UnionFind {
+    class UnionFindSet {
         int[] parents;
 
-        UnionFind(int n) {
+        UnionFindSet(int n) {
             parents = new int[n + 1];
             for (int x = 1; x <= n; x++) {
                 parents[x] = x;
@@ -95,15 +95,15 @@ class SolutionII {
         if (n == 0) return false;
         if (edges.length != n - 1) return false; // ensure no circle
 
-        UnionFind uf = new UnionFind(n);
+        UnionFindSet ufs = new UnionFindSet(n);
 
         for (int i = 0; i < edges.length; i++) {
             int u = edges[i][0];
             int v = edges[i][1];
-            if (uf.find(u) == uf.find(v)) { // n - 1 edges and no circle meaning all nodes connected
+            if (ufs.find(u) == ufs.find(v)) { // n - 1 edges and no circle meaning all nodes connected
                 return false;
             }
-            uf.union(u, v);
+            ufs.union(u, v);
         }
         return true;
     }

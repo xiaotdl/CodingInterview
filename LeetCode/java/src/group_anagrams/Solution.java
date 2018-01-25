@@ -71,3 +71,33 @@ class SolutionII {
         return new String(S);
     }
 }
+
+class SolutionIII {
+    // same as SolutionII, SolutionI
+    // tag: str, hash
+    // time: O(n*m*logm), where n is length of strs, m is average length of strings
+    // space: O(n), used a hash to save all strings
+    /**
+     * @param strs: the given array of strings
+     * @return: The anagrams which have been divided into groups
+     */
+    public List<List<String>> groupAnagrams(String[] strs) {
+        Map<String, List<String>> map = new HashMap<>(); // sortedStr2Strs
+        for (String s : strs) {
+            String sorted = sorted(s);
+            if (!map.containsKey(sorted)) {
+                map.put(sorted, new ArrayList<String>());
+            }
+            map.get(sorted).add(s);
+        }
+
+        return new ArrayList<>(map.values());
+    }
+
+    private String sorted(String s) {
+        char[] chars = s.toCharArray();
+        Arrays.sort(chars);
+        return new String(chars);
+    }
+}
+

@@ -17,7 +17,7 @@ public class Solution {
         int l2 = num2.length();
         int[] res = new int[l1 + l2 + 1];
 
-        // multiply
+        // calculate product for each digit
         for (int i = 0; i < l1; i++) {
             for (int j = 0; j < l2; j++) {
                 res[i + j] += (num1.charAt(l1 - 1 - i) - '0') * (num2.charAt(l2 - 1 - j) - '0');
@@ -30,7 +30,7 @@ public class Solution {
             res[i] %= 10;
         }
 
-        // remove leading zeroes
+        // skip leading zeroes
         int i = l1 + l2;
         while (res[i] == 0 && i >= 1) {
             i--;

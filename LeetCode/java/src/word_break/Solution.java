@@ -5,10 +5,10 @@ import java.util.*;
 /**
  * Created by Xiaotian on 12/30/16.
  */
-// tag: dfs
-// time: O(2^n)
-// space: O(1)
 public class Solution {
+    // tag: dfs
+    // time: O(2^n)
+    // space: O(1)
     public boolean wordBreak(String s, Set<String> wordDict) {
         if (wordDict == null || wordDict.size() == 0) return false;
 
@@ -31,10 +31,10 @@ public class Solution {
     }
 }
 
-// tag: dp
-// time: O(n^2)
-// space: O(n)
 class SolutionII {
+    // tag: dp
+    // time: O(n^2)
+    // space: O(n)
     public boolean wordBreak(String s, Set<String> wordDict) {
         if (s == null || s.length() == 0) return false;
         if (wordDict == null || wordDict.size() == 0) return false;

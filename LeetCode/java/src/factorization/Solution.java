@@ -7,6 +7,7 @@ import java.util.*;
  */
 public class Solution {
     // TLE
+    // Improvement: http://www.cnblogs.com/lz87/p/7494025.html
     // tag: dfs
     // time: O(?)
     // space: O(1)

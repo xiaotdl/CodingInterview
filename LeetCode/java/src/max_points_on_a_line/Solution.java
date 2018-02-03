@@ -56,7 +56,6 @@ public class Solution {
                 }
             }
 
-            maxPoints = Math.max(maxPoints, samePoints + 1);
             maxPoints = Math.max(maxPoints, verticalPoints + samePoints + 1);
             for (int sameSlopePoints : map.values()) {
                 maxPoints = Math.max(maxPoints, sameSlopePoints + samePoints);

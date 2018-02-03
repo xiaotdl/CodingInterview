@@ -41,29 +41,30 @@ public class Solution {
 
 class SolutionII {
     // Same as Solution
-    /**
-     * @param n a positive integer
-     * @param primes the given prime list
-     * @return the nth super ugly number
+    /*
+     * @param n: a positive integer
+     * @param primes: the given prime list
+     * @return: the nth super ugly number
      */
     public int nthSuperUglyNumber(int n, int[] primes) {
-        int[] ptrToUglys = new int[primes.length];
-        int[] uglys = new int[n];
-        uglys[0] = 1;
+        int[] ptrToLastSmallest = new int[primes.length];  // ptr to last smallest ugly number
+        int[] uglyNums = new int[n];
+        uglyNums[0] = 1;
 
         for (int i = 1; i < n; i++) {
             int min = Integer.MAX_VALUE;
             for (int j = 0; j < primes.length; j++) {
-                min = Math.min(min, primes[j] * uglys[ptrToUglys[j]]);
+                min = Math.min(min, primes[j] * uglyNums[ptrToLastSmallest[j]]);
             }
-            uglys[i] = min;
 
-            for (int j = 0; j < ptrToUglys.length; j++) {
-                if (uglys[ptrToUglys[j]] * primes[j] == min) {
-                    ptrToUglys[j]++;
+            uglyNums[i] = min;
+
+            for (int j = 0; j < primes.length; j++) {
+                if (primes[j] * uglyNums[ptrToLastSmallest[j]] == min) {
+                    ptrToLastSmallest[j]++;
                 }
             }
         }
-        return uglys[n - 1];
+        return uglyNums[n - 1];
     }
 }

@@ -59,3 +59,32 @@ class SolutionII {
         return sb.toString();
     }
 }
+
+class SolutionIII {
+    // tag: math, 数位分离
+    // time: O(n)
+    // space: O(1)
+    /*
+     * @param a: a number
+     * @param b: a number
+     * @return: the result
+     */
+    public String addBinary(String a, String b) {
+        String res = "";
+
+        int carry = 0;
+        for (int i = a.length() - 1, j = b.length() - 1; i >= 0 || j >= 0; i--, j--) {
+            int sum = (i >= 0 ? a.charAt(i) - '0' : 0)
+                    + (j >= 0 ? b.charAt(j) - '0' : 0)
+                    + carry;
+            res = (sum % 2) + res;
+            carry = sum / 2;
+        }
+
+        if (carry == 1) {
+            res = carry + res;
+        }
+
+        return res;
+    }
+}

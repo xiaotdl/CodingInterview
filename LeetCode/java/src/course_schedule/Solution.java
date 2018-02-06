@@ -6,6 +6,7 @@ import java.util.*;
  * Created by Xiaotian on 12/23/17.
  */
 public class Solution {
+    // bfs vertices that has indegree == 0
     // tag: topological sort
     // time: O(mn*m/v), v: avg value in A
     // space: O(mn)
@@ -35,8 +36,8 @@ public class Solution {
         while(!queue.isEmpty()) {
             int course = queue.poll();
             count++;
-            int n = edges[course].size();
-            for (int i = 0; i < n; i++) {
+            int size = edges[course].size();
+            for (int i = 0; i < size; i++) {
                 int to = (int) edges[course].get(i);
                 indegree[to]--;
                 if (indegree[to] == 0) {
@@ -45,6 +46,54 @@ public class Solution {
             }
         }
 
+        return count == numCourses;
+    }
+}
+
+class SolutionII {
+    /*
+     * @param numCourses: a total of n courses
+     * @param prerequisites: a list of prerequisite pairs
+     * @return: true if can finish all courses or false
+     */
+    public boolean canFinish(int numCourses, int[][] prerequisites) {
+        int[] indegrees = new int[numCourses];
+        Map<Integer, Set<Integer>> edges = new HashMap<>(); // vertice2connectedVertices
+        for (int i = 0; i < numCourses; i++) {
+            edges.put(i, new HashSet<Integer>());
+        }
+
+        for (int i = 0; i < prerequisites.length; i++) {
+            int to = prerequisites[i][0];
+            int from = prerequisites[i][1]; // prerequisite course
+            if (!edges.get(from).contains(to)) { // in case duplicate prerequisites
+                indegrees[to]++;
+            }
+            edges.get(from).add(to);
+        }
+
+        Queue<Integer> q = new LinkedList<>();
+        for (int i = 0; i < numCourses; i++) {
+            if (indegrees[i] == 0) {
+                q.offer(i);
+            }
+        }
+
+        int count = 0;
+        while (!q.isEmpty()) {
+            int size = q.size();
+            for (int i = 0; i < size; i++){
+                int course = q.poll();
+                count++;
+
+                for (Integer to : edges.get(course)) {
+                    indegrees[to]--;
+                    if (indegrees[to] == 0) {
+                        q.offer(to);
+                    }
+                }
+            }
+        }
         return count == numCourses;
     }
 }

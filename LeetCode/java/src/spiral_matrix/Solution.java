@@ -54,3 +54,52 @@ public class Solution {
         return res;
     }
 }
+
+class SolutionII {
+    // use number of visited matrix node to terminate traversal
+    // tag: array
+    // time: O(m*n)
+    // space: O(1)
+    /*
+     * @param matrix: a matrix of m x n elements
+     * @return: an integer list
+     */
+    public List<Integer> spiralOrder(int[][] matrix) {
+        List<Integer> res = new ArrayList<>();
+        if (matrix == null || matrix.length == 0 || matrix[0].length == 0) return res;
+
+        int m = matrix.length;
+        int n = matrix[0].length;
+        int rowS = 0, rowE = m - 1;
+        int colS = 0, colE = n - 1;
+
+        while (res.size() != m*n) {
+            // go right
+            for (int j = colS; j <= colE; j++) {
+                res.add(matrix[rowS][j]);
+            }
+            rowS++;
+
+            // go down
+            for (int i = rowS; i <= rowE; i++) {
+                res.add(matrix[i][colE]);
+            }
+            colE--;
+
+            if (res.size() == m*n) break;
+
+            // go left
+            for (int j = colE; j >= colS; j--) {
+                res.add(matrix[rowE][j]);
+            }
+            rowE--;
+
+            // go up
+            for (int i = rowE; i >= rowS; i--) {
+                res.add(matrix[i][colS]);
+            }
+            colS++;
+        }
+        return res;
+    }
+}

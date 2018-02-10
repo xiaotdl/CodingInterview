@@ -36,11 +36,12 @@ class Relation {
     }
 };
 
-
 /* The knows API is defined in the parent class Relation.
       boolean knows(int a, int b); */
 
 class SolutionII extends Relation {
+    // a knows  b --> a is not a celebrity
+    // a !knows b --> b is not a celebrity
     // tag: array
     // time: O(n)
     // space: O(1)
@@ -49,20 +50,20 @@ class SolutionII extends Relation {
      * @return the celebrity's label or -1
      */
     public int findCelebrity(int n) {
+        if (n == 1) return 0;
+
         int candidate = 0;
         for (int i = 1; i < n; i++) {
-            if (knows(candidate, i)) { // candidate is not a celebrity
-                candidate = i;
-            }
+            candidate = knows(candidate, i) ? i : candidate;
         }
 
-        // verify candidate is a celebrity
-        for (int i = 0; i < n && i != candidate; i++) {
-            if (!knows(i, candidate) || knows(candidate, i)) {
-                return -1;
-            }
-        }
+        // verify candidate
+        for (int i = 0; i < n; i++) {
+            if (i == candidate) continue;
+            if (knows(i, candidate) && !knows(candidate, i)) continue;
+            return -1;
 
+        }
         return candidate;
     }
 }

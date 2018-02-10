@@ -105,14 +105,15 @@ class QuickSelectIterative {
 
     private int partition(int[] nums, int l, int r) {
         int pivot = nums[r];
-        int i = l - 1;
+        int i = l;
         for (int j = l; j < r; j++) {
             if (nums[j] < pivot) {
-                swap(nums, ++i, j);
+                swap(nums, i, j);
+                i++;
             }
         }
-        swap(nums, i + 1, r);
-        return i + 1;
+        swap(nums, i, r);
+        return i;
     }
 
     private void swap(int[] nums, int i, int j) {

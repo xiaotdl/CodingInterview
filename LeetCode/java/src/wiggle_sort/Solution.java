@@ -4,6 +4,9 @@ package wiggle_sort;
  * Created by Xiaotian on 10/5/17.
  */
 public class Solution {
+    // 当i为奇数时，nums[i] >= nums[i - 1]
+    // 当i为偶数时，nums[i] <= nums[i - 1]
+    // 不满足以上条件，swap(nums, i, i - 1)
     // tag: sort
     // time: O(n)
     // space: O(1)

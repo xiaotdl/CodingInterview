@@ -16,15 +16,15 @@ public class Solution {
 
         int cnt = 0;
         for (int i = 0; i < nums.length - 2; i++) {
-            int j = i + 1; // start
-            int k = nums.length - 1; //end
-            while (j < k) {
-                if (nums[i] + nums[j] + nums[k] < target) {
-                    cnt += k - j; // all k will satisfy
-                    j++;
+            int l = i + 1; // start
+            int r = nums.length - 1; //end
+            while (l < r) {
+                if (nums[i] + nums[l] + nums[r] < target) {
+                    cnt += r - l; // all k will satisfy
+                    l++;
                 }
                 else {
-                    k--;
+                    r--;
                 }
             }
         }

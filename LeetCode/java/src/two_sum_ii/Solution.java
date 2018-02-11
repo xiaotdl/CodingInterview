@@ -44,6 +44,18 @@ public class Solution {
         return -1;
     }
 
+
+    // Now if the input array is sorted, the n-by-n summation matrix will have the following properties:
+    // 1. Integers in each row are sorted in ascending order from left to right.
+    // 2. Integers in each column are sorted in ascending order from top to bottom.
+    //int[]{1,2,3,4}
+    // i = 0, j = n - 1
+    //   0   1   2   3
+    // 0     1+2 1+3 1+4 <= (i,j) starting point
+    // 1         2+3 2+4 <= l++
+    // 2          /\ 3+4
+    // 3          ||
+    //           r--
     // tag: two pointers
     // time: O(n)
     // space: O(1)

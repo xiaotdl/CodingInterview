@@ -54,3 +54,68 @@ public class Solution {
     }
 }
 
+
+class SolutionII {
+    // tag: ptr
+    // time: O(n^3)
+    // space: O(1)
+    /*
+     * @param numbers: Give an array
+     * @param target: An integer
+     * @return: Find all unique quadruplets in the array which gives the sum of zero
+     */
+    public List<List<Integer>> fourSum(int[] nums, int target) {
+        List<List<Integer>> res = new ArrayList<>();
+        if (nums == null || nums.length < 4) return res;
+
+        Arrays.sort(nums);
+
+        for (int i = 0; i < nums.length - 3; i++) {
+            if (i > 0 && nums[i] == nums[i - 1]) continue; // skip dups
+
+            List<List<Integer>> threes = threeSum(nums, i + 1, nums.length - 1, target - nums[i]);
+            if (threes.size() == 0) continue;
+
+            for (List<Integer> three : threes) {
+                res.add(new ArrayList<>(Arrays.asList(nums[i], three.get(0), three.get(1), three.get(2))));
+            }
+        }
+        return res;
+    }
+
+    public List<List<Integer>> threeSum(int[] nums, int l, int r, int target) {
+        List<List<Integer>> res = new ArrayList<>();
+        for (int i = l; i <= r - 2; i++) {
+            if (i > l && nums[i] == nums[i - 1]) continue; // skip dups
+
+            List<List<Integer>> twos = twoSum(nums, i + 1, nums.length - 1, target-nums[i]);
+            if (twos.size() == 0) continue;
+
+            for (List<Integer> two : twos) {
+                res.add(new ArrayList<>(Arrays.asList(nums[i], two.get(0), two.get(1))));
+            }
+        }
+        return res;
+    }
+
+    private List<List<Integer>> twoSum(int[] nums, int l , int r, int target) {
+        List<List<Integer>> res = new ArrayList<>();
+        while (l < r) {
+            if (nums[l] + nums[r] == target) {
+                res.add(new ArrayList<>(Arrays.asList(nums[l], nums[r])));
+                l++;
+                r--;
+                while (l < r && nums[l] == nums[l - 1]) l++; // skip dups
+                while (l < r && nums[r] == nums[r + 1]) r--; // skip dups
+            }
+            else if (nums[l] + nums[r] > target) {
+                r--;
+            }
+            else {
+                l++;
+            }
+        }
+        return res;
+    }
+}
+

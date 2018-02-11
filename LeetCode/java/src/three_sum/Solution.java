@@ -48,3 +48,49 @@ public class Solution {
         return results;
     }
 }
+
+class SolutionII {
+    // Same as Solution
+    /*
+     * @param numbers: Give an array numbers of n integer
+     * @return: Find all unique triplets in the array which gives the sum of zero.
+     */
+    public List<List<Integer>> threeSum(int[] nums) {
+        List<List<Integer>> res = new ArrayList<>();
+        if (nums == null || nums.length < 3) return res;
+
+        Arrays.sort(nums);
+
+        for (int i = 0; i < nums.length - 2; i++) {
+            if (i > 0 && nums[i] == nums[i - 1]) continue; // avoid duplicates
+
+            List<List<Integer>> twos = twoSum(nums, i + 1, nums.length - 1, -nums[i]);
+            if (twos.size() == 0) continue;
+
+            for (List<Integer> two : twos) {
+                res.add(new ArrayList<>(Arrays.asList(nums[i], two.get(0), two.get(1))));
+            }
+        }
+        return res;
+    }
+
+    private List<List<Integer>> twoSum(int[] nums, int l , int r, int target) {
+        List<List<Integer>> res = new ArrayList<>();
+        while (l < r) {
+            if (nums[l] + nums[r] == target) {
+                res.add(new ArrayList<>(Arrays.asList(nums[l], nums[r])));
+                l++;
+                r--;
+                while (l < r && nums[l] == nums[l - 1]) l++; // skip dups
+                while (l < r && nums[r] == nums[r + 1]) r--; // skip dups
+            }
+            else if (nums[l] + nums[r] > target) {
+                r--;
+            }
+            else {
+                l++;
+            }
+        }
+        return res;
+    }
+}

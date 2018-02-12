@@ -108,3 +108,44 @@ class SolutionII {
         return true;
     }
 }
+
+class SolutionIII {
+    // O(|V| + |E|) dfs solution
+    // make sure there's no cycle
+    // make sure all vertices are connected
+    public boolean validTree(int n, int[][] edges) {
+        Map<Integer, List<Integer>> graph = new HashMap<>(); // vertice2neighbors
+        for (int i = 0; i < n; i++) {
+            graph.put(i, new ArrayList<Integer>());
+        }
+        for (int i = 0; i < edges.length; i++) {
+            int u = edges[i][0];
+            int v = edges[i][1];
+            graph.get(u).add(v);
+            graph.get(v).add(u);
+        }
+
+        boolean[] visited = new boolean[n];
+        // make sure there is no cycle
+        if (hasCycle(graph, -1, 0, visited)) {
+            return false;
+        }
+        // make sure all vertices are connected
+        for (int i = 0; i < n; i++) {
+            if (!visited[i]) return false;
+        }
+        return true;
+    }
+
+    private boolean hasCycle(Map<Integer, List<Integer>> graph, int prev, int curr, boolean[] visited) {
+        visited[curr] = true;
+
+        List<Integer> neighbors = graph.get(curr);
+        for (int next : neighbors) {
+            if (next == prev) continue; // don't go backwards
+            if (visited[next]) return true;
+            if (hasCycle(graph, curr, next, visited)) return true;
+        }
+        return false;
+    }
+}

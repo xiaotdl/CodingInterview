@@ -171,6 +171,27 @@ class SolutionIII {
 }
 
 class SolutionIV {
+    // tag: brutal force
+    // time: O(n^2)
+    // space: O(1)
+    /*
+     * @param A: an array
+     * @return: total of reverse pairs
+     */
+    public long reversePairs(int[] A) {
+        long res = 0;
+        for (int i = 0; i < A.length - 1; i++) {
+            int cntSmallerNumsRHS = 0;
+            for (int j = i + 1; j < A.length; j++) {
+                if (A[j] < A[i]) cntSmallerNumsRHS++;
+            }
+            res += cntSmallerNumsRHS;
+        }
+        return res;
+    }
+}
+
+class SolutionV {
 // II -- Partition recurrence relation
 // i = 0, j = n - 1, m = (n-1)/2
 // T(0, n - 1) = T(0, m) + T(m + 1, n - 1) + C

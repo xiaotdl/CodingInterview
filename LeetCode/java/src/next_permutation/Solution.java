@@ -46,3 +46,46 @@ public class Solution {
         nums[y] = tmp;
     }
 }
+
+class SolutionII {
+    // Ref: https://leetcode.com/problems/next-permutation/solution/
+    // tag: array, permutation
+    // time: O(n)
+    // space: O(1)
+    /*
+     * @param nums: A list of integers
+     * @return: A list of integers
+     */
+    public int[] nextPermutation(int[] nums) {
+        if (nums == null || nums.length <= 1) return nums;
+
+        int i = nums.length - 2;
+        while (i >= 0 && nums[i] >= nums[i + 1]) i--;
+
+        if (i < 0) {
+            reverse(nums, 0, nums.length - 1);
+            return nums;
+        }
+
+        int j = nums.length - 1;
+        while (j >= 0 && nums[j] <= nums[i]) j--;
+
+        swap(nums, i, j);
+        reverse(nums, i + 1, nums.length - 1);
+        return nums;
+    }
+
+    private void reverse(int[] nums, int l, int r) {
+        while (l < r) {
+            swap(nums, l, r);
+            l++;
+            r--;
+        }
+    }
+
+    private void swap(int[] nums, int i, int j) {
+        int tmp = nums[i];
+        nums[i] = nums[j];
+        nums[j] = tmp;
+    }
+}

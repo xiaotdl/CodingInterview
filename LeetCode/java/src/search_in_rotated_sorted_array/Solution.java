@@ -63,3 +63,45 @@ public class Solution {
         return -1;
     }
 }
+
+class SolutionII {
+    // tag: array, binary search
+    // time: O(logn)
+    // space: O(1)
+    /*
+     * @param A: an integer rotated sorted array
+     * @param target: an integer to be searched
+     * @return: an integer
+     */
+    public int search(int[] A, int target) {
+        if (A == null || A.length == 0) return -1;
+        int l = 0;
+        int r = A.length - 1;
+        while (l + 1 < r) {
+            int m = l + (r - l) / 2;
+            if (A[m] == target) {
+                return m;
+            }
+
+            if (A[l] < A[m]) { // 确定m的位置是上边还是下边
+                if (A[l] <= target && target <= A[m]) { // 确定target是不是在可描述的一小截内
+                    r = m;
+                }
+                else {
+                    l = m;
+                }
+            }
+            else {
+                if (A[m] <= target && target <= A[r]) {
+                    l = m;
+                }
+                else {
+                    r = m;
+                }
+            }
+        }
+        if (A[l] == target) return l;
+        if (A[r] == target) return r;
+        return -1;
+    }
+}

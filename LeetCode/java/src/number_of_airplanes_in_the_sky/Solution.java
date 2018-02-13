@@ -58,6 +58,7 @@ public class Solution {
         int currCnt = 0;
         int maxCnt = 0;
         while (!times.isEmpty()) {
+            // 遍历所有时间点，和同一时间点发生的时间
             int currTime = times.pollFirst();
             while (i < events.size() && events.get(i).time == currTime) {
                 Event e = events.get(i);

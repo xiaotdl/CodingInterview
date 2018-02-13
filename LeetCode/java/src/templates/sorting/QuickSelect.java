@@ -8,7 +8,7 @@ import java.util.*;
 public class QuickSelect {
     // 快速选择
     // time:
-    //   avg:   O(n)
+    //   avg:   O(n), O(1/2n)+O(1/4n)+...<O(n)
     //   worst: O(n^2), e.g. all same nums
     // space: O(1), stack space: O(logn)
     // Steps:

@@ -50,7 +50,7 @@ public class Solution {
 
         Collections.sort(coordinates);
 
-        TreeSet<Coordinate> maxHeap = new TreeSet<>(new Comparator<Coordinate>(){
+        TreeSet<Coordinate> maxHeap = new TreeSet<>(new Comparator<Coordinate>(){ // sorted and remove in O(1) time
             @Override
             public int compare(Coordinate a, Coordinate b) {
                 if (a.y != b.y) return a.y - b.y;

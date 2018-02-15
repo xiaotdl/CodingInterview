@@ -34,3 +34,29 @@ public class Solution {
         return sb.length() == 0 ? "/" : sb.toString();
     }
 }
+
+class SolutionII {
+    // tag: str, stack
+    // time: O(n)
+    // space: O(n)
+    /*
+     * @param path: the original path
+     * @return: the simplified path
+     */
+    public String simplifyPath(String path) {
+        Stack<String> stack = new Stack<>();
+        for (String dir : path.split("/")) {
+            if (dir.equals("") || dir.equals(".")) continue;
+            if (dir.equals("..")) {
+                if (!stack.isEmpty()) stack.pop();
+            }
+            else {
+                stack.push(dir);
+            }
+        }
+        String res = "";
+        while (!stack.isEmpty()) res = stack.pop() + "/" + res;
+        return res.length() > 1 ? "/" + res.substring(0, res.length() - 1)
+                : "/";
+    }
+}

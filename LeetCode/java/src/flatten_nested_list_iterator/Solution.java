@@ -31,9 +31,10 @@ class NestedIterator implements Iterator<Integer> {
     Stack<NestedInteger> stack;
     public NestedIterator(List<NestedInteger> nestedList) {
         stack = new Stack<>();
-        for (NestedInteger e : nestedList) {
-            stack.push(e);
-        }
+//        for (NestedInteger e : nestedList) {
+//            stack.push(e);
+//        }
+        stack.push(nestedList.get(0)); // first is always a list
     }
 
     // @return {int} the next element in the iteration
@@ -79,3 +80,53 @@ class NestedInteger {
     public Integer getInteger() {return 0;}
     public List<NestedInteger> getList() {return new ArrayList<NestedInteger>();}
 }
+
+
+class NestedIteratorII implements Iterator<Integer> {
+
+    Stack<NestedInteger> stack;
+    public NestedIteratorII(List<NestedInteger> nestedList) {
+        stack = new Stack<>();
+        pushToStack(nestedList);
+    }
+
+    // @return {int} the next element in the iteration
+    @Override
+    public Integer next() {
+        if (hasNext()) {
+            return stack.pop().getInteger();
+        }
+        return null;
+    }
+
+    // @return {boolean} true if the iteration has more element or false
+    @Override
+    public boolean hasNext() {
+        while (!stack.isEmpty() && !stack.peek().isInteger()) {
+            pushToStack(stack.pop().getList());
+        }
+
+        return !stack.isEmpty();
+    }
+
+    @Override
+    public void remove() {}
+
+    // put list into stack reversely
+    private void pushToStack(List<NestedInteger> nestedList) {
+        Stack<NestedInteger> tmpStack = new Stack<>();
+        for (NestedInteger nested : nestedList) {
+            tmpStack.push(nested);
+        }
+
+        while (!tmpStack.isEmpty()) {
+            stack.push(tmpStack.pop());
+        }
+    }
+}
+
+/**
+ * Your NestedIterator object will be instantiated and called as such:
+ * NestedIterator i = new NestedIterator(nestedList);
+ * while (i.hasNext()) v.add(i.next());
+ */

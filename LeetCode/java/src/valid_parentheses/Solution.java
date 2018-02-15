@@ -62,20 +62,20 @@ class SolutionII {
         pair.put('{', '}');
 
         for (Character c : s.toCharArray()) {
-            if (c == '(' || c == '[' || c == '{') {
+            if (pair.containsKey(c)) { // (, [, {
                 stack.push(c);
             }
-            else if (c == ')' || c == ']' || c == '}') {
-                if (stack.isEmpty()) {
+            else { // ), ], }
+                if (stack.isEmpty()) { // more r
                     return false;
                 }
                 Character leftParenthesis = stack.pop();
-                if (c != pair.get(leftParenthesis)) {
+                if (c != pair.get(leftParenthesis)) { // l and r don't match
                     return false;
                 }
             }
         }
 
-        return stack.isEmpty();
+        return stack.isEmpty(); // more l
     }
 }

@@ -41,3 +41,36 @@ public class Solution {
         return max;
     }
 }
+
+class SolutionII {
+    // sliding window
+    // tag: str, hash, ptr
+    // time: O(n)
+    // space: O(1)
+    public int lengthOfLongestSubstringTwoDistinct(String s) {
+        Map<Character, Integer> m = new HashMap<>(); // char2cnt;
+        char[] S = s.toCharArray();
+        int maxLen = 0;
+        int l, r;
+        for (l = 0, r = 0; r < S.length; l++) {
+            while (r < S.length) {
+                if (m.containsKey(S[r])) {
+                    m.put(S[r], m.get(S[r]) + 1);
+                }
+                else {
+                    if (m.size() < 2) {
+                        m.put(S[r], 1);
+                    }
+                    else {
+                        break;
+                    }
+                }
+                r++;
+            }
+            maxLen = Math.max(maxLen, r - l);
+            m.put(S[l], m.get(S[l]) - 1);
+            if (m.get(S[l]) == 0) m.remove(S[l]);
+        }
+        return maxLen;
+    }
+}

@@ -6,6 +6,27 @@ import java.util.*;
  * Created by Xiaotian on 12/27/16.
  */
 public class Solution {
+    // TLE
+    // tag: brutal force, dfs
+    // time: O(2^n)
+    // space: O(2^n)
+    public int lengthOfLIS(int[] nums) {
+        return dfs(nums, Integer.MIN_VALUE, 0);
+    }
+
+    private int dfs(int[] nums, int prevVal, int pos) {
+        if (pos == nums.length) return 0;
+
+        int len1 = 0;
+        if (nums[pos] > prevVal) {
+            len1 = dfs(nums, nums[pos], pos + 1) + 1; // with num at pos
+        }
+        int len2 = dfs(nums, prevVal, pos + 1); // without num at pos
+        return Math.max(len1, len2);
+    }
+}
+
+class SolutionII {
     // tag: dp
     // time: O(n^2)
     // space: O(n)
@@ -31,7 +52,7 @@ public class Solution {
     }
 }
 
-class SolutionII {
+class SolutionIII {
     // tag: dp, binary search
     // time: O(nlogn)
     // space: O(n)
@@ -46,5 +67,28 @@ class SolutionII {
             if(i == lenOfLIS) lenOfLIS++;
         }
         return lenOfLIS;
+    }
+}
+
+class SolutionIV {
+    // Same as SolutionII
+    public int lengthOfLIS(int[] nums) {
+        if (nums == null || nums.length == 0) return 0;
+
+        // dp[i]: maxLen LIS from nums[0..i] including nums[i]
+        int[] dp = new int[nums.length];
+        dp[0] = 1;
+        int maxLen = 1;
+        for (int i = 1; i < nums.length; i++) {
+            int prevMaxLen = 0;
+            for (int j = 0; j < i; j++) {
+                if (nums[i] > nums[j]) {
+                    prevMaxLen = Math.max(prevMaxLen, dp[j]);
+                }
+            }
+            dp[i] = prevMaxLen + 1;
+            maxLen = Math.max(maxLen, dp[i]);
+        }
+        return maxLen;
     }
 }

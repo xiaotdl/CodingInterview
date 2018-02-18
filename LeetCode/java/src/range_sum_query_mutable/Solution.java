@@ -143,3 +143,51 @@ class NumArrayII {
  * int param_2 = obj.sumRange(i,j);
  */
 
+class NumArrayIII {
+    // https://www.cnblogs.com/sixdaycoder/p/4348360.html
+    // Binary Indexed Tree(BIT)
+    // last bit: i & -i
+    // tag: BIT
+    // time:
+    //   insert: O(logn)
+    //   search: O(logn)
+    // space: O(n)
+    int n;
+    int[] nums;
+    int[] BIT; // BIT[i]: sum from nums[i - 2^k + 1...i]
+    public NumArrayIII(int[] A) {
+        n = A.length;
+        nums = new int[n];
+        BIT = new int[n + 1];
+        for (int i = 0; i < n; i++) {
+            update(i, A[i]);
+        }
+    }
+
+    public void update(int idx, int val) {
+        int diff = val - nums[idx];
+        nums[idx] = val;
+        for (int i = idx + 1; i <= n; i += (i & -i)) { // find parent
+            BIT[i] += diff;
+        }
+    }
+
+    private int getSum(int idx) {
+        int sum = 0;
+        for (int i = idx; i > 0; i -= (i & -i)) { // find child
+            sum += BIT[i];
+        }
+        return sum;
+    }
+
+    public int sumRange(int i, int j) {
+        return getSum(j+1) - getSum(i);
+    }
+}
+
+/**
+ * Your NumArray object will be instantiated and called as such:
+ * NumArray obj = new NumArray(nums);
+ * obj.update(i,val);
+ * int param_2 = obj.sumRange(i,j);
+ */

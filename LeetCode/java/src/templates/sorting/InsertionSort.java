@@ -36,3 +36,24 @@ public class InsertionSort {
         System.out.println(Arrays.toString(nums));
     }
 }
+
+class SolutionII {
+    /*
+     * @param A: an integer array
+     * @return:
+     */
+    public void sortIntegers(int[] A) {
+        for (int i = 1; i < A.length; i++) {
+            for (int j = i; j > 0; j--) {
+                if (A[j] >= A[j - 1]) break;
+                swap(A, j, j - 1);
+            }
+        }
+    }
+
+    private void swap(int[] A, int i, int j) {
+        int tmp = A[i];
+        A[i] = A[j];
+        A[j] = tmp;
+    }
+}

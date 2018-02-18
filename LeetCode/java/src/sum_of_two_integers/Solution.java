@@ -4,6 +4,7 @@ package sum_of_two_integers;
  * Created by Xiaotian on 10/22/17.
  */
 public class Solution {
+    // iterative
     // a + b = digits + carries, save digits in a and carries in b to iterate
     // tag: bit
     // time: O(1)
@@ -31,4 +32,12 @@ public class Solution {
         return a;
     }
 
+}
+
+class SolutionII {
+    // recursive
+    public int getSum(int a, int b) {
+        if (b == 0) return a;
+        return getSum(a ^ b, (a & b) << 1);
+    }
 }

@@ -10,8 +10,8 @@ public class Solution {
     public int numSquares(int n) {
         // dp[i]: minNumSquares of i
         int[] dp = new int[n + 1];
-        dp[1] = 1;
-        for (int i = 2; i <= n; i++) {
+        dp[0] = 0;
+        for (int i = 1; i < n + 1; i++) {
             dp[i] = Integer.MAX_VALUE;
             for (int sqrt = 1; sqrt*sqrt <= i; sqrt++) {
                 dp[i] = Math.min(dp[i], dp[i - sqrt*sqrt] + 1);

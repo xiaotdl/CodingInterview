@@ -33,3 +33,35 @@ class Solution {
         dfs(root.right, root, currLen);
     }
 }
+
+class SolutionII {
+    // bottom up
+    // tag: dfs
+    // time: O(n)
+    // space: O(1)
+    int maxLen;
+    public int longestConsecutive(TreeNode root) {
+        maxLen = 0;
+        dfs(root);
+        return maxLen;
+    }
+
+    private int dfs(TreeNode root) {
+        if (root == null) return 0;
+
+        int lenL = 0;
+        if (root.left != null) {
+            lenL = dfs(root.left);
+            if (root.val + 1 != root.left.val) lenL = 0;
+        }
+        int lenR = 0;
+        if (root.right != null) {
+            lenR = dfs(root.right);
+            if (root.val + 1 != root.right.val) lenR = 0;
+        }
+        int currMaxLen = Math.max(lenL, lenR) + 1;
+        maxLen = Math.max(maxLen, currMaxLen);
+        return currMaxLen;
+    }
+
+}

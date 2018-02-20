@@ -61,3 +61,52 @@ public class Solution {
     }
 }
 
+class SolutionII {
+    // Ref: https://leetcode.com/problems/longest-uncommon-subsequence-ii/discuss/99443/Java(15ms)-Sort-+-check-subsequence
+    // tag: str
+    // time: O(n^2)
+    // space: O(1)
+    public int findLUSlength(String[] strs) {
+        Arrays.sort(strs, new Comparator<String>() {
+            @Override
+            public int compare(String s1, String s2) {
+                return s2.length() - s1.length();
+            }
+        });
+
+        Set<String> duplicates = getDuplicates(strs);
+        for (int i = 0; i < strs.length; i++) {
+            if (duplicates.contains(strs[i])) continue;
+            if (i == 0) return strs[0].length();
+            for (int j = 0; j < i; j++) {
+                if (isSubsequence(strs[i], strs[j])) break;
+                if (j == i - 1) return strs[i].length();
+            }
+        }
+        return -1;
+    }
+
+    private Set<String> getDuplicates(String[] strs) {
+        Set<String> seen = new HashSet<>();
+        Set<String> duplicates = new HashSet<>();
+        for (String s : strs) {
+            if (seen.contains(s)) {
+                duplicates.add(s);
+            }
+            else {
+                seen.add(s);
+            }
+        }
+        return duplicates;
+    }
+
+    private boolean isSubsequence(String subseq, String s) {
+        int i = 0;
+        int j = 0;
+        while (i < subseq.length() && j < s.length()) {
+            if (subseq.charAt(i) == s.charAt(j)) i++;
+            j++;
+        }
+        return i == subseq.length();
+    }
+}

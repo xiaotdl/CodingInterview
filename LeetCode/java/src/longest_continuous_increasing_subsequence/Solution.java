@@ -69,3 +69,25 @@ class SolutionII {
         return reversed;
     }
 }
+
+class SolutionIII {
+    // tag: array
+    // time: O(n)
+    // space: O(1)
+    public int findLengthOfLCIS(int[] nums) {
+        if (nums == null || nums.length == 0) return 0;
+
+        int maxLen = 1;
+        int currLen = 0;
+        for (int i = 0; i < nums.length; i++) {
+            if (i == 0 || nums[i] > nums[i - 1]) {
+                currLen++;
+                maxLen = Math.max(maxLen, currLen);
+            }
+            else {
+                currLen = 1;
+            }
+        }
+        return maxLen;
+    }
+}

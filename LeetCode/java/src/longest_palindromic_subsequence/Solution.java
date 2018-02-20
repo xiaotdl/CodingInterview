@@ -35,3 +35,43 @@ public class Solution {
         return dp[0][n - 1];
     }
 }
+
+class SolutionII {
+    // Same as Solution, with print demo
+    // Ref: https://leetcode.com/problems/longest-palindromic-subsequence/discuss/99101/Straight-forward-Java-DP-solution
+    public int longestPalindromeSubseq(String s) {
+        int[][] dp = new int[s.length()][s.length()];
+
+        for (int i = s.length() - 1; i >= 0; i--) {
+//            for (int k = 0; k < i; k++) {
+//                System.out.print("x" + " ");
+//            }
+            dp[i][i] = 1;
+//            System.out.print(dp[i][i] + " ");
+            for (int j = i+1; j < s.length(); j++) {
+                if (s.charAt(i) == s.charAt(j)) {
+                    dp[i][j] = dp[i+1][j-1] + 2;
+                } else {
+                    dp[i][j] = Math.max(dp[i+1][j], dp[i][j-1]);
+                }
+//                try {
+//                    Thread.sleep(500);
+//                } catch (InterruptedException e) {
+//                    e.printStackTrace();
+//                }
+//                System.out.print(dp[i][j] + " ");
+            }
+//            System.out.println();
+        }
+//        System.out.println();
+//        System.out.println();
+//        int n = s.length();
+//        for (int i = 0; i < n; i++) {
+//            for (int j = 0; j < n; j++) {
+//                System.out.print(dp[i][j] + " ");
+//            }
+//            System.out.println();
+//        }
+        return dp[0][s.length()-1];
+    }
+}

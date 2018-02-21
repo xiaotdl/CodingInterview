@@ -9,7 +9,7 @@ public class Solution {
     // TLE
     // tag: dfs
     // time: O(n^2)
-    // space: O(n^2)
+    // space: O(1)
     public int findCheapestPrice(int n, int[][] flights, int src, int dst, int K) {
         Map<Integer, Map<Integer, Integer>> prices = new HashMap<>(); // src2<dst2price>
         for (int i = 0; i < n; i++) {
@@ -43,7 +43,7 @@ public class Solution {
 class SolutionII {
     // tag: bfs
     // time: O(n^2)
-    // space: O(n^2)
+    // space: O(n)
     public int findCheapestPrice(int n, int[][] flights, int src, int dst, int K) {
         // minCost[x]: min cost so far from city src to city x
         int[] minCost = new int[n];

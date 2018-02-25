@@ -46,3 +46,48 @@ public class Solution {
         return res;
     }
 }
+
+class SolutionII {
+    // tag: dp, backtracking
+    // time: O(n^2)
+    // space: O(n)
+    public List<Integer> largestDivisibleSubset(int[] nums) {
+        List<Integer> path = new ArrayList<>();
+        if (nums == null || nums.length == 0) return path;
+
+        Arrays.sort(nums);
+
+        int n = nums.length;
+        // dp[i]: number of largestDivisibleSubset from nums[0..i]
+        int[] dp = new int[n];
+        for (int i = 0; i < n; i++) dp[i] = 1;
+        int[] bt = new int[n];
+        for (int i = 0; i < n; i++) bt[i] = i;
+
+        int maxLen = 1;
+        int maxLenIdx = 0;
+        for (int i = 1; i < n; i++) {
+            for (int j = 0; j < i; j++) {
+                if (nums[j] == 0) continue;
+                if (nums[i] % nums[j] == 0) {
+                    if (dp[j] + 1 > dp[i]) {
+                        dp[i] = dp[j] + 1;
+                        bt[i] = j;
+                    }
+                }
+            }
+            if (dp[i] > maxLen) {
+                maxLen = dp[i];
+                maxLenIdx = i;
+            }
+        }
+
+        while (maxLenIdx >= 0) {
+            path.add(0, nums[maxLenIdx]);
+            if (maxLenIdx == bt[maxLenIdx]) break;
+            maxLenIdx = bt[maxLenIdx];
+        }
+
+        return path;
+    }
+}

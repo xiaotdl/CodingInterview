@@ -86,3 +86,45 @@ class SolutionII {
     }
 }
 
+
+class SolutionIII {
+    // tag: dp
+    // time: O(n^2)
+    // space: O(n^2)
+    public int minCut(String s) {
+        // isPalindrome[i][j]: s[i..j] is palindrome
+        boolean[][] isPalindrome = prepare(s);
+        // f[i]: cntOfPalindromes(""||s[0..i-1])
+        int[] f = new int[s.length() + 1];
+        f[0] = 0;
+        for (int i = 1; i < s.length() + 1; i++) {
+            f[i] = Integer.MAX_VALUE;
+            for (int j = 0; j <= i - 1; j++) {
+                if (isPalindrome[j][i - 1]) {
+                    f[i] = Math.min(f[i], f[j] + 1);
+                }
+            }
+        }
+        return f[s.length()] - 1;
+
+    }
+
+    private boolean[][] prepare(String s) {
+        char[] S = s.toCharArray();
+        int n = s.length();
+
+        // f[i][j]: isPalindrome(s[i..j])
+        boolean[][] f = new boolean[n][n];
+        for (int i = 0; i < n; i++) {
+            f[i][i] = true;
+        }
+
+        for (int len = 2; len <= n; len++) {
+            for (int i = 0, j = i + len - 1; j < n; i++, j++) {
+                f[i][j] = (i + 1 <= j - 1 ? f[i + 1][j - 1] : true)
+                        && S[i] == S[j];
+            }
+        }
+        return f;
+    }
+}

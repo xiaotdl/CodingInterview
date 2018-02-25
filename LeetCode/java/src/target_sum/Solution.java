@@ -21,3 +21,65 @@ public class Solution {
         return cnt;
     }
 }
+
+class SolutionII {
+    // tag: dp
+    // time: O(n*sum), sum of all nums
+    // space: O(n*sum)
+    public int findTargetSumWays(int[] nums, int S) {
+        int sum = 0;
+        for (int a : nums) {
+            sum += a;
+        }
+        if (sum < Math.abs(S)) {
+            return 0;
+        }
+
+        //init for dp
+        int doubleSum = sum << 1;
+        int[][] dp = new int[nums.length][doubleSum + 1];
+        if (nums[0] == 0) {
+            dp[0][sum] = 2;
+        } else {
+            dp[0][sum - nums[0]] = 1;
+            dp[0][sum + nums[0]] = 1;
+        }
+//        for (int i = 0; i < nums.length; i++) {
+//            for (int j = 0; j <= doubleSum; j++) {
+//                System.out.print(dp[i][j] + "  ");
+//            }
+//            System.out.println();
+//        }
+//        System.out.println();
+
+        //dp
+        for (int i = 1; i < nums.length; i++) {
+            for (int j = 0; j <= doubleSum; j++) {
+                if (j - nums[i] >= 0) {
+                    dp[i][j] += dp[i - 1][j - nums[i]];
+                }
+                if (j + nums[i] <= doubleSum) {
+                    dp[i][j] += dp[i - 1][j + nums[i]];
+                }
+            }
+        }
+//        for (int i = 0; i < nums.length; i++) {
+//            for (int j = 0; j <= doubleSum; j++) {
+//                try
+//                {
+//                    Thread.sleep(100);
+//                }
+//                catch(InterruptedException ex)
+//                {
+//                    Thread.currentThread().interrupt();
+//                }
+//                System.out.print(dp[i][j] + "  ");
+//            }
+//            System.out.println();
+//        }
+//        System.out.println();
+
+        return dp[nums.length - 1][S + sum];
+    }
+}
+

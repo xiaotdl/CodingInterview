@@ -62,6 +62,27 @@ class SolutionII {
                         j >= A[i - 1] ? dp[i - 1][j - A[i - 1]] + V[i - 1] : 0);
             }
         }
+        printSelectedItems(dp, A, V, m);
         return dp[A.length][m];
+    }
+
+    // backtracking selected items
+    private void printSelectedItems(int[][] f, int[] A, int[] V, int S) {
+        int m = f.length;
+        int n = f[0].length;
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                System.out.print(f[i][j] + " ");
+            }
+            System.out.println();
+        }
+        System.out.println();
+
+        for (int i = m - 1; i >= 1 && S > 0; i--) {
+            if (f[i][S] == f[i - 1][S]) continue;
+            System.out.println("Taking item: " + (i-1) + " size: " + A[i-1] + " val: " + V[i-1]);
+            S -= A[i-1];
+        }
+        System.out.println();
     }
 }

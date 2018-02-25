@@ -33,3 +33,40 @@ public class Solution {
         return prevStr.toString();
     }
 }
+
+class SolutionII {
+    // Same as Solution
+    // tag: str, iteration
+    // time: O(n^2)
+    // space: O(1)
+    public String countAndSay(int n) {
+        if (n == 1) return "1";
+        String prevNum = "1";
+        String currNum = "0";
+        for (int i = 2; i <= n; i++) { // i th digit
+            currNum = count(prevNum);
+            // System.out.println(currNum);
+            prevNum = currNum;
+        }
+        return "" + currNum;
+    }
+
+    private String count(String num) {
+        char prevDigit = num.charAt(0);
+        int prevCnt = 1;
+        String res = "";
+        for (int i = 1; i < num.length(); i++) {
+            char digit = num.charAt(i);
+            if (digit == prevDigit) {
+                prevCnt++;
+            }
+            else {
+                res += "" + prevCnt + prevDigit;
+                prevDigit = digit;
+                prevCnt = 1;
+            }
+        }
+        res += "" + prevCnt + prevDigit;
+        return res;
+    }
+}

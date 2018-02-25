@@ -8,6 +8,7 @@ import java.util.*;
 public class Solution {
     // tag: array, dfs, backtracking
     // time: O(depth*leafs), depth = n, leafs = n - 1
+    //       O(2^(n-1))
     // space: O(1)
     public List<List<String>> partition(String s) {
         List<List<String>> res = new ArrayList<>();
@@ -44,5 +45,42 @@ public class Solution {
             r--;
         }
         return isPalindrom;
+    }
+}
+
+class SolutionII {
+    // Same as Solution
+    public List<List<String>> partition(String s) {
+        List<List<String>> res = new ArrayList<>();
+        List<String> path = new ArrayList<>();
+        dfs(s, 0, path, res);
+        return res;
+    }
+
+    private void dfs(String s, int pos, List<String> path, List<List<String>> res) {
+        if (pos == s.length()) {
+            res.add(new ArrayList<String>(path));
+            return;
+        }
+
+        for (int i = pos; i < s.length(); i++) {
+            String currStr = s.substring(pos, i + 1);
+            if (isPalindrome(currStr)) {
+                path.add(currStr);
+                dfs(s, i + 1, path, res);
+                path.remove(path.size() - 1);
+            }
+        }
+    }
+
+    private boolean isPalindrome(String s) {
+        int i = 0;
+        int j = s.length() - 1;
+        while (i < j) {
+            if (s.charAt(i) != s.charAt(j)) return false;
+            i++;
+            j--;
+        }
+        return true;
     }
 }

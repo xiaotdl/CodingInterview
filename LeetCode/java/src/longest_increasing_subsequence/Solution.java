@@ -92,3 +92,94 @@ class SolutionIV {
         return maxLen;
     }
 }
+
+class SolutionV {
+    // Same as SolutionIV, with backtracking path print out
+    public int lengthOfLIS(int[] nums) {
+        if (nums == null || nums.length == 0) return 0;
+
+        // dp[i]: maxLen LIS from nums[0..i] including nums[i]
+        int[] dp = new int[nums.length];
+        dp[0] = 1;
+        int[] bt = new int[nums.length];
+        for (int i = 0; i < nums.length; i++) bt[i] = i;
+
+        int maxLen = 1;
+        int currMaxIdx = 0;
+        for (int i = 1; i < nums.length; i++) {
+            int prevMaxLen = 0;
+            for (int j = 0; j < i; j++) {
+                if (nums[i] > nums[j]) {
+                    prevMaxLen = Math.max(prevMaxLen, dp[j]);
+                    bt[i] = j;
+                }
+            }
+            dp[i] = prevMaxLen + 1;
+            if (dp[i] > maxLen) {
+                maxLen = dp[i];
+                currMaxIdx = i;
+            }
+        }
+
+        // print out backtracking path
+        List<Integer> path = new ArrayList<>();
+        while (currMaxIdx >= 0) {
+            path.add(0, nums[currMaxIdx]);
+            if (currMaxIdx == bt[currMaxIdx]) break;
+            currMaxIdx = bt[currMaxIdx];
+        }
+        System.out.println(path);
+
+        return maxLen;
+    }
+}
+
+class SolutionVI {
+    // tag: dp, binary search
+    // time: O(nlogn)
+    // space: O(n)
+    /**
+     * @param nums: The integer array
+     * @return: The length of LIS (longest increasing subsequence)
+     */
+    public int longestIncreasingSubsequence(int[] nums) {
+        // minLast[i]: min last num when LIS is i
+        int[] minLast = new int[nums.length + 1];
+        minLast[0] = Integer.MIN_VALUE;
+        for (int i = 1; i <= nums.length; i++) {
+            minLast[i] = Integer.MAX_VALUE;
+        }
+
+        for (int i = 0; i < nums.length; i++) {
+            // find the first number in minLast >= nums[i]
+            int idx = binarySearch(minLast, nums[i]);
+            minLast[idx] = nums[i];
+        }
+        // System.out.println(Arrays.toString(minLast));
+
+        for (int i = nums.length; i >= 1; i--) {
+            if (minLast[i] != Integer.MAX_VALUE) {
+                return i;
+            }
+        }
+
+        return 0;
+    }
+
+    // find the first number >= target
+    private int binarySearch(int[] nums, int target) {
+        int l = 0;
+        int r = nums.length - 1;
+        while (l + 1 < r) {
+            int m = (r - l) / 2 + l;
+            if (nums[m] < target) {
+                l = m;
+            } else {
+                r = m;
+            }
+        }
+        if (nums[l] >= target) return l;
+        if (nums[r] >= target) return r;
+        return -1;
+    }
+}

@@ -61,7 +61,7 @@ public class Solution {
 class SolutionII {
     // same as SolutionI
     // tag: str, dp
-    // time: O(m+n), one pass through string
+    // time: O(mn), one pass through string
     // space: O(mn), used two dimensional matrix to save path
     public int numDistinct(String s, String t) {
         if (s == null || t == null || s.length() < t.length()) return 0;
@@ -86,5 +86,32 @@ class SolutionII {
             }
         }
         return dp[m][n];
+    }
+}
+
+class SolutionIII {
+    // same as SolutionI,II
+    // tag: str, dp
+    // time: O(mn)
+    // space: O(mn)
+    public int numDistinct(String s, String t) {
+        char[] S = s.toCharArray();
+        char[] T = t.toCharArray();
+        // dp[i][j]: numDistince(""||s[0..i-1], ""||t[0..j-1])
+        int[][] dp = new int[S.length + 1][T.length + 1];
+        dp[0][0] = 1;
+        for (int i = 1; i < S.length + 1; i++) {
+            dp[i][0] = 1;
+        }
+        for (int j = 1; j < T.length + 1; j++) {
+            dp[0][j] = 0;
+        }
+        for (int i = 1; i < S.length + 1; i++) {
+            for (int j = 1; j < T.length + 1; j++) {
+                dp[i][j] = dp[i - 1][j]
+                        + (S[i - 1] == T[j - 1] ? dp[i - 1][j - 1] : 0);
+            }
+        }
+        return dp[S.length][T.length];
     }
 }

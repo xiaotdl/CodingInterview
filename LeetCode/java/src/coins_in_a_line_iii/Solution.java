@@ -56,3 +56,38 @@ public class Solution {
         return dp[l][r];
     }
 }
+
+class SolutionII {
+    // tag: dp
+    // time: O(n^2)
+    // space: O(n^2)
+    /*
+     * @param values: a vector of integers
+     * @return: a boolean which equals to true if the first player will win
+     */
+    public boolean firstWillWin(int[] V) {
+        int n = V.length;
+        // sum[i]: sum of V[0..i-1]
+        int[] sum = new int[n + 1];
+        for (int i = 1; i < n + 1; i++) {
+            sum[i] = sum[i - 1] + V[i - 1];
+        }
+
+        // dp[i][j]: max coin value the first hand player can get from V[i..j]
+        int[][] dp = new int[n][n];
+        for (int i = 0; i < n; i++) {
+            dp[i][i] = V[i];
+        }
+        for (int len = 2; len <= n; len++) {
+            for (int i = 0; i < n; i++) {
+                int j = i + len - 1;
+                if (j >= n) continue;
+                dp[i][j] = Math.max(
+                        sum[j + 1] - sum[i] - dp[i + 1][j],
+                        sum[j + 1] - sum[i] - dp[i][j - 1]
+                );
+            }
+        }
+        return dp[0][n - 1] > sum[n]/2;
+    }
+}

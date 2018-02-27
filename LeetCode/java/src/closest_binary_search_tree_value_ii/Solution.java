@@ -17,10 +17,10 @@ class TreeNode {
     }
 }
 
-// tag: stack
-// time: O(n + k), inorder takes n, compare takes k
-// space: O(1)
 public class Solution {
+    // tag: stack
+    // time: O(n + k), inorder takes n, compare takes k
+    // space: O(1)
     public List<Integer> closestKValues(TreeNode root, double target, int k) {
         List<Integer> res = new ArrayList<>();
 
@@ -59,6 +59,12 @@ public class Solution {
 }
 
 class SolutionII {
+    // Ref:
+    // https://leetcode.com/problems/closest-binary-search-tree-value-ii/discuss/70586/Clean-k+O(log(n))-code-which-is-less-than-O(n)
+    // https://leetcode.com/problems/closest-binary-search-tree-value-ii/discuss/70503/O(logN)-Java-Solution-with-two-stacks-following-hint
+    // tag: stack
+    // time: O(logn+k), O(logn) binary search target, O(k) iterator backward/prev and forward/next
+    // space: O(1)
     public List<Integer> closestKValues(TreeNode root, double target, int k) {
         TreeNode closestNode = findClosestNode(root, target);
         System.out.println("closestNode: " + closestNode);

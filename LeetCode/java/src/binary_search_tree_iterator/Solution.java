@@ -51,8 +51,30 @@ class BSTIterator {
     }
 }
 
-/**
- * Your BSTIterator will be called like this:
- * BSTIterator i = new BSTIterator(root);
- * while (i.hasNext()) v[f()] = i.next();
- */
+class BSTIteratorII {
+    // Same as Solution
+    Stack<TreeNode> stack;
+
+    public BSTIteratorII(TreeNode root) {
+        stack = new Stack<>();
+        traverseLeft(root);
+    }
+
+    public boolean hasNext() {
+        return !stack.isEmpty();
+    }
+
+    public int next() {
+        if (!hasNext()) return -1;
+        TreeNode node = stack.pop();
+        traverseLeft(node.right);
+        return node.val;
+    }
+
+    private void traverseLeft(TreeNode node) {
+        while (node != null) {
+            stack.push(node);
+            node = node.left;
+        }
+    }
+}

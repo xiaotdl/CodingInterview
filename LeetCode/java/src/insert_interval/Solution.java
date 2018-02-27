@@ -82,3 +82,49 @@ class SolutionII {
         return result;
     }
 }
+
+class SolutionIII {
+    // tag: array, binary search, sort
+    // time: O(n)
+    // space: O(1)
+    public List<Interval> insert(List<Interval> intervals, Interval newInterval) {
+        List<Interval> res = new ArrayList<>();
+        if (intervals == null || intervals.size() == 0) {
+            res.add(newInterval);
+            return res;
+        }
+
+        int lastSmallerIdx = bsLastSmaller(intervals, newInterval);
+        intervals.add(lastSmallerIdx + 1, newInterval);
+        mergeIntervals(intervals, res);
+        return res;
+    }
+
+    private void mergeIntervals(List<Interval> intervals, List<Interval> res){
+        for (Interval i : intervals) {
+            if (res.isEmpty() || res.get(res.size() - 1).end < i.start) {
+                res.add(i);
+            }
+            else {
+                res.get(res.size() - 1).end = Math.max(res.get(res.size() - 1).end, i.end);
+            }
+        }
+    }
+
+    private int bsLastSmaller(List<Interval> intervals, Interval target) {
+        int l = 0;
+        int r = intervals.size() - 1;
+        while (l + 1 < r) {
+            int m = l + (r - l) / 2;
+            if (intervals.get(m).start >= target.start) {
+                r = m;
+            }
+            else {
+                l = m;
+            }
+        }
+        if (intervals.get(r).start < target.start) return r;
+        if (intervals.get(l).start < target.start) return l;
+        return -1;
+    }
+}

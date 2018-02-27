@@ -5,16 +5,22 @@ import java.util.*;
 /**
  * Created by Xiaotian on 12/14/16.
  */
+
+class TreeNode {
+    int val;
+    TreeNode left;
+    TreeNode right;
+    TreeNode(int x) { val = x; }
+    @Override
+    public String toString() {
+        return "" + this.val;
+    }
+}
+
 // tag: stack
 // time: O(n + k), inorder takes n, compare takes k
 // space: O(1)
 public class Solution {
-    public class TreeNode {
-        int val;
-        TreeNode left;
-        TreeNode right;
-        TreeNode(int x) { val = x; }
-    }
     public List<Integer> closestKValues(TreeNode root, double target, int k) {
         List<Integer> res = new ArrayList<>();
 
@@ -51,3 +57,119 @@ public class Solution {
         inorder(reverse ? root.left : root.right, target, reverse, stack);
     }
 }
+
+class SolutionII {
+    public List<Integer> closestKValues(TreeNode root, double target, int k) {
+        TreeNode closestNode = findClosestNode(root, target);
+        System.out.println("closestNode: " + closestNode);
+
+        Stack<TreeNode> nextStack = new Stack<>();
+        Stack<TreeNode> prevStack = new Stack<>();
+        TreeNode curr = root;
+        while (curr != null) {
+            if (curr == closestNode) {
+                nextStack.add(curr);
+                prevStack.add(curr);
+                break;
+            }
+            if (curr.val < closestNode.val) {
+                prevStack.add(curr);
+                curr = curr.right;
+            }
+            else {
+                nextStack.add(curr);
+                curr = curr.left;
+            }
+        }
+
+        System.out.println("prevStack: " + prevStack);
+        System.out.println("nextStack: " + nextStack);
+        // pop the closest node
+        getPrev(prevStack);
+        getNext(nextStack);
+
+
+        List<Integer> res = new ArrayList<>();
+        res.add(closestNode.val);
+        k--;
+        if (k == 0) return res;
+
+        TreeNode prev = getPrev(prevStack);
+        TreeNode next = getNext(nextStack);
+        while (prev != null && next != null && k > 0) {
+            if (Math.abs(prev.val - target) < Math.abs(next.val - target)) {
+                res.add(prev.val);
+                prev = getPrev(prevStack);
+            }
+            else {
+                res.add(next.val);
+                next = getNext(nextStack);
+            }
+            k--;
+        }
+        while (k > 0 && prev != null) {
+            res.add(prev.val);
+            prev = getPrev(prevStack);
+            k--;
+        }
+        while (k > 0 && next != null) {
+            res.add(next.val);
+            next = getNext(nextStack);
+            k--;
+        }
+        Collections.sort(res);
+        return res;
+    }
+
+    private TreeNode findClosestNode(TreeNode root, double target) {
+        TreeNode closestNode = root;
+        while (root != null) {
+            closestNode = (Math.abs(root.val - target) < Math.abs(closestNode.val - target) ? root : closestNode);
+            if (closestNode.val == target) return closestNode;
+            root = (root.val > target) ? root.left : root.right;
+        }
+        return closestNode;
+    }
+
+    private TreeNode getPrev(Stack<TreeNode> stack) {
+        if (stack.isEmpty()) return null;
+        TreeNode parent = stack.pop();
+        TreeNode curr = parent.left;
+        while (curr != null) {
+            stack.add(curr);
+            curr = curr.right;
+        }
+        return parent;
+    }
+
+    private TreeNode getNext(Stack<TreeNode> stack) {
+        if (stack.isEmpty()) return null;
+        TreeNode parent = stack.pop();
+        TreeNode curr = parent.right;
+        while (curr != null) {
+            stack.add(curr);
+            curr = curr.left;
+        }
+        return parent;
+    }
+
+    public static void main(String[] args) {
+//          //        15
+//        //       10    20
+//        //     5  12     30
+        TreeNode _15 = new TreeNode(15);
+        TreeNode _10 = new TreeNode(10);
+        _15.left = _10;
+        TreeNode _20 = new TreeNode(20);
+        _15.right  = _20;
+        TreeNode _5 = new TreeNode(5);
+        _10.left = _5;
+        TreeNode _12 = new TreeNode(12);
+        _10.right = _12;
+        TreeNode _30 = new TreeNode(30);
+        _20.right  = _30;
+        System.out.println(new SolutionII().closestKValues(_15, 20, 4));
+    }
+}
+
+

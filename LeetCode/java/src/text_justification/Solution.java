@@ -56,3 +56,85 @@ public class Solution {
         return lines;
     }
 }
+
+class SolutionII {
+    // tag: str
+    // time: O(n)
+    // space: O(1)
+    public List<String> fullJustify(String[] words, int L) {
+        List<String> res = new ArrayList<>();
+        if (words == null || words.length == 0) return res;
+
+        int endWordIdx = -1;
+        int startWordIdx = 0;
+        while (startWordIdx < words.length) {
+            endWordIdx = processLine(words, startWordIdx, L);
+            addLine(res, words, startWordIdx, endWordIdx, L);
+            startWordIdx = endWordIdx + 1;
+        }
+        return res;
+    }
+
+    private int processLine(String[] words, int startWordIdx, int L) {
+        int lineWordCnt = 0;
+        int lineLen = words[startWordIdx].length();
+        int prevWordIdx = startWordIdx;
+        lineWordCnt++;
+        while(prevWordIdx + 1 < words.length
+                && lineLen + 1 + words[prevWordIdx + 1].length() <= L) {
+            lineLen += 1 + words[prevWordIdx + 1].length();
+            prevWordIdx++;
+            lineWordCnt++;
+        }
+        return prevWordIdx;
+    }
+
+    private void addLine(List<String> res, String[] words, int s, int e, int L) {
+        boolean isLastLine = (e == words.length - 1 ? true : false);
+
+        int wordCnt = e - s + 1;
+        int wordsLen = 0;
+        for (int i = s; i <= e; i++) {
+            wordsLen += words[i].length();
+        }
+        int spaceCnt = L - wordsLen;
+        int intervalCnt = wordCnt - 1;
+
+        if (intervalCnt == 0) {
+            res.add(words[s] + nChars(spaceCnt, ' '));
+            return;
+        }
+
+        if (isLastLine) {
+            String line = words[s];
+            for (int i = s + 1; i <= e; i++) {
+                line += " " + words[i];
+            }
+            line += nChars(spaceCnt - (wordCnt - 1), ' ');
+            res.add(line);
+            return;
+        }
+
+        int[] spaces = new int[intervalCnt];
+        for (int i = 0; i < spaces.length; i++) {
+            spaces[i] += spaceCnt / intervalCnt;
+            if (i < spaceCnt % intervalCnt) spaces[i]++;
+        }
+
+        String line = "";
+        for (int i = s; i <= e; i++) {
+            line += words[i];
+            if (i == e) break;
+            line += nChars(spaces[i - s], ' ');
+        }
+        res.add(line);
+    }
+
+    private String nChars(int n, char c) {
+        String res = "";
+        for (int i = 0; i < n; i++) {
+            res += c;
+        }
+        return res;
+    }
+}

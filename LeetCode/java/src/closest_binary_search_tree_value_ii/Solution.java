@@ -163,18 +163,27 @@ class SolutionII {
 //          //        15
 //        //       10    20
 //        //     5  12     30
+        //         11 13
         TreeNode _15 = new TreeNode(15);
+
         TreeNode _10 = new TreeNode(10);
         _15.left = _10;
         TreeNode _20 = new TreeNode(20);
         _15.right  = _20;
+
         TreeNode _5 = new TreeNode(5);
         _10.left = _5;
         TreeNode _12 = new TreeNode(12);
         _10.right = _12;
         TreeNode _30 = new TreeNode(30);
         _20.right  = _30;
-        System.out.println(new SolutionII().closestKValues(_15, 20, 4));
+
+        TreeNode _11 = new TreeNode(11);
+        _12.left = _11;
+        TreeNode _13 = new TreeNode(13);
+        _12.right = _13;
+
+        System.out.println(new SolutionII().closestKValues(_15, 12, 5));
     }
 }
 

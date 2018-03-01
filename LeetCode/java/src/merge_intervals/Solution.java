@@ -78,10 +78,36 @@ class SolutionII {
                 prev = curr;
             }
             else {
-                prev.end = Math.max(prev.end, curr.end); // modify the interval in place
+                prev.end = Math.max(prev.end, curr.end); // modify the interval in place in res list
             }
         }
 
+        return res;
+    }
+}
+
+class SolutionIII {
+    // Same as SolutionII
+    public List<Interval> merge(List<Interval> intervals) {
+        List<Interval> res = new ArrayList<>();
+        if (intervals == null || intervals.size() == 0) return res;
+
+        Collections.sort(intervals, new Comparator<Interval>(){
+            @Override
+            public int compare(Interval i1, Interval i2) {
+                if (i1.start != i2.start) return i1.start - i2.start;
+                return i1.end - i2.end;
+            }
+        });
+
+        for (Interval i : intervals) {
+            if (res.isEmpty() || res.get(res.size() - 1).end < i.start) {
+                res.add(i);
+            }
+            else {
+                res.get(res.size() - 1).end = Math.max(res.get(res.size() - 1).end, i.end);
+            }
+        }
         return res;
     }
 }

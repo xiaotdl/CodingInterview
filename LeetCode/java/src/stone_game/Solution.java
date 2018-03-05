@@ -4,6 +4,7 @@ package stone_game;
  * Created by Xiaotian on 10/2/17.
  */
 public class Solution {
+    // 由大到小考虑
     // tag: dp
     // time: O(n^3)
     // space: O(n^2)

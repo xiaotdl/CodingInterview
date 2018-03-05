@@ -139,24 +139,24 @@ class SolutionII {
 
     private TreeNode getPrev(Stack<TreeNode> stack) {
         if (stack.isEmpty()) return null;
-        TreeNode parent = stack.pop();
-        TreeNode curr = parent.left;
-        while (curr != null) {
-            stack.add(curr);
-            curr = curr.right;
+        TreeNode curr = stack.pop();
+        TreeNode next = curr.left;
+        while (next != null) {
+            stack.add(next);
+            next = next.right;
         }
-        return parent;
+        return curr;
     }
 
     private TreeNode getNext(Stack<TreeNode> stack) {
         if (stack.isEmpty()) return null;
-        TreeNode parent = stack.pop();
-        TreeNode curr = parent.right;
-        while (curr != null) {
-            stack.add(curr);
-            curr = curr.left;
+        TreeNode curr = stack.pop();
+        TreeNode next = curr.right;
+        while (next != null) {
+            stack.add(next);
+            next = next.left;
         }
-        return parent;
+        return curr;
     }
 
     public static void main(String[] args) {

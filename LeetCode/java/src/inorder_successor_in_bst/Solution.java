@@ -1,5 +1,7 @@
 package inorder_successor_in_bst;
 
+import java.util.*;
+
 /**
  * Created by Xiaotian on 1/31/18.
  */
@@ -40,5 +42,39 @@ public class Solution {
             TreeNode left = inorderSuccessor(root.left, p);
             return (left != null) ? left : root;
         }
+    }
+}
+
+class SolutionII {
+    public TreeNode inorderSuccessor(TreeNode root, TreeNode p) {
+        Stack<TreeNode> stack = new Stack<>();
+        TreeNode node = root;
+        while (node != null) {
+            if (node == p) {
+                stack.push(p);
+                break;
+            }
+            if (node.val > p.val) {
+                stack.push(node);
+                node = node.left;
+            }
+            else {
+                node = node.right;
+            }
+        }
+
+        getNext(stack); // pop p
+        return getNext(stack);
+    }
+
+    private TreeNode getNext(Stack<TreeNode> stack) {
+        if (stack.isEmpty()) return null;
+        TreeNode curr = stack.pop();
+        TreeNode next = curr.right;
+        while (next != null) {
+            stack.push(next);
+            next = next.left;
+        }
+        return curr;
     }
 }

@@ -35,7 +35,7 @@ class SolutionII {
     // checksum用4进制来算
     // tag: hash, bit
     // time: O(n)
-    // space: O(1)
+    // space: O(n)
     public List<String> findRepeatedDnaSequences(String s) {
         Set<Integer> seen = new HashSet<>();
         Set<String> repeated = new HashSet<>();
@@ -58,6 +58,42 @@ class SolutionII {
             checksum = symbols.size() * checksum + symbols.indexOf(c);
         }
         return checksum;
+    }
+}
+
+class SolutionIII {
+    // rolling hash: https://en.wikipedia.org/wiki/Rolling_hash
+    // tag: hash, bit
+    // time: O(n)
+    // space: O(n)
+    private static final int BASE = 4;
+    private static final int MOD = (int) Math.pow(BASE, 10);
+    public List<String> findRepeatedDnaSequences(String s) {
+        List<String> res = new ArrayList<>();
+        if (s.length() < 10) return res;
+
+        char[] S = s.toCharArray();
+
+        Map<Character, Integer> C = new HashMap<>(); // char2hashCode
+        C.put('A', 0); C.put('C', 1); C.put('G', 2); C.put('T', 3);
+
+        Set<Long> seen = new HashSet<>(); // hashCodes
+        Set<String> repeated = new HashSet<>(); // sequences
+        long hashCode = 0; // rolling hash
+        for (int i = 0; i < 10; i++) {
+            hashCode = hashCode * BASE + C.get(S[i]);
+        }
+        seen.add(hashCode);
+
+        for (int i = 1, j = 10; j < S.length; i++, j++) {
+            hashCode = (hashCode * BASE) % MOD + C.get(S[j]);
+            if (seen.contains(hashCode)) {
+                repeated.add(s.substring(i, j + 1));
+                continue;
+            }
+            seen.add(hashCode);
+        }
+        return new ArrayList<String>(repeated);
     }
 }
 

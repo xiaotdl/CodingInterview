@@ -130,3 +130,30 @@ class NestedIteratorII implements Iterator<Integer> {
  * NestedIterator i = new NestedIterator(nestedList);
  * while (i.hasNext()) v.add(i.next());
  */
+
+class NestedIteratorIII implements Iterator<Integer> {
+    Stack<NestedInteger> stack;
+    public NestedIteratorIII(List<NestedInteger> nestedList) {
+        stack = new Stack<>();
+        for (int i = nestedList.size() - 1; i >= 0; i--) {
+            stack.push(nestedList.get(i));
+        }
+    }
+
+    @Override
+    public Integer next() {
+        if (!hasNext()) return null;
+        return stack.pop().getInteger();
+    }
+
+    @Override
+    public boolean hasNext() {
+        while (!stack.isEmpty() && !stack.peek().isInteger()) {
+            List<NestedInteger> list = stack.pop().getList();
+            for (int i = list.size() - 1; i >= 0; i--) {
+                stack.push(list.get(i));
+            }
+        }
+        return !stack.isEmpty();
+    }
+}

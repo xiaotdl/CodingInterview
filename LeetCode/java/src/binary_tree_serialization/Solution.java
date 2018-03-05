@@ -65,7 +65,7 @@ public class Solution {
      * "serialize" method.
      */
     public TreeNode deserialize(String data) {
-        if (data == null || data == "#" || data.length() == 0) {
+        if (data == null || data.length() == 0 || data.equals("#")) {
             return null;
         }
 
@@ -103,3 +103,75 @@ public class Solution {
         return root;
     }
 }
+
+class CodecII {
+
+    // Encodes a tree to a single string.
+    public String serialize(TreeNode root) {
+        if (root == null) return "#";
+
+        StringBuilder sb = new StringBuilder();
+        Queue<TreeNode> q = new LinkedList<>();
+        q.add(root);
+        while (!q.isEmpty()) {
+            int size = q.size();
+            for (int i = 0; i < size; i++) {
+                TreeNode curr = q.poll();
+                if (curr == null) {
+                    sb.append("#,");
+                    continue;
+                }
+                sb.append(curr.val+",");
+                q.offer(curr.left);
+                q.offer(curr.right);
+            }
+        }
+        sb.deleteCharAt(sb.length() - 1); // remove trailing ","
+        return sb.toString();
+    }
+
+    // Decodes your encoded data to tree.
+    public TreeNode deserialize(String data) {
+        if (data == null || data.length() == 0 || data.equals("#")) return null;
+
+        String[] tokens = data.split(",");
+        Queue<TreeNode> q = new LinkedList<>();
+        int i = 0;
+        TreeNode root = new TreeNode(Integer.parseInt(tokens[i++]));
+        q.offer(root);
+        while (!q.isEmpty() && i < tokens.length) {
+            int size = q.size();
+            for (int j = 0; j < size; j++) {
+                TreeNode curr = q.poll();
+
+                if (i < tokens.length) {
+                    if (tokens[i].equals("#")) {
+                        curr.left = null;
+                    }
+                    else {
+                        curr.left = new TreeNode(Integer.parseInt(tokens[i]));
+                        q.offer(curr.left);
+                    }
+                    i++;
+                }
+
+                if (i < tokens.length) {
+                    if (tokens[i].equals("#")) {
+                        curr.right = null;
+                    }
+                    else {
+                        curr.right = new TreeNode(Integer.parseInt(tokens[i]));
+                        q.offer(curr.right);
+                    }
+                    i++;
+                }
+            }
+        }
+        return root;
+    }
+}
+
+// Your Codec object will be instantiated and called as such:
+// Codec codec = new Codec();
+// codec.deserialize(codec.serialize(root));
+

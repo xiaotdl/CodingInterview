@@ -27,7 +27,7 @@ import java.util.*;
  * }
  */
 public class Solution {
-    // tag: recursion
+    // tag: dfs, recursion, top down
     // time: O(n)
     // space: O(1)
     public int depthSum(List<NestedInteger> nestedList) {
@@ -55,4 +55,26 @@ class NestedInteger {
     public boolean isInteger() {return false;}
     public Integer getInteger() {return 0;}
     public List<NestedInteger> getList() {return new ArrayList<NestedInteger>();}
+}
+
+class SolutionII {
+    // Same as Solution
+    // dfs, top down
+    int sum;
+    public int depthSum(List<NestedInteger> nestedList) {
+        sum = 0;
+        dfs(nestedList, 1);
+        return sum;
+    }
+
+    private void dfs(List<NestedInteger> nestedList, int depth) {
+        for (NestedInteger ni : nestedList) {
+            if (ni.isInteger()) {
+                sum += ni.getInteger() * depth;
+            }
+            else {
+                dfs(ni.getList(), depth + 1);
+            }
+        }
+    }
 }

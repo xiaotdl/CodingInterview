@@ -4,6 +4,35 @@ package wiggle_sort;
  * Created by Xiaotian on 10/5/17.
  */
 public class Solution {
+    public void wiggleSort(int[] nums) {
+        for (int i = 0; i < nums.length; i++) {
+            if (i % 2 == 0) { // >= num <=
+                if (i != 0 && nums[i - 1] < nums[i]) { // >= num
+                    swap(nums, i - 1, i);
+                }
+                if (i != nums.length - 1 && nums[i] > nums[i + 1]) { // <= num
+                    swap(nums, i, i + 1);
+                }
+            }
+            else { // <= num >=
+                if (i != 0 && nums[i - 1] > nums[i]) { // <= num
+                    swap(nums, i - 1, i);
+                }
+                if (i != nums.length - 1 && nums[i] < nums[i + 1]) { // >= num
+                    swap(nums, i, i + 1);
+                }
+            }
+        }
+    }
+
+    private void swap(int[] nums, int i, int j) {
+        int tmp = nums[i];
+        nums[i] = nums[j];
+        nums[j] = tmp;
+    }
+}
+
+class SolutionII {
     // 当i为奇数时，nums[i] >= nums[i - 1]
     // 当i为偶数时，nums[i] <= nums[i - 1]
     // 不满足以上条件，swap(nums, i, i - 1)
@@ -19,7 +48,7 @@ public class Solution {
 
         for (int i = 1; i < nums.length; i++) {
             if ((i % 2 == 0 && nums[i - 1] < nums[i])
-             || (i % 2 == 1 && nums[i - 1] > nums[i])) {
+                    || (i % 2 == 1 && nums[i - 1] > nums[i])) {
                 swap(nums, i - 1, i);
             }
         }
@@ -31,3 +60,4 @@ public class Solution {
         nums[j] = tmp;
     }
 }
+

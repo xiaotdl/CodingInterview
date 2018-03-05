@@ -7,32 +7,71 @@ import java.util.*;
  */
 public class Solution {
 }
+
 class TwoSum {
     // tag: hash
-    // time: O(n), one pass through all keys
+    // time:
+    //   add: O(1)
+    //   find: O(n)
     // space: O(n)
-
-    Map<Integer, Integer> val2cnt = new HashMap<>();
-
-    // Add the number to an internal data structure.
-    public void add(int number) {
-        val2cnt.put(number, val2cnt.containsKey(number) ? val2cnt.get(number) + 1 : 1);
+    Map<Integer, Integer> m; // num2cnt
+    public TwoSum() {
+        m = new HashMap<>();
     }
 
-    // Find if there exists any pair of numbers which sum is equal to the value.
-    public boolean find(int value) {
-        for (Integer val : val2cnt.keySet()) {
-            int target = value - val;
-            if (!val2cnt.containsKey(target)) continue;
-            if (val == target && val2cnt.get(val) >= 2) return true;
-            if (val != target && val2cnt.get(target) >= 1) return true;
+    // O(1)
+    public void add(int number) {
+        m.put(number, m.getOrDefault(number, 0) + 1);
+    }
+
+    // O(n)
+    public boolean find(int sum) {
+        for (Integer k : m.keySet()) {
+            int target = sum - k;
+            if (target == k && m.get(k) >= 2) return true;
+            if (target != k && m.containsKey(target)) return true;
         }
         return false;
     }
 }
 
 
+
 // Your TwoSum object will be instantiated and called as such:
 // TwoSum twoSum = new TwoSum();
 // twoSum.add(number);
 // twoSum.find(value);
+
+
+class TwoSumII {
+    // tag: hash
+    // time:
+    //   add: O(n)
+    //   find: O(1)
+    // space: O(n)
+    Set<Integer> nums;
+    Set<Integer> sums;
+    public TwoSumII() {
+        nums = new HashSet<>();
+        sums = new HashSet<>();
+    }
+
+    // O(n)
+    public void add(int number) {
+        if (nums.contains(number)) {
+            sums.add(number + number);
+            return;
+        }
+        Iterator<Integer> it = nums.iterator();
+        while (it.hasNext()) {
+            sums.add(it.next() + number);
+        }
+        nums.add(number);
+
+    }
+
+    // O(1)
+    public boolean find(int value) {
+        return sums.contains(value);
+    }
+}

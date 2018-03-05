@@ -9,8 +9,9 @@ class UnionFindSet {
     }
 
     int find(int x) {
-        if (parents[x] == x) return x;
-        parents[x] = find(parents[x]);
+        if (parents[x] != x) {
+            parents[x] = find(parents[x]);
+        }
         return parents[x];
     }
 

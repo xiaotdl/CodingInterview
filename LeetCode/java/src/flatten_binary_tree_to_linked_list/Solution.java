@@ -78,6 +78,7 @@ class SolutionII {
 }
 
 class SolutionIII {
+    // preorder traversal
     // tag: stack
     // time: O(n)
     // space: O(n)

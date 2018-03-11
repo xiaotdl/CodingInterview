@@ -65,3 +65,42 @@ public class Solution {
         return maxPoints;
     }
 }
+
+class SolutionII {
+    // 辗转相除法, 找最大公约数
+    public int maxPoints(Point[] points) {
+        if (points == null || points.length == 0) {
+            return 0;
+        }
+        int result = 1;
+        for (int i = 0; i < points.length - 1; i++) {
+            Map<Integer, Map<Integer, Integer>> map = new HashMap<>();
+            int max = 0;
+            int same = 1;
+            for (int j = i + 1; j < points.length; j++) {
+                int dy = points[j].y - points[i].y;
+                int dx = points[j].x - points[i].x;
+                if (dy == 0 && dx == 0) {
+                    same++;
+                } else {
+                    int factor = getGCF(dx, dy);
+                    dx /= factor;
+                    dy /= factor;
+                    map.putIfAbsent(dx, new HashMap<Integer, Integer>());
+                    Map<Integer, Integer> countMap = map.get(dx);
+                    int currentCount = countMap.getOrDefault(dy, 0) + 1;
+                    max = Math.max(max, currentCount);
+                    countMap.put(dy, currentCount);
+                }
+            }
+            max += same;
+            result = Math.max(result, max);
+        }
+        return result;
+    }
+
+    private int getGCF(int a, int b) { // greatest common factor/divisor
+        if (b == 0) return a;
+        else return getGCF(b, a % b);
+    }
+}

@@ -3,6 +3,17 @@ package validate_binary_search_tree;
 /**
  * Created by Xiaotian on 6/16/17.
  */
+
+/**
+ * Definition for a binary tree node.
+ */
+class TreeNode {
+    int val;
+    TreeNode left;
+    TreeNode right;
+    TreeNode(int x) { val = x; }
+}
+
 public class Solution {
     // tag: dfs
     // time: O(n)
@@ -19,12 +30,21 @@ public class Solution {
     }
 }
 
-/**
- * Definition for a binary tree node.
- */
-class TreeNode {
-    int val;
-    TreeNode left;
-    TreeNode right;
-    TreeNode(int x) { val = x; }
+class SolutionII {
+    // inorder traversal is increasing order
+    TreeNode prev;
+    public boolean isValidBST(TreeNode root) {
+        prev = null;
+        return dfs(root);
+    }
+
+    private boolean dfs(TreeNode curr) {
+        if (curr == null) return true;
+        if (!dfs(curr.left)) return false;
+        if (prev != null && curr.val <= prev.val) return false;
+        prev = curr;
+        if (!dfs(curr.right)) return false;;
+        return true;
+    }
 }
+

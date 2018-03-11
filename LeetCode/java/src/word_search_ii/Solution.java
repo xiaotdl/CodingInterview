@@ -60,13 +60,13 @@ class SolutionII {
     // time: O(depth*leafs), depth = word.length, leafs = 4
     // space: O(mn)
     class TrieNode {
-        String word;
         Map<Character, TrieNode> next;
         boolean hasWord;
+        String word;
         public TrieNode() {
-            word = "";
             next = new HashMap<>();
             hasWord = false;
+            word = "";
         }
     }
 
@@ -86,8 +86,8 @@ class SolutionII {
                 }
                 curr = curr.next.get(c);
             }
-            curr.word = s;
             curr.hasWord = true;
+            curr.word = s;
         }
 
         public boolean search(String s) {
@@ -144,3 +144,90 @@ class SolutionII {
             && 0 <= y && y <= n - 1;
     }
 }
+
+class SolutionIII {
+    class TrieNode {
+        Map<Character, TrieNode> next;
+        boolean hasWord;
+        String word;
+        public TrieNode() {
+            next = new HashMap<>();
+            hasWord = false;
+            word = "";
+        }
+    }
+
+    class Trie {
+        TrieNode root;
+
+        public Trie() {
+            this.root = new TrieNode();
+        }
+
+        public void insert(String s) {
+            TrieNode curr = root;
+            for (int i = 0; i < s.length(); i++) {
+                char c = s.charAt(i);
+                if (!curr.next.containsKey(c)) {
+                    curr.next.put(c, new TrieNode());
+                }
+                curr = curr.next.get(c);
+            }
+            curr.hasWord = true;
+            curr.word = s;
+        }
+
+        public boolean search(String s) {
+            TrieNode curr = root;
+            for (int i = 0; i < s.length(); i++) {
+                char c = s.charAt(i);
+                if (!curr.next.containsKey(c)) return false;
+                curr = curr.next.get(c);
+            }
+            return curr != null && curr.hasWord;
+        }
+    }
+
+    public List<String> findWords(char[][] board, String[] words) {
+        List<String> res = new ArrayList<>();
+
+        Trie trie = new Trie();
+        for (String word : words) {
+            trie.insert(word);
+        }
+
+        int m = board.length;
+        int n = board[0].length;
+        boolean[][] visited = new boolean[m][n];
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                dfs(board, visited, i, j, trie.root, res);
+            }
+        }
+        return res;
+    }
+
+    public final static int[] dx = {0, 0, -1, 1};
+    public final static int[] dy = {-1, 1, 0, 0};
+    private void dfs(char[][] board, boolean[][] visited, int x, int y, TrieNode node, List<String> res) {
+        if (node.hasWord) {
+            res.add(node.word);
+            node.hasWord = false;
+            // NOTE: don't return here as there might be words that have the other word as prefix
+        }
+
+        if (!(0 <= x && x < board.length
+                && 0 <= y && y < board[0].length)) return;
+
+        if (visited[x][y]) return;
+
+        if (node.next.containsKey(board[x][y])) {
+            for (int k = 0; k < 4; k++) {
+                visited[x][y] = true;
+                dfs(board, visited, x + dx[k], y + dy[k], node.next.get(board[x][y]), res);
+                visited[x][y] = false;
+            }
+        }
+    }
+}
+

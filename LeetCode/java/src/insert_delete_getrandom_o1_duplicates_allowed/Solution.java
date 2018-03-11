@@ -15,6 +15,9 @@ public class Solution {
 }
 
 class RandomizedCollection {
+    // using a LinkedHashSet for O(1) iteration over large items.
+    // An iterator over a normal HashSet is actually O(h/n), where h is table capacity.
+    // So it is not a solution to our problem requiring O(1) time.
     List<Integer> nums;             // index2num
     Map<Integer, Set<Integer>> map; // num2indexes
     Random rand;
@@ -30,7 +33,7 @@ class RandomizedCollection {
         nums.add(val);
         boolean isContained = map.containsKey(val);
         if (!isContained) {
-            map.put(val, new LinkedHashSet<Integer>());
+            map.put(val, new LinkedHashSet<Integer>()); // HashSet也行
         }
         map.get(val).add(nums.size() - 1);
         return !isContained;

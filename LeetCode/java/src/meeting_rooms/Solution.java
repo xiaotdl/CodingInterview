@@ -15,7 +15,7 @@ class Interval {
 }
 
 public class Solution {
-    // tag:
+    // tag: sort
     // time: O(nlogn)
     // space: O(1)
     public boolean canAttendMeetings(Interval[] intervals) {

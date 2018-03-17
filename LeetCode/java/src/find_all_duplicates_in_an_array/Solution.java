@@ -33,3 +33,18 @@ public class Solution {
         System.out.println(new Solution().findDuplicates(nums));
     }
 }
+
+class SolutionII {
+    // Similar with Solution
+    // O(n)&O(1) use input array to record occurence, +: not seen, -: seen
+    public List<Integer> findDuplicates(int[] nums) {
+        List<Integer> res = new ArrayList<>();
+        int n = nums.length;
+        for (int i = 0; i < n; i++) {
+            int pos = Math.abs(nums[i]) - 1;
+            if (nums[pos] > 0) nums[pos] = -nums[pos];
+            else res.add(Math.abs(nums[i]));
+        }
+        return res;
+    }
+}

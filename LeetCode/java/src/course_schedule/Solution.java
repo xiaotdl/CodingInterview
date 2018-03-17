@@ -97,3 +97,34 @@ class SolutionII {
         return count == numCourses;
     }
 }
+
+class SolutionIII {
+    // topological sort
+    public boolean canFinish(int n, int[][] prerequisites) {
+        Map<Integer, Set<Integer>> graph = new HashMap<>();
+        for (int i = 0; i < n; i++) graph.put(i, new HashSet<>());
+
+        int[] indegree = new int[n];
+        for (int[] p : prerequisites) {
+            int u = p[1];
+            int v = p[0];
+            graph.get(u).add(v);
+            indegree[v]++;
+        }
+
+        Queue<Integer> q = new LinkedList<>();
+        for (int i = 0; i < n; i++) {
+            if (indegree[i] == 0) q.offer(i);
+        }
+        int cnt = 0;
+        while (!q.isEmpty()) {
+            int u = q.poll();
+            cnt++;
+            for (int v : graph.get(u)) {
+                indegree[v]--;
+                if (indegree[v] == 0) q.offer(v);
+            }
+        }
+        return cnt == n;
+    }
+}

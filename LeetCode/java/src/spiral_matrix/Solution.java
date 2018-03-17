@@ -79,13 +79,13 @@ class SolutionII {
                 res.add(matrix[rowS][j]);
             }
             rowS++;
+            if (res.size() == m*n) break;
 
             // go down
             for (int i = rowS; i <= rowE; i++) {
                 res.add(matrix[i][colE]);
             }
             colE--;
-
             if (res.size() == m*n) break;
 
             // go left
@@ -93,6 +93,7 @@ class SolutionII {
                 res.add(matrix[rowE][j]);
             }
             rowE--;
+            if (res.size() == m*n) break;
 
             // go up
             for (int i = rowE; i >= rowS; i--) {

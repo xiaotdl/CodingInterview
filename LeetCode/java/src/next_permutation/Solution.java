@@ -59,6 +59,7 @@ class SolutionII {
     public int[] nextPermutation(int[] nums) {
         if (nums == null || nums.length <= 1) return nums;
 
+        // find first declining number nums[i] from backwards
         int i = nums.length - 2;
         while (i >= 0 && nums[i] >= nums[i + 1]) i--;
 
@@ -67,6 +68,7 @@ class SolutionII {
             return nums;
         }
 
+        // find first number num[j] that's greater than nums[i] from backwards
         int j = nums.length - 1;
         while (j >= 0 && nums[j] <= nums[i]) j--;
 

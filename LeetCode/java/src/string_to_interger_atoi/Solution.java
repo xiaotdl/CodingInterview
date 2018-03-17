@@ -83,3 +83,30 @@ class SolutionII {
         return (int) res;
     }
 }
+
+class SolutionIII {
+    public int myAtoi(String str) {
+        if (str == null || str.length() == 0) return 0;
+        int l = 0;
+        int r = str.length() - 1;
+        while (str.charAt(l) == ' ') l++;
+        if (l == str.length()) return 0;
+        while (str.charAt(r) == ' ') r--;
+
+        int sign = 1; // 1: +, -1: -
+        if (str.charAt(l) == '+') l++;
+        else if (str.charAt(l) == '-') {
+            l++;
+            sign = -1;
+        }
+
+        long num = 0;
+        for (int i = l; i <= r; i++) {
+            if (!Character.isDigit(str.charAt(i))) break;
+            num = 10 * num + str.charAt(i) - '0';
+            if (sign * num < Integer.MIN_VALUE) return Integer.MIN_VALUE;
+            if (sign * num > Integer.MAX_VALUE) return Integer.MAX_VALUE;
+        }
+        return sign * (int) num;
+    }
+}

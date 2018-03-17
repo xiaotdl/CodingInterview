@@ -31,3 +31,20 @@ public class Solution {
         nums[j] = tmp;
     }
 }
+
+class SolutionII {
+    // O(n)&O(1) use input array to record occurence, +: not seen, -: seen
+    public List<Integer> findDisappearedNumbers(int[] nums) {
+        int n = nums.length;
+        for (int i = 0; i < n; i++) {
+            int pos = Math.abs(nums[i]) - 1; // ptrs to matching index
+            if (nums[pos] > 0) nums[pos] = -nums[pos];
+        }
+
+        List<Integer> res = new ArrayList<>();
+        for (int i = 0; i < n; i++) {
+            if (nums[i] > 0) res.add(i + 1);
+        }
+        return res;
+    }
+}

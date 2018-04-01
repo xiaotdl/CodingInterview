@@ -75,3 +75,26 @@ class SolutionII {
         return dp[0][s.length()-1];
     }
 }
+
+class SolutionIII {
+    // tag: str, dp
+    // time: O(n^2)
+    // space: O(n^2)
+    public int longestPalindromeSubseq(String s) {
+        char[] S = s.toCharArray();
+        int n = s.length();
+        // dp[i][j]: longestPalindrome(s[i..j])
+        int[][] dp = new int[n][n];
+        for (int i = 0; i < n; i++) dp[i][i] = 1;
+        for (int i = 0; i < n - 1; i++) dp[i][i + 1] = S[i] == S[i + 1] ? 2 : 1;
+        for (int len = 3; len <= n; len++) {
+            for (int i = 0; i < n - len + 1; i++) {
+                int j = i + len - 1;
+                dp[i][j] = S[i] == S[j] ? dp[i + 1][j - 1] + 2
+                        : Math.max(dp[i + 1][j], dp[i][j - 1]);
+            }
+        }
+
+        return dp[0][n - 1];
+    }
+}

@@ -46,3 +46,29 @@ public class Solution {
 
 }
 
+class SolutionII {
+    // 用String[]来存mapping
+    // String[] dict = new String[] {"0", "1", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
+    public List<String> letterCombinations(String digits) {
+        List<String> res = new ArrayList<>();
+        if (digits == null || digits.length() == 0) return res;
+
+        String[] charMap = new String[] {"0", "1", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"}; // digit2char
+        dfs(charMap, digits, 0, new StringBuilder(), res);
+        return res;
+    }
+
+    private void dfs(String[] charMap, String digits, int pos, StringBuilder path, List<String> res) {
+        if (pos == digits.length()) {
+            res.add(path.toString());
+            return;
+        }
+
+        int digit = digits.charAt(pos) - '0';
+        for (char c : charMap[digit].toCharArray()) {
+            path.append(c);
+            dfs(charMap, digits, pos + 1, path, res);
+            path.deleteCharAt(path.length() - 1);
+        }
+    }
+}

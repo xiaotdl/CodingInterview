@@ -61,3 +61,77 @@ public class Solution {
 
     }
 }
+
+class SolutionII {
+    // credit: https://www.youtube.com/watch?v=GSBLe8cKu0s
+    // tag: sweep line, heap
+    // time: O(nlogn)
+    // space: O(n)
+    class Point {
+        int x;
+        int y;
+        boolean isL;
+        public Point(int x, int y, boolean isL) {
+            this.x = x;
+            this.y = y;
+            this.isL = isL;
+        }
+        @Override
+        public String toString() {
+            return String.format("(%d, %d, %s)", x, y, isL);
+        }
+    }
+
+    public List<int[]> getSkyline(int[][] buildings) {
+        List<int[]> res = new ArrayList<>();
+        if (buildings == null || buildings.length == 0) return res;
+
+        Point[] points = new Point[2*buildings.length];
+        for (int i = 0; i < points.length; i += 2) { // int[] b: {xLeft, xRight, y}
+            int[] b = buildings[i/2];
+            points[i] = new Point(b[0], b[2], true);
+            points[i + 1] = new Point(b[1], b[2], false);
+        }
+        Arrays.sort(points, new Comparator<Point>(){
+            @Override
+            public int compare(Point p1, Point p2) {
+                if (p1.x != p2.x) return p1.x - p2.x;
+
+                // upon same x:
+                // LL => higher height building should be picked first
+                // RR => lower height building should be picked first
+                // LR || RL => L should appear before R
+                if (p1.isL && p2.isL) {
+                    return p2.y - p1.y;
+                }
+                else if (!p1.isL && !p2.isL) {
+                    return p1.y - p2.y;
+                }
+                else {
+                    return p1.isL ? -1 : 1;
+                }
+            }
+        });
+
+        PriorityQueue<Integer> pq = new PriorityQueue<Integer>(buildings.length, Collections.reverseOrder());
+        pq.add(0);
+        int prevMaxY = 0;
+        for (Point p : points) {
+            if (p.isL) {
+                pq.offer(p.y);
+            }
+            else {
+                pq.remove(p.y);
+            }
+
+            int currMaxY = pq.peek();
+            if (currMaxY != prevMaxY) {
+                res.add(new int[]{p.x, currMaxY});
+                prevMaxY = currMaxY;
+            }
+        }
+        return res;
+    }
+}
+
+

@@ -184,24 +184,35 @@ class SolutionII {
 
 class SolutionIII {
     // credit: https://discuss.leetcode.com/topic/16935/share-my-java-solution
+    // e.g.
+    // 1 + 2 * 3 - 4 / 5
+    // [1,2]
+    // [1,2*3=6]
+    // [1,6,-4]
+    // [1,6,-4/5]
+    // res = 1 + 6 + (-4/5) = 7
+
     // tag: str, stack
-    // time: O(n)
+    // time: O(n), two pass, eval *,/ first, then +,-
     // space: O(n)
     public int calculate(String s) {
         if (s == null || s.length() == 0) return 0;
-
+        // use a stack to save all nums to be +,- in second pass
         Stack<Integer> stack = new Stack<>();
 
         int num = 0;
         char sign = '+';
         for (int i = 0; i < s.length(); i++) {
             char c = s.charAt(i);
-            if (c == ' ') continue;
+            if (c == ' ') {
+                if (i != s.length() - 1) continue;
+            }
             if (Character.isDigit(c)) {
-                num = num * 10 + (c - '0');
-                continue;
+                num = num * 10 + c - '0';
+                if (i != s.length() - 1) continue;
             }
 
+            // add prev num to stack && reset (sign, num)
             if (sign == '+') {
                 stack.push(num);
             }
@@ -219,17 +230,58 @@ class SolutionIII {
             num = 0;
         }
 
-        if (sign == '+') {
-            stack.push(num);
-        }
-        else if (sign == '-') {
-            stack.push(-num);
-        }
-        else if (sign == '*') {
-            stack.push(stack.pop() * num);
-        }
-        else if (sign == '/') {
-            stack.push(stack.pop() / num);
+        int res = 0;
+        while (!stack.isEmpty()) res += stack.pop();
+        return res;
+    }
+}
+
+class SolutionIV {
+    // credit: Basic Calculator III, https://leetcode.com/problems/basic-calculator-iii/discuss/113600/Java-O(n)-Solution-Using-Two-Stacks
+    // e.g.
+    // 1 + 2 * 3 - 4 / 5
+    // tag: str, stack
+    // time: O(n), two pass, eval *,/ first, then +,-
+    // space: O(n)
+    public int calculate(String s) {
+        if (s == null || s.length() == 0) return 0;
+
+        // use a stack to save all nums to be +,- in second pass
+        Stack<Integer> stack = new Stack<>();
+
+        int num = 0;
+        char sign = '+';
+        for (int i = 0; i < s.length(); i++) {
+            char c = s.charAt(i);
+            if (c == ' ') continue;
+            if (Character.isDigit(c)) {
+                num = c - '0';
+                while (i + 1 < s.length() && Character.isDigit(s.charAt(i + 1))) {
+                    num = 10 * num + s.charAt(i + 1) - '0';
+                    i++;
+                }
+
+                // add (sign, num) to stack
+                if (sign == '+') {
+                    stack.push(num);
+                }
+                else if (sign == '-') {
+                    stack.push(-num);
+                }
+                else if (sign == '*') {
+                    stack.push(stack.pop() * num);
+                }
+                else if (sign == '/') {
+                    stack.push(stack.pop() / num);
+                }
+
+                // reset num
+                num = 0;
+                continue;
+            }
+
+            // update sign
+            sign = c;
         }
 
         int res = 0;

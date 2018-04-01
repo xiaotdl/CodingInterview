@@ -98,8 +98,49 @@ class SolutionII {
     }
 }
 
+
 class SolutionIII {
-    // topological sort
+    // topological sort via outdegree, course -> prerequisite course
+    // tag: topological sort
+    // time: O(V+E)
+    // space: O(V+E)
+    public boolean canFinish(int numCourses, int[][] prerequisites) {
+        int n = numCourses;
+        int[] outdegree = new int[n];
+        Map<Integer, Set<Integer>> graph = new HashMap<>();
+        for (int i = 0; i < n; i++) graph.put(i, new HashSet<Integer>());
+        for (int[] p : prerequisites) {
+            int u = p[0];
+            int v = p[1];
+            graph.get(u).add(v);
+            outdegree[u]++;
+        }
+
+        Queue<Integer> q = new LinkedList<>();
+        for (int i = 0; i < n; i++) {
+            if (outdegree[i] == 0) q.offer(i);
+        }
+        int cnt = 0;
+        while (!q.isEmpty()) {
+            int v = q.poll();
+            cnt++;
+            for (int u = 0; u < n; u++) {
+                if (graph.get(u).contains(v)) {
+                    outdegree[u]--;
+                    if (outdegree[u] == 0) q.offer(u);
+                }
+            }
+        }
+        return cnt == n;
+    }
+}
+
+
+class SolutionIV {
+    // topological sort via indegree, course <- prerequisite course
+    // tag: topological sort
+    // time: O(V+E)
+    // space: O(V+E)
     public boolean canFinish(int n, int[][] prerequisites) {
         Map<Integer, Set<Integer>> graph = new HashMap<>();
         for (int i = 0; i < n; i++) graph.put(i, new HashSet<>());

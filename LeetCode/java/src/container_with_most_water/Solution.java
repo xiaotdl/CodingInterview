@@ -4,6 +4,7 @@ package container_with_most_water;
  * Created by Xiaotian on 6/26/17.
  */
 public class Solution {
+    // Ref: https://leetcode.com/problems/container-with-most-water/discuss/6099/yet-another-way-to-see-what-happens-in-the-on-algorithm
     // tag: ptr
     // time: O(n)
     // space: O(1)

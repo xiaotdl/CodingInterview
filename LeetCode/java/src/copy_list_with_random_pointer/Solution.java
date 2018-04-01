@@ -54,3 +54,23 @@ public class Solution {
     }
 }
 
+class SolutionII {
+    // two pass
+    public RandomListNode copyRandomList(RandomListNode head) {
+        Map<RandomListNode, RandomListNode> m = new HashMap<>(); // old2new
+
+        RandomListNode curr = head;
+        while (curr != null) {
+            m.put(curr, new RandomListNode(curr.label));
+            curr = curr.next;
+        }
+
+        curr = head;
+        while (curr != null) {
+            m.get(curr).next = m.get(curr.next);
+            m.get(curr).random = m.get(curr.random);
+            curr = curr.next;
+        }
+        return m.get(head);
+    }
+}

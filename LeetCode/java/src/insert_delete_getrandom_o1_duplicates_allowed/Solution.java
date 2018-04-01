@@ -5,73 +5,66 @@ import java.util.*;
 /**
  * Created by Xiaotian on 9/11/17.
  */
-public class Solution {
+class RandomizedCollection {
+    // using a LinkedHashSet for O(1) iteration over large items.
+    // An iterator over a normal HashSet is actually O(h/n), where h is table capacity.
+    // So it is not a solution to our problem requiring O(1) time.
     // tag: array, hash
     // time:
     //   insert: O(1)
     //   remove: O(1)
     //   getRandom: O(1)
     // space: O(n)
-}
-
-class RandomizedCollection {
-    // using a LinkedHashSet for O(1) iteration over large items.
-    // An iterator over a normal HashSet is actually O(h/n), where h is table capacity.
-    // So it is not a solution to our problem requiring O(1) time.
-    List<Integer> nums;             // index2num
+    List<Integer> list;
     Map<Integer, Set<Integer>> map; // num2indexes
     Random rand;
     /** Initialize your data structure here. */
     public RandomizedCollection() {
-        nums = new ArrayList<>();
+        list = new ArrayList<>();
         map = new HashMap<>();
         rand = new Random();
     }
 
-    /** Inserts a value to the collection. Returns true if the collection did not already contain the specified element. */
     public boolean insert(int val) {
-        nums.add(val);
         boolean isContained = map.containsKey(val);
-        if (!isContained) {
-            map.put(val, new LinkedHashSet<Integer>()); // HashSet也行
-        }
-        map.get(val).add(nums.size() - 1);
+        map.putIfAbsent(val, new LinkedHashSet<Integer>());
+
+        list.add(val);
+        map.get(val).add(list.size() - 1);
         return !isContained;
     }
 
-    /** Removes a value from the collection. Returns true if the collection contained the specified element. */
     public boolean remove(int val) {
-        if (!map.containsKey(val)) {
-            return false;
-        }
+        if (!map.containsKey(val)) return false;
 
-        int i = map.get(val).iterator().next();
-        map.get(val).remove(i);
-        if (i != nums.size() - 1) {
-            int lastVal = nums.get(nums.size() - 1);
-            nums.set(i, lastVal);
-            map.get(lastVal).remove(nums.size() - 1);
-            map.get(lastVal).add(i);
+        int currIdx = map.get(val).iterator().next();
+        int lastIdx = list.size() - 1;
+        if (currIdx != lastIdx) {
+            if (list.get(currIdx) == list.get(lastIdx)) {
+                // remove the largest idx of same value, otherwise IndexOutOfBoundsException
+                currIdx = lastIdx;
+            }
+            else {
+                // move lastVal to currIdx in list
+                int lastVal = list.get(lastIdx);
+                list.set(currIdx, lastVal);
+                // update lastVal's idx in map
+                map.get(lastVal).remove(lastIdx);
+                map.get(lastVal).add(currIdx);
+            }
         }
-
-        nums.remove(nums.size() - 1);
+        // remove last (swapped curr val) in list
+        list.remove(lastIdx);
+        // remove curr val's idx in map
+        map.get(val).remove(currIdx);
         if (map.get(val).isEmpty()) {
             map.remove(val);
         }
         return true;
     }
 
-    /** Get a random element from the collection. */
     public int getRandom() {
-        return nums.get(rand.nextInt(nums.size()));
+        int i = rand.nextInt(list.size());
+        return list.get(i);
     }
 }
-
-/**
- * Your RandomizedCollection object will be instantiated and called as such:
- * RandomizedCollection obj = new RandomizedCollection();
- * boolean param_1 = obj.insert(val);
- * boolean param_2 = obj.remove(val);
- * int param_3 = obj.getRandom();
- */
-

@@ -33,3 +33,26 @@ public class Solution {
         return true;
     }
 }
+
+class SolutionII {
+    // Same as Solution
+    // tag: math, 数位分离
+    // time: O(n)
+    // space: O(n)
+    public boolean isHappy(int n) {
+        Set<Integer> seen = new HashSet<>();
+        seen.add(n);
+        while (n != 1) {
+            int nextN = 0;
+            while (n != 0) {
+                int digit = n % 10;
+                n /= 10;
+                nextN += digit * digit;
+            }
+            if (seen.contains(nextN)) return false;
+            seen.add(nextN);
+            n = nextN;
+        }
+        return true;
+    }
+}

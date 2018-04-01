@@ -101,3 +101,31 @@ class SolutionIII {
     }
 }
 
+class SolutionIV {
+    // tag: str, hash
+    // time: O(n*m), where n is length of strs, m is average length of strings
+    // space: O(n*m), used a hash to save all strings
+    public List<List<String>> groupAnagrams(String[] strs) {
+        List<List<String>> res = new ArrayList<>();
+        if (strs == null || strs.length == 0) return res;
+
+        Map<String, List<String>> m = new HashMap<>(); // charCnt(e.g."2|1|...")2list(str)
+        for (String s : strs) {
+            int[] charCnt = new int[26];
+            for (char c : s.toCharArray()) {
+                charCnt[c - 'a']++;
+            }
+
+            StringBuilder sb = new StringBuilder();
+            sb.append(charCnt[0]);
+            for (int i = 1; i < 26; i++) {
+                sb.append("|"+charCnt[i]);
+            }
+            String key = sb.toString();
+            m.putIfAbsent(key, new ArrayList<String>());
+            m.get(key).add(s);
+        }
+        for (List<String> group : m.values()) res.add(group);
+        return res;
+    }
+}

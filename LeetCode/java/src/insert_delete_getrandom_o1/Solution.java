@@ -73,3 +73,54 @@ class RandomizedSet {
  * boolean param_2 = obj.remove(val);
  * int param_3 = obj.getRandom();
  */
+
+class RandomizedSetII {
+    // implementation without swap
+    // tag: array, hash
+    // time:
+    //   insert: O(1)
+    //   remove: O(1)
+    //   getRandom: O(1)
+    // space: O(n)
+    List<Integer> list;
+    Map<Integer, Integer> map; // num2idx
+    Random rand;
+    public RandomizedSetII() {
+        list = new ArrayList<>();
+        map = new HashMap<>();
+        rand = new Random();
+    }
+
+    public boolean insert(int val) {
+        if (map.containsKey(val)) return false;
+
+        list.add(val);
+        map.put(val, list.size() - 1);
+        return true;
+    }
+
+    public boolean remove(int val) {
+        if (!map.containsKey(val)) return false;
+
+        int currIdx = map.get(val);
+        int lastIdx = list.size() - 1;
+        if (currIdx != lastIdx) {
+            // move lastVal to currIdx in list
+            int lastVal = list.get(lastIdx);
+            list.set(currIdx, lastVal);
+            // update lastVal's idx in map
+            map.put(lastVal, currIdx);
+        }
+        // remove last (swapped curr val) in list
+        list.remove(lastIdx);
+        // remove curr val in map
+        map.remove(val);
+        return true;
+    }
+
+    public int getRandom() {
+        int i = rand.nextInt(list.size());
+        return list.get(i);
+
+    }
+}

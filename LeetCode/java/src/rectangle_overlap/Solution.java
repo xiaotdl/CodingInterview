@@ -9,8 +9,10 @@ class Point {
     public Point(int a, int b) { x = a; y = b; }
 }
 
-
 public class Solution {
+    // tag: geometry
+    // time: O(1)
+    // space: O(1)
     /*
      * @param l1: top-left coordinate of first rectangle
      * @param r1: bottom-right coordinate of first rectangle

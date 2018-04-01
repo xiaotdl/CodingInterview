@@ -109,8 +109,67 @@ class MinStackII {
  * int param_3 = obj.top();
  * int param_4 = obj.getMin();
  */
-
 class MinStackIII {
+    class DoulbeLinkedNode {
+        int val;
+        int min;
+        DoulbeLinkedNode prev;
+        DoulbeLinkedNode next;
+        DoulbeLinkedNode(int val, int min) {
+            this.val = val;
+            this.min = min;
+            prev = next = null;
+        }
+    }
+    DoulbeLinkedNode head;
+    DoulbeLinkedNode tail;
+    int size;
+    /** initialize your data structure here. */
+    public MinStackIII() {
+        head = new DoulbeLinkedNode(-1, -1);
+        tail = new DoulbeLinkedNode(-1, -1);
+        head.next = tail;
+        tail.prev = head;
+        size = 0;
+    }
+
+    public void push(int x) {
+        size++;
+
+        DoulbeLinkedNode top = tail.prev;
+        int min = size == 1 ? x : Math.min(top.min, x);
+        DoulbeLinkedNode node = new DoulbeLinkedNode(x, min);
+
+        tail.prev.next = node;
+        node.next = tail;
+        node.prev = tail.prev;
+        tail.prev = node;
+    }
+
+    public void pop() {
+        if (size == 0) return; // throw
+        size--;
+
+        DoulbeLinkedNode top = tail.prev;
+        top.prev.next = top.next;
+        top.next.prev = top.prev;
+    }
+
+    public int top() {
+        if (size == 0) return -1; // throw
+
+        DoulbeLinkedNode top = tail.prev;
+        return top.val;
+    }
+
+    public int getMin() {
+        if (size == 0) return -1; // throw
+
+        return tail.prev.min;
+    }
+}
+
+class MinStackIV {
     // implemented without stack
     // tag: stack
     // time:
@@ -123,42 +182,46 @@ class MinStackIII {
         int val;
         int min;
         Node prev;
-
-        public Node(int val) {
+        Node(int val, int min) {
             this.val = val;
+            this.min = min;
+            prev = null;
         }
     }
+    Node top;
 
-    Node curr;
-
-    /** initialize your data structure here. */
-    public MinStackIII() {
-        curr = null;
+    public MinStackIV() {
+        top = null;
     }
 
     public void push(int x) {
-        if (curr == null) {
-            curr = new Node(x);
-            curr.min = x;
+        if (top == null) {
+            top = new Node(x, x);
+            return;
         }
-        else {
-            Node next = new Node(x);
-            next.min = Math.min(curr.min, x);
-            next.prev = curr;
-            curr = next;
-        }
+
+        int min = Math.min(top.min, x);
+        Node node = new Node(x, min);
+        node.prev = top;
+        top = node;
     }
 
     public void pop() {
-        curr = curr.prev;
+        if (top == null) return; // throw
+
+        top = top.prev;
     }
 
     public int top() {
-        return curr.val;
+        if (top == null) return -1; // throw
+
+        return top.val;
     }
 
     public int getMin() {
-        return curr.min;
+        if (top == null) return -1; // throw
+
+        return top.min;
     }
 }
 

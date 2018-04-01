@@ -19,7 +19,7 @@ class Solution {
             for (int i = 1; i < s.length(); i++) {
                 key += String.format("%2d", (s.charAt(i) - s.charAt(i - 1) + 26) % 26);
             }
-            if (!m.containsKey(key)) m.put(key, new ArrayList<String>());
+            m.putIfAbsent(key, new ArrayList<>());
             m.get(key).add(s);
         }
         return new ArrayList<List<String>>(m.values());

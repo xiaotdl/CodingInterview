@@ -1,5 +1,7 @@
 package implement_trie;
 
+import java.util.*;
+
 /**
  * Created by Xiaotian on 7/7/17.
  */
@@ -99,7 +101,7 @@ class TrieNode {
  */
 
 class TrieII {
-    // iterative version
+    // iterative version with TrieNode[] next
     // insert
     //   time: O(m), m: word length
     //   space: O(m), worst case: needs to create m TrieNodes when there is no such prefix
@@ -245,3 +247,103 @@ class TrieIII {
  * boolean param_2 = obj.search(word);
  * boolean param_3 = obj.startsWith(prefix);
  */
+
+// iterative version with Map<Character, TrieNode> next
+// Trie impl with iteration and hashmap
+// insert: O(n)/O(n), n: word length
+// search: O(n)/O(1)
+// prefix: O(n)/O(1)
+class TrieIV {
+
+    class TrieNode {
+        char c;
+        boolean hasWord;
+        Map<Character, TrieNode> next;
+        TrieNode(char c) {
+            this.c = c;
+            hasWord = false;
+            next = new HashMap<>();
+        }
+    }
+
+    TrieNode root;
+    public TrieIV() {
+        root = new TrieNode(' ');
+    }
+
+    /** Inserts a word into the trie. */
+    public void insert(String word) {
+        TrieNode curr = root;
+        for (int i = 0; i < word.length(); i++) {
+            char c = word.charAt(i);
+            curr.next.putIfAbsent(c, new TrieNode(c));
+            curr = curr.next.get(c);
+        }
+        curr.hasWord = true;
+    }
+
+    /** Returns if the word is in the trie. */
+    public boolean search(String word) {
+        TrieNode curr = root;
+        for (int i = 0; i < word.length(); i++) {
+            char c = word.charAt(i);
+            curr = curr.next.get(c);
+            if (curr == null) return false;
+        }
+        return curr.hasWord;
+    }
+
+    /** Returns if there is any word in the trie that starts with the given prefix. */
+    public boolean startsWith(String prefix) {
+        TrieNode curr = root;
+        for (int i = 0; i < prefix.length(); i++) {
+            char c = prefix.charAt(i);
+            curr = curr.next.get(c);
+            if (curr == null) return false;
+        }
+        return true;
+    }
+
+    public TrieNode getNode(String prefix) {
+        TrieNode curr = root;
+        for (int i = 0; i < prefix.length(); i++) {
+            char c = prefix.charAt(i);
+            curr = curr.next.get(c);
+            if (curr == null) return null;
+        }
+        return curr;
+    }
+
+    public List<String> autocomplete(String prefix) {
+        List<String> res = new ArrayList<>();
+        TrieNode curr = getNode(prefix);
+        StringBuilder path = new StringBuilder();
+        path.append(prefix);
+        dfs(curr, path, res);
+        return res;
+    }
+
+    // recursively search all children for words
+    private void dfs(TrieNode curr, StringBuilder path, List<String> res) {
+        if (curr == null) return;
+        if (curr.hasWord) {
+            res.add(path.toString());
+        }
+
+        for (char c : curr.next.keySet()) {
+            path.append(c);
+            dfs(curr.next.get(c), path, res);
+            path.deleteCharAt(path.length() - 1);
+        }
+    }
+
+    public static void main(String[] args) {
+        TrieIV trie = new TrieIV();
+        trie.insert("a");
+        trie.insert("ab");
+        trie.insert("abc");
+        trie.insert("abcd");
+        trie.insert("abcdef");
+        System.out.println(trie.autocomplete("a"));
+    }
+}

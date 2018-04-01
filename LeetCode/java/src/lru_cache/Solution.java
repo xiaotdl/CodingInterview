@@ -92,3 +92,72 @@ class LRUCache {
         tail.prev = curr;
     }
 }
+
+class LRUCacheII {
+    // same as LRUCache
+    // O(1) get, set => hashmap
+    // O(1) add/remove => double linked list
+    class DoubleLinkedNode {
+        int key;
+        int val;
+        DoubleLinkedNode prev;
+        DoubleLinkedNode next;
+        DoubleLinkedNode(int key, int val) {
+            this.key = key;
+            this.val = val;
+            prev = next = null;
+        }
+    }
+
+    DoubleLinkedNode head;
+    DoubleLinkedNode tail;
+    Map<Integer, DoubleLinkedNode> map; // key2node
+    int capacity;
+    public LRUCacheII(int capacity) {
+        this.capacity = capacity;
+        head = new DoubleLinkedNode(-1, -1);
+        tail = new DoubleLinkedNode(-1, -1);
+        head.next = tail;
+        tail.prev = head;
+        map = new HashMap<Integer, DoubleLinkedNode>();
+    }
+
+    public int get(int key) {
+        if (!map.containsKey(key)) return -1;
+
+        DoubleLinkedNode node = map.get(key);
+        remove(node);
+
+        addToTail(node);
+
+        return node.val;
+    }
+
+    public void put(int key, int val) {
+        if (get(key) != -1) {
+            map.get(key).val = val;
+            return;
+        }
+
+        if (map.size() == capacity) {
+            map.remove(head.next.key);
+            remove(head.next);
+        }
+
+        DoubleLinkedNode node = new DoubleLinkedNode(key, val);
+        addToTail(node);
+        map.put(key, node);
+    }
+
+    private void remove(DoubleLinkedNode node) {
+        node.prev.next = node.next;
+        node.next.prev = node.prev;
+    }
+
+    private void addToTail(DoubleLinkedNode node) {
+        tail.prev.next = node;
+        node.next = tail;
+        node.prev = tail.prev;
+        tail.prev = node;
+    }
+}

@@ -15,7 +15,7 @@ class Point {
 }
 
 public class Solution {
-    // tag: hash
+    // tag: hash, geometry
     // time: O(n^2)
     // space: O(n)
     /**

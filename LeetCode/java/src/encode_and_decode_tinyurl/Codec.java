@@ -5,35 +5,43 @@ import java.util.*;
 /**
  * Created by Xiaotian on 6/14/17.
  */
-// tag: hash
-// time: O(1)
-// space: O(n)
 public class Codec {
-    Map<String, String> long2short = new HashMap<>();
-    Map<String, String> short2long = new HashMap<>();
-    static String HOST = "http://tinyurl.com/";
+    // tag: hash, base62
+    // time: O(1)
+    // space: O(n)
+    Map<String, String> l2s = new HashMap<>();
+    Map<String, String> s2l = new HashMap<>();
+    public final static int SHORT_URL_LEN = 6;
 
     // Encodes a URL to a shortened URL.
     public String encode(String longUrl) {
-        if (short2long.containsKey(longUrl)) return HOST + long2short.get(longUrl);
-        String charSet = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-        String shortUrl = null;
-        do {
-            StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < 6; i++) {
-                int j = (int) (Math.random() * charSet.length());
-                sb.append(charSet.charAt(j));
+        if (l2s.containsKey(longUrl)) return l2s.get(longUrl);
+
+        String charSet = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"; // base62
+        Random rand = new Random();
+        StringBuilder sb = new StringBuilder();
+        String shortUrl = "";
+        // find a unique tiny url
+        while (true) {
+            int i = rand.nextInt(charSet.length());
+            sb.append(charSet.charAt(i));
+            if (sb.length() == SHORT_URL_LEN) {
+                shortUrl = sb.toString();
+                if (!s2l.containsKey(shortUrl)) break;
+                sb = new StringBuilder();
             }
-            shortUrl = sb.toString();
         }
-        while (long2short.containsKey(shortUrl));
-        long2short.put(longUrl, shortUrl);
-        short2long.put(shortUrl, longUrl);
-        return HOST + shortUrl;
+        l2s.put(longUrl, shortUrl);
+        s2l.put(shortUrl, longUrl);
+        return shortUrl;
     }
 
     // Decodes a shortened URL to its original URL.
     public String decode(String shortUrl) {
-        return short2long.get(shortUrl.replace(HOST, ""));
+        return s2l.get(shortUrl);
     }
 }
+
+// Your Codec object will be instantiated and called as such:
+// Codec codec = new Codec();
+// codec.decode(codec.encode(url));

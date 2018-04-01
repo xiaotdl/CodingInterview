@@ -119,3 +119,11 @@ class SolutionII {
     }
 }
 
+class SolutionIII {
+    // Ref: https://leetcode.com/problems/4sum/discuss/8761/Any-better-solution-than-O(n3)/9843
+    // save two sum in treeset O(n^2*logn)
+    // O(n^2) iterate two numbers and use two_sum_treeset to check if they sum to target
+    // tag: treeset
+    // time: O(n^2*logn)
+    // space: O(n^2)
+}

@@ -1,3 +1,5 @@
+import java.util.*;
+
 public class Solution {
     // bfs vertices that has indegree == 0 (no dependencies)
     // tag: topological sort

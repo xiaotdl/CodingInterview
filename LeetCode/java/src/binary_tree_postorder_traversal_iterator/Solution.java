@@ -18,6 +18,7 @@ class TreeNode {
 }
 
 class PostOrderIterator {
+    // credit: http://n00tc0d3r.blogspot.com/2013/08/implement-iterator-for-binarytree-iii.html
 
     private Stack<TreeNode> stack;
 

@@ -22,3 +22,16 @@ public class Solution {
         return i;
     }
 }
+
+class SolutionII {
+    // Similar to partition
+    public int removeDuplicates(int[] nums) {
+        int i = 0;
+        for (int j = 0; j < nums.length; j++) {
+            if (j > 0 && nums[j] == nums[j - 1]) continue;
+            nums[i] = nums[j];
+            i++;
+        }
+        return i;
+    }
+}

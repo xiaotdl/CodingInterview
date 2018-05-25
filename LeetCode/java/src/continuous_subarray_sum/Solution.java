@@ -6,23 +6,25 @@ import java.util.*;
  * Created by Xiaotian on 6/25/17.
  */
 public class Solution {
+    // credit: https://leetcode.com/problems/continuous-subarray-sum/solution/
     // Leetcode
     // tag: hash, prefix sum
     // time: O(n)
     // space: O(n)
     public boolean checkSubarraySum(int[] nums, int k) {
-        Map<Integer, Integer> map = new HashMap<>(); // modulusOfSum2index
-        int sum = 0;
+        if (nums == null || nums.length == 0) return false;
+
+        Map<Integer, Integer> m = new HashMap<>(); //prefixSum[%k]2idx
+        m.put(0, -1);
+
+        int prefixSum = 0;
         for (int i = 0; i < nums.length; i++) {
-            sum += nums[i];
-            if (k != 0) sum %= k;
-            if (sum == 0 && i >= 1) {
-                return true;
-            }
-            else if (map.containsKey(sum) && i - map.get(sum) >= 2) {
-                return true;
-            }
-            map.put(sum, map.containsKey(sum) ? map.get(sum) : i);
+            prefixSum += nums[i];
+            if (k != 0) prefixSum %= k;
+
+            if (m.containsKey(prefixSum) && i - m.get(prefixSum) >= 2) return true;
+
+            m.putIfAbsent(prefixSum, i);
         }
         return false;
     }

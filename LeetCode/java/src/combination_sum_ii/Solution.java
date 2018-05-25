@@ -19,9 +19,9 @@ public class Solution {
         return res;
     }
 
-    void dfs(int[] candidates, int target, int pos, int currSum, ArrayList<Integer> currRes, List<List<Integer>> res) {
+    void dfs(int[] candidates, int target, int pos, int currSum, ArrayList<Integer> path, List<List<Integer>> res) {
         if (currSum == target) {
-            res.add(new ArrayList<Integer>(currRes));
+            res.add(new ArrayList<Integer>(path));
         }
         else if (currSum > target) {
             return;
@@ -30,9 +30,9 @@ public class Solution {
         for (int i = pos; i < candidates.length; i++) {
             if (i != pos && candidates[i] == candidates[i - 1]) continue;
 
-            currRes.add(candidates[i]);
-            dfs(candidates, target, i + 1, currSum + candidates[i], currRes, res);
-            currRes.remove(currRes.size() - 1 );
+            path.add(candidates[i]);
+            dfs(candidates, target, i + 1, currSum + candidates[i], path, res);
+            path.remove(path.size() - 1 );
         }
     }
 }

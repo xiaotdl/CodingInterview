@@ -40,6 +40,7 @@ public class Solution {
     }
 }
 
+
 class SolutionII {
     // tag: bfs
     // time: O(n^2)
@@ -50,23 +51,31 @@ class SolutionII {
         Arrays.fill(minCost, Integer.MAX_VALUE);
         minCost[src] = 0;
 
+        Map<Integer, Map<Integer, Integer>> graph = new HashMap<>();
+        for (int i = 0; i < n; i++) graph.put(i, new HashMap<>());
+        for (int[] f : flights) {
+            int u = f[0]; int v = f[1]; int w = f[2];
+            graph.get(u).put(v, w);
+        }
+
         Queue<Integer> q = new LinkedList<>();
-        q.add(src);
-        while (K >= 0 && !q.isEmpty()) {
+        q.offer(src);
+        int stops = 0;
+        while (!q.isEmpty()) {
             int size = q.size();
             for (int i = 0; i < size; i++) {
-                int currCity = q.poll();
-                for (int[] f : flights) {
-                    int u = f[0];
-                    int v = f[1];
-                    int w = f[2]; // cost from u to v
-                    if (u == currCity && minCost[v] > minCost[u] + w) {
+                int u = q.poll();
+                for (Map.Entry<Integer, Integer> e : graph.get(u).entrySet()) {
+                    int v = e.getKey();
+                    int w = e.getValue();
+                    if (v != dst && stops == K) continue; // hit stops limit
+                    if (minCost[u] + w < minCost[v]) {
                         minCost[v] = minCost[u] + w;
-                        q.add(v);
+                        q.offer(v);
                     }
                 }
             }
-            K--;
+            stops++;
         }
         return minCost[dst] != Integer.MAX_VALUE ? minCost[dst] : -1;
     }

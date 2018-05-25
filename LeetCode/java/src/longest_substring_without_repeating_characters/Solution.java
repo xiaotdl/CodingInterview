@@ -54,20 +54,24 @@ class SolutionII {
 }
 
 class SolutionIII {
-    public int lengthOfLongestSubstring(String s) {
+    // sliding window
+    public int lengthOfLongestSubstringTwoDistinct(String s) {
         int[] charCnt = new int[256];
+        int distinctCnt = 0;
         char[] S = s.toCharArray();
-
         int maxLen = 0;
-        int l, r;
-        for (l = 0, r = 0; r < s.length(); l++) {
-            while (r < s.length() && charCnt[S[r]] == 0) {
-                charCnt[S[r]]++;
-                r++;
+        for (int i = 0, j = 0; i < S.length; i++) {
+            while (j < S.length && distinctCnt <= 2) {
+                if (distinctCnt == 2 && charCnt[S[j]] == 0) break;
+                if (charCnt[S[j]] == 0) distinctCnt++;
+                charCnt[S[j]]++;
+                j++;
             }
-            maxLen = Math.max(maxLen, r - l);
-            charCnt[S[l]]--;
+            maxLen = Math.max(maxLen, j - i);
+            charCnt[S[i]]--;
+            if (charCnt[S[i]] == 0) distinctCnt--;
         }
         return maxLen;
     }
 }
+

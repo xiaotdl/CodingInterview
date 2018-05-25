@@ -1,5 +1,7 @@
 package move_zeroes;
 
+import java.util.Arrays;
+
 /**
  * Created by Xiaotian on 6/13/17.
  */
@@ -20,5 +22,11 @@ public class Solution {
         while (i < nums.length) {
             nums[i++] = 0;
         }
+    }
+
+    public static void main(String[] args) {
+        int[] nums = new int[]{0, 1, 0, 3, 12};
+        new Solution().moveZeroes(nums);
+        System.out.println(Arrays.toString(nums));
     }
 }

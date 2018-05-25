@@ -25,12 +25,12 @@ public class Solution {
 
 class SolutionII {
     // tag: array, heap
-    // time: O(nlogk), k=26
-    // space: O(1)
+    // time: O(nlogk), n: number of tasks, k: number of task types
+    // space: O(k)
     public int leastInterval(char[] tasks, int n) {
         Map<Character, Integer> map = new HashMap<>(); // task2count
         for (char task : tasks) {
-            map.put(task, map.containsKey(task) ? map.get(task) + 1 : 1);
+            map.put(task, map.getOrDefault(task, 0) + 1);
         }
         // maxHeap
         PriorityQueue<Map.Entry<Character, Integer>> pq =
@@ -48,7 +48,6 @@ class SolutionII {
 
         int cnt = 0;
         while (!pq.isEmpty()) {
-            // int k = n + 1; // length of one trunk
             List<Map.Entry<Character, Integer>> executedTasks = new ArrayList<>();
             int k = n + 1; // trunk length
             while (k > 0 && !pq.isEmpty()) {

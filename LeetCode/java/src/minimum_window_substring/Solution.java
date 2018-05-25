@@ -59,38 +59,29 @@ public class Solution {
 
 
 class SolutionII {
-    // Same as Solution
-    public String minWindow(String S, String T) {
-        int[] ascii = new int[256]; // save T's char count
-        for (char c : T.toCharArray()) {
-            ascii[c]++;
+    public String minWindow(String s, String t) {
+        char[] S = s.toCharArray();
+        char[] T = t.toCharArray();
+        int[] charCnt = new int[256];
+        for (char c : T) {
+            charCnt[c]++;
         }
-        int matchedCnt = 0; // t chars matched so far
-        int minWin = Integer.MAX_VALUE;
-        String minStr = "";
-        int l, r;
-        for(l = 0, r = 0; l < S.length(); l++) {
-            while(r < S.length() && matchedCnt < T.length()) {
-                if (ascii[S.charAt(r)] > 0) {
-                    matchedCnt++;
-                }
-                ascii[S.charAt(r)]--;
-                r++;
+        int minLen = Integer.MAX_VALUE;
+        String minWindow = "";
+        int matchedCnt = 0;
+        for (int i = 0, j = 0; i < S.length; i++) {
+            while (j < S.length && matchedCnt < T.length) {
+                if (charCnt[S[j]] > 0) matchedCnt++;
+                charCnt[S[j]]--;
+                j++;
             }
-
-            if (matchedCnt == T.length()) {
-                int currWin = r - l;
-                if (currWin < minWin) {
-                    minWin = currWin;
-                    minStr = S.substring(l, r);
-                }
+            if (matchedCnt == T.length && j - i < minLen) {
+                minLen = j - i;
+                minWindow = s.substring(i, j);
             }
-
-            if (ascii[S.charAt(l)] >= 0) {
-                matchedCnt--;
-            }
-            ascii[S.charAt(l)]++;
+            if (charCnt[S[i]] >= 0) matchedCnt--;
+            charCnt[S[i]]++;
         }
-        return minStr;
+        return minLen != Integer.MAX_VALUE ? minWindow : "";
     }
 }

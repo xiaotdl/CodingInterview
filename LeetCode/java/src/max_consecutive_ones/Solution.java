@@ -13,11 +13,11 @@ public class Solution {
         for (int num : nums) {
             if (num == 1) {
                 currOnes++;
+                max = Math.max(max, currOnes);
             }
             else {
                 currOnes = 0;
             }
-            max = Math.max(max, currOnes);
         }
         return max;
     }

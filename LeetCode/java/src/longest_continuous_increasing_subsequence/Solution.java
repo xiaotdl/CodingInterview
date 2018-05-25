@@ -91,3 +91,22 @@ class SolutionIII {
         return maxLen;
     }
 }
+
+class SolutionIV {
+    // tag: array, two ptr
+    // time: O(n)
+    // space: O(1)
+    public int findLengthOfLCIS(int[] nums) {
+        int maxLen = 0;
+        for (int i = 0, j = 0; i < nums.length; i = j + 1) { // i: startIdx, j: endIdx
+            int len = 1;
+            j = i;
+            while (j + 1 < nums.length && nums[j + 1] > nums[j]) {
+                j++;
+                len++;
+            }
+            maxLen = Math.max(maxLen, len);
+        }
+        return maxLen;
+    }
+}

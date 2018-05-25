@@ -98,19 +98,15 @@ class SolutionIII {
         if (pos == word.length()) return true;
 
         if (!(0 <= x && x < board.length
-                && 0 <= y && y < board[0].length)) return false;
+            && 0 <= y && y < board[0].length)) return false;
         if (visited[x][y]) return false;
-        visited[x][y] = true;
-
-        if (board[x][y] != word.charAt(pos)) {
-            visited[x][y] = false;
-            return false;
-        }
+        if (board[x][y] != word.charAt(pos)) return false;
 
         for (int k = 0; k < 4; k++) {
+            visited[x][y] = true;
             if (dfs(board, visited, x + dx[k], y + dy[k], word, pos + 1)) return true;
+            visited[x][y] = false;
         }
-        visited[x][y] = false;
         return false;
     }
 

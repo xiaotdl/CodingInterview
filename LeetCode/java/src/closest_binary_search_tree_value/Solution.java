@@ -29,10 +29,10 @@ public class Solution {
     }
 }
 
-// tag: binary search, recursive
-// time: O(logn)
-// space: O(1)
 class SolutionII {
+    // tag: binary search, recursive
+    // time: O(logn)
+    // space: O(1)
     public int closestValue(TreeNode root, double target) {
         int a = root.val;
         TreeNode child = (target < a ? root.left : root.right);
@@ -46,7 +46,9 @@ class SolutionII {
 
 class SolutionIII {
     // Same as SolutionII
-    // recursive
+    // tag: binary search, recursive
+    // time: O(logn)
+    // space: O(1)
     public int closestValue(TreeNode root, double target) {
         if (root == null) return -1;
         return dfs(root, target);

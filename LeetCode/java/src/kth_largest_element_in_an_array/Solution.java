@@ -28,39 +28,38 @@ public class Solution {
 class SolutionII {
     // quickselect
     // tag: array
-    // time: O(n)
+    // time:
+    //   avg: O(n)
+    //   worst: O(n^2), e.g. each time selected worst pivot, which introduces O(n) swapping
     // space: O(1)
     public int findKthLargest(int[] nums, int k) {
-        if (nums == null || nums.length == 0 || k <= 0 || k > nums.length) return -1;
+        return qSelect(nums, 0, nums.length - 1, nums.length - k);
+    }
 
-        k = nums.length - k;
-        int l = 0;
-        int r = nums.length - 1;
-        while (l < r) {
-            int p = partition(nums, l, r);
-            if (p < k) {
-                l = p + 1;
-            }
-            else if (p > k) {
-                r = p - 1;
-            }
-            else {
-                break;
-            }
+    private int qSelect(int[] nums, int l, int r, int k) {
+        if (l == r) return nums[l];
+
+        int p = partition(nums, l, r);
+
+        if (p < k) {
+            return qSelect(nums, p + 1, r, k);
         }
-        return nums[k];
+        else if (p > k) {
+            return qSelect(nums, l, p - 1, k);
+        }
+        else return nums[p];
     }
 
     private int partition(int[] nums, int l, int r) {
-        int pivot = nums[r];
+        int p = r;
         int i = l;
-        for (int j = l; j < r; j++) {
-            if (nums[j] < pivot) {
+        for (int j = l; j <= r; j++) {
+            if (nums[j] < nums[p]) {
                 swap(nums, i, j);
                 i++;
             }
         }
-        swap(nums, r, i);
+        swap(nums, i, p);
         return i;
     }
 

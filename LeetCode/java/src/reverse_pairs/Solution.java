@@ -212,8 +212,7 @@ class SolutionV {
         int m = l + (r - l) / 2;
         int cnt = mergeSort(nums, l, m) + mergeSort(nums, m + 1, r);
         // calculate important reverse pairs before merge
-        int i, j;
-        for (i = l, j = m + 1; i <= m; i++) {
+        for (int i = l, j = m + 1; i <= m; i++) {
             while (j <= r && nums[i] > nums[j] * 2L) {
                 j++;
             }
@@ -228,12 +227,9 @@ class SolutionV {
         int n2 = r - m;
         int[] L = new int[n1];
         int[] R = new int[n2];
-        for (int i = 0; i < n1; i++) {
-            L[i] = nums[l + i];
-        }
-        for (int j = 0; j < n2; j++) {
-            R[j] = nums[m + 1 + j];
-        }
+        for (int i = 0; i < n1; i++) L[i] = nums[l + i];
+        for (int j = 0; j < n2; j++) R[j] = nums[m + 1 + j];
+
         int i = 0, j = 0, k = l;
         while (i < n1 && j < n2) {
             if (L[i] <= R[j]) {

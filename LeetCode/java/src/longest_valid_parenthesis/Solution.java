@@ -3,11 +3,12 @@ package longest_valid_parenthesis;
 /**
  * Created by Xiaotian on 12/29/16.
  */
-// credit: https://leetcode.com/articles/longest-valid-parentheses/#approach-2-using-dynamic-programming-accepted
-// tag: str, dp
-// time: O(n)
-// space: O(n)
+
 public class Solution {
+    // credit: https://leetcode.com/articles/longest-valid-parentheses/#approach-2-using-dynamic-programming-accepted
+    // tag: str, dp
+    // time: O(n)
+    // space: O(n)
     public int longestValidParentheses(String s) {
         if (s == null || s.length() == 0) return 0;
 
@@ -26,5 +27,48 @@ public class Solution {
             }
         }
         return max;
+    }
+}
+
+
+class SolutionII {
+    // credit: https://leetcode.com/problems/longest-valid-parentheses/solution/
+    // tag: str
+    // time: O(n)
+    // space: O(1)
+    public int longestValidParentheses(String s) {
+        int maxlength = 0;
+        int left, right;
+
+        // left to right scan
+        left = right = 0;
+        for (int i = 0; i < s.length(); i++) {
+            if (s.charAt(i) == '(') {
+                left++;
+            } else {
+                right++;
+            }
+            if (left == right) {
+                maxlength = Math.max(maxlength, 2 * right);
+            } else if (right >= left) {
+                left = right = 0;
+            }
+        }
+
+        // right to left scan
+        left = right = 0;
+        for (int i = s.length() - 1; i >= 0; i--) {
+            if (s.charAt(i) == '(') {
+                left++;
+            } else {
+                right++;
+            }
+            if (left == right) {
+                maxlength = Math.max(maxlength, 2 * left);
+            } else if (left >= right) {
+                left = right = 0;
+            }
+        }
+        return maxlength;
     }
 }

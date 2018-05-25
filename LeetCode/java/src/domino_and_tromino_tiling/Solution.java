@@ -66,3 +66,5 @@ class SolutionII {
         return (int) prev[0];
     }
 }
+
+// https://leetcode.com/problems/domino-and-tromino-tiling/discuss/116581/Detail-and-explanation-of-O(n)-solution-why-dpn2*dn-1+dpn-3

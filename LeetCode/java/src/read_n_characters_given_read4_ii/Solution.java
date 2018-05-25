@@ -3,6 +3,13 @@ package read_n_characters_given_read4_ii;
 /**
  * Created by Xiaotian on 6/17/17.
  */
+
+class Reader4 {
+    public int read4(char[] buf) {
+        return 0;
+    }
+}
+
 /* The read4 API is defined in the parent class Reader4.
       int read4(char[] buf); */
 
@@ -31,16 +38,6 @@ public class Solution extends Reader4 {
     }
 }
 
-// placeholder
-class Reader4 {
-    public int read4(char[] buf) {
-        return 0;
-    }
-}
-
-/* The read4 API is defined in the parent class Reader4.
-      int read4(char[] buf); */
-
 class SolutionII extends Reader4 {
     // tag: str, ptr, queue
     // time: O(n)
@@ -68,5 +65,33 @@ class SolutionII extends Reader4 {
             }
         }
         return i;
+    }
+}
+
+class SolutionIII extends Reader4 {
+    // credit: https://leetcode.com/problems/read-n-characters-given-read4-ii-call-multiple-times/discuss/49615/Clean-solution-in-Java
+
+    char[] buf4 = new char[4];
+    int buf4Cnt = 0;
+    int buf4Idx = 0;
+    /**
+     * @param buf Destination buffer
+     * @param n   Maximum number of characters to read
+     * @return    The number of characters read
+     */
+    public int read(char[] buf, int n) {
+        if (n == 0) return 0;
+
+        int cnt = 0;
+        while (true) {
+            while (buf4Idx < buf4Cnt) {
+                buf[cnt++] = buf4[buf4Idx++];
+                if (cnt == n) return n; // already read n chars
+            }
+
+            buf4Cnt = read4(buf4);
+            if (buf4Cnt == 0) return cnt; // no more chars to read, EOF
+            buf4Idx = 0;
+        }
     }
 }

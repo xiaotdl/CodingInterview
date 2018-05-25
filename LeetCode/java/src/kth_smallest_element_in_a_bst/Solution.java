@@ -51,10 +51,9 @@ class SolutionII {
 
         BSTIterator it = new BSTIterator(root);
         TreeNode node = null;
-        while (k > 0) {
+        while (k-- > 0) {
             node = it.next();
             if (node == null) return -1;
-            k--;
         }
         return node.val;
     }

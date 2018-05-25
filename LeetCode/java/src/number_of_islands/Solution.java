@@ -99,8 +99,8 @@ class SolutionII {
     }
 
     private boolean inBound(int m, int n, int x, int y) {
-        return 0 <= x && x <= m - 1
-            && 0 <= y && y <= n - 1;
+        return 0 <= x && x < m
+            && 0 <= y && y < n;
     }
 }
 
@@ -178,7 +178,7 @@ class SolutionIII {
     }
 
     private boolean inBound(int m, int n, int x, int y) {
-    return 0 <= x && x <= m - 1
-        && 0 <= y && y <= n - 1;
+    return 0 <= x && x < m
+        && 0 <= y && y < n;
     }
 }

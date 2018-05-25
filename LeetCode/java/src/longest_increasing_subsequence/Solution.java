@@ -44,11 +44,11 @@ class SolutionII {
                 }
             }
         }
-        int max = 0;
-        for (int lenOfLIS : dp) {
-            max = Math.max(max, lenOfLIS);
+        int maxLen = 0;
+        for (int len : dp) {
+            maxLen = Math.max(maxLen, len);
         }
-        return max;
+        return maxLen;
     }
 }
 

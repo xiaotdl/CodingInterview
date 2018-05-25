@@ -46,6 +46,7 @@ public class Solution {
 }
 
 class SolutionII {
+    // credit: https://leetcode.com/problems/is-graph-bipartite/solution/
     // tag: dfs
     // time: O(n^2)
     // space: O(n)
@@ -55,7 +56,8 @@ class SolutionII {
         Arrays.fill(colors, -1);
 
         for (int i = 0; i < n; i++) { // This graph might be a disconnected graph. Need to check each unvisited/uncolored node.
-            if (colors[i] == -1 && !dfs(graph, colors, i, 0)) {
+            if (colors[i] != -1) continue;
+            if (!dfs(graph, colors, i, 0)) {
                 return false;
             }
         }

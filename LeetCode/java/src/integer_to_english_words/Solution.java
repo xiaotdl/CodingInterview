@@ -46,14 +46,15 @@ public class Solution {
 class SolutionII {
     // Same as Solution
     // O(1)&O(1)
-    // 数字英语单词分三组，UNDER20，TENS，THOUSANDS，然后分别按1000， 100， 10来数位分离，区间划分0..20, 20..100, 100..1000
+    // 数字英语单词分三组，UNDER20，TENS，THOUSANDS，然后分别按1000， 100， 10来数位分离，区间划分0..20, 10s, 1000s
 
     private final String[] UNDER20 = {"", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten", "Eleven", "Twelve", "Thirteen", "Fourteen", "Fifteen", "Sixteen", "Seventeen", "Eighteen", "Nineteen"};
     private final String[] TENS = {"", "Ten", "Twenty", "Thirty", "Forty", "Fifty", "Sixty", "Seventy", "Eighty", "Ninety"};
     private final String[] THOUSANDS = {"", "Thousand", "Million", "Billion"};
 
     public String numberToWords(int num) {
-        if (num == 0) return "Zero";
+        if (num == 0) return "Zero"; // EDGE CASE: easy to forget
+
         String res = "";
         int thousandsIdx = 0;
         while (num != 0) {
@@ -67,8 +68,7 @@ class SolutionII {
     }
 
     private String numberToWordsUnder1000(int num) {
-        if (num == 0) return "";
-        else if (num < 20) return UNDER20[num];
+        if (num < 20) return UNDER20[num];
         else if (num < 100) return (TENS[num / 10] + " " + UNDER20[num % 10]);
         else return UNDER20[num / 100] + " Hundred " + numberToWordsUnder1000(num % 100);
     }

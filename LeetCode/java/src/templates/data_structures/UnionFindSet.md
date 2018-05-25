@@ -1,6 +1,7 @@
 class UnionFindSet {
     int[] parents;
 
+    // constructor: O(n)
     UnionFindSet(int n) {
         parents = new int[n];
         for (int x = 1; x <= n; x++) {
@@ -8,6 +9,7 @@ class UnionFindSet {
         }
     }
 
+    // find: amortized O(1)
     int find(int x) {
         if (parents[x] != x) {
             parents[x] = find(parents[x]);
@@ -15,6 +17,7 @@ class UnionFindSet {
         return parents[x];
     }
 
+    // union: amortized O(1)
     void union(int a, int b) {
         int rootA = find(a);
         int rootB = find(b);

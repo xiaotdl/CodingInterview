@@ -12,7 +12,8 @@ class Solution {
 
         char[] S = s.toCharArray();
         char[] T = t.toCharArray();
-        for (int i = 0; i < Math.min(S.length, T.length); i++) {
+        int minLen = Math.min(S.length, T.length);
+        for (int i = 0; i < minLen; i++) {
             if (S[i] == T[i]) continue;
 
             if (S.length == T.length) {
@@ -25,6 +26,6 @@ class Solution {
                 return t.substring(i).equals(s.substring(i + 1)); // delete one char from s
             }
         }
-        return Math.abs(s.length() - t.length()) == 1; // two strs might be equal
+        return Math.abs(s.length() - t.length()) == 1; // NOTE: two strs might be equal
     }
 }

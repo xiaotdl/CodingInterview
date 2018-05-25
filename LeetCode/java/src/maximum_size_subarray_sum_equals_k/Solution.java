@@ -6,25 +6,24 @@ import java.util.*;
  * Created by Xiaotian on 6/17/17.
  */
 public class Solution {
-    // tag: hash
+    // tag: prefix sum, hash
     // time: O(n)
     // space: O(n)
     public int maxSubArrayLen(int[] nums, int k) {
         if (nums == null || nums.length == 0) return 0;
-        Map<Integer, Integer> m = new HashMap<>(); // prefixSum2index
+
+        Map<Integer, Integer> m = new HashMap<>(); // prefixSum2idx
         int maxLen = 0;
         int prefixSum = 0; // sum from nums[0] to nums[i]
-        for (int i = 0; i< nums.length; i++) {
+        for (int i = 0; i < nums.length; i++) {
             prefixSum += nums[i];
             if (prefixSum == k) {
-                maxLen = i + 1;
+                maxLen = Math.max(maxLen, i + 1);
             }
             else if (m.containsKey(prefixSum - k)) {
                 maxLen = Math.max(maxLen, i - m.get(prefixSum - k));
             }
-            if (!m.containsKey(prefixSum)) {
-                m.put(prefixSum, i);
-            }
+            m.putIfAbsent(prefixSum, i);
         }
         return maxLen;
     }

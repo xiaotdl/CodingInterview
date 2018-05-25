@@ -24,10 +24,7 @@ public class Solution {
     }
 
     private boolean isSide(int x, int y, int m, int n, int[][] grid) {
-        if (0 <= x && x < m
-            && 0 <= y && y < n) {
-            return grid[x][y] == 0;
-        }
-        return true;
+        if (!(0 <= x && x < m && 0 <= y && y < n)) return true;
+        return grid[x][y] == 0;
     }
 }

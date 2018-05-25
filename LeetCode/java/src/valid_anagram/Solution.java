@@ -3,7 +3,7 @@ package valid_anagram;
 /**
  * Created by Xiaotian on 3/28/18.
  */
-public class Solution {
+class Solution {
     // tag: str
     // time: O(n)
     // space: O(1)
@@ -22,5 +22,24 @@ public class Solution {
             }
         }
         return cnt == s.length();
+    }
+}
+
+class SolutionII {
+    // tag: str
+    // time: O(n)
+    // space: O(1)
+    public boolean isAnagram(String s, String t) {
+        if (s.length() != t.length()) return false;
+
+        int[] charCnt = new int[26];
+        for (int i = 0; i < s.length(); i++) {
+            charCnt[s.charAt(i) - 'a']++;
+            charCnt[t.charAt(i) - 'a']--;
+        }
+        for (int i = 0; i < 26; i++) {
+            if (charCnt[i] != 0) return false;
+        }
+        return true;
     }
 }

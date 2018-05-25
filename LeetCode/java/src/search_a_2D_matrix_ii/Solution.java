@@ -38,3 +38,30 @@ public class Solution {
         }
     }
 }
+
+class SolutionII {
+    // credit: https://leetcode.com/problems/search-a-2d-matrix-ii/solution/
+    // reduce search space
+    // It is not too tricky to see why doing this will never prune the correct answer; because the rows are sorted from left-to-right, we know that every value to the right of the current value is larger. Therefore, if the current value is already larger than target, we know that every value to its right will also be too large. A very similar argument can be made for the columns, so this manner of search will always find target in the matrix (if it is present).
+
+    // tag: matrix
+    // time: O(m+n)
+    // space: O(1)
+    public boolean searchMatrix(int[][] matrix, int target) {
+        // start our "pointer" in the bottom-left
+        int row = matrix.length-1;
+        int col = 0;
+
+        while (row >= 0 && col < matrix[0].length) {
+            if (matrix[row][col] > target) {
+                row--;
+            } else if (matrix[row][col] < target) {
+                col++;
+            } else { // found it
+                return true;
+            }
+        }
+
+        return false;
+    }
+}

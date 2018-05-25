@@ -8,6 +8,7 @@ public class Solution {
     public String alienOrder(String[] words) {
         String res = "";
         if (words == null || words.length == 0) return res;
+        if (words.length == 1) return words[0];
 
         Map<Character, Set<Character>> graph = new HashMap<>(); // char2set(neighbor_char) u->v: u is a dependency to v
         Map<Character, Integer> indegree = new HashMap<>(); // char2indegree

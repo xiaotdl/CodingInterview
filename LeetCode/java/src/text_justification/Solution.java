@@ -138,3 +138,54 @@ class SolutionII {
         return res;
     }
 }
+
+
+class SolutionIII {
+    // credit: https://leetcode.com/problems/text-justification/discuss/24873/Share-my-concise-c++-solution-less-than-20-lines
+    // tag: str
+    // time: O(n)
+    // space: O(1)
+    public List<String> fullJustify(String[] words, int L) {
+        List<String> res = new ArrayList<>();
+
+        for (int i = 0, j = 0; i < words.length; i = j + 1) { // i: row start word idx, j: row end word idx
+            int l = words[i].length(); // row len
+            j = i;
+            while (j + 1 < words.length && l + 1 + words[j + 1].length() <= L) {
+                l += 1 + words[j + 1].length();
+                j++;
+            }
+
+            StringBuilder sb = new StringBuilder(); // curr line
+            sb.append(words[i]);
+
+            if (i == j) { // single word
+                int spaces = L - sb.length();
+                while (spaces-- > 0) sb.append(' ');
+                res.add(sb.toString());
+                continue;
+            }
+
+            if (j == words.length - 1) { // last line
+                for (int k = i + 1; k <= j; k++) {
+                    sb.append(" " + words[k]);
+                }
+                int spaces = L - sb.length();
+                while (spaces-- > 0) sb.append(' ');
+                res.add(sb.toString());
+                continue;
+            }
+
+            // multiple words (normal case)
+            int spaces = (L - l + j - i) / (j - i);
+            int extras = (L - l + j - i) % (j - i);
+            for (int k = i + 1; k <= j; k++) {
+                for (int s = spaces; s > 0; s--) sb.append(' ');
+                if (extras-- > 0) sb.append(' ');
+                sb.append(words[k]);
+            }
+            res.add(sb.toString());
+        }
+        return res;
+    }
+}

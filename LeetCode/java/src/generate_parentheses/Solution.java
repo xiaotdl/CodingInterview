@@ -18,9 +18,9 @@ public class Solution {
         return res;
     }
 
-    private void dfs(int leftN, int rightN, StringBuffer tmpRes, List<String> res) {
+    private void dfs(int leftN, int rightN, StringBuffer path, List<String> res) {
         if (leftN == 0 && rightN == 0) {
-            res.add(tmpRes.toString());
+            res.add(path.toString());
             return;
         }
 
@@ -29,14 +29,14 @@ public class Solution {
         }
 
         if (leftN > 0) {
-            tmpRes.append('(');
-            dfs(leftN - 1, rightN, tmpRes, res);
-            tmpRes.deleteCharAt(tmpRes.length() - 1);
+            path.append('(');
+            dfs(leftN - 1, rightN, path, res);
+            path.deleteCharAt(path.length() - 1);
         }
         if (rightN > 0) {
-            tmpRes.append(')');
-            dfs(leftN, rightN - 1, tmpRes, res);
-            tmpRes.deleteCharAt(tmpRes.length() - 1);
+            path.append(')');
+            dfs(leftN, rightN - 1, path, res);
+            path.deleteCharAt(path.length() - 1);
         }
     }
 }

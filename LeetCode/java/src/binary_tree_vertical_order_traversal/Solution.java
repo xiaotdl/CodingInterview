@@ -6,7 +6,17 @@ package binary_tree_vertical_order_traversal;
 
 import java.util.*;
 
-public class Solution {
+/**
+ * Definition for a binary tree node.
+ */
+class TreeNode {
+    int val;
+    TreeNode left;
+    TreeNode right;
+    TreeNode(int x) { val = x; }
+}
+
+class Solution {
     // - BFS, put node, col into queue at the same time
     // - Every left child access col - 1 while right child col + 1
     // - This maps node into different col buckets
@@ -55,16 +65,6 @@ public class Solution {
 
         return results;
     }
-}
-
-/**
- * Definition for a binary tree node.
- */
-class TreeNode {
-    int val;
-    TreeNode left;
-    TreeNode right;
-    TreeNode(int x) { val = x; }
 }
 
 

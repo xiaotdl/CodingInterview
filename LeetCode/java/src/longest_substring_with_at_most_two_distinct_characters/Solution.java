@@ -74,3 +74,24 @@ class SolutionII {
         return maxLen;
     }
 }
+
+class SolutionIII {
+    // sliding window
+    public int lengthOfLongestSubstringTwoDistinct(String s) {
+        int[] charCnt = new int[256];
+        int distinctCnt = 0;
+        char[] S = s.toCharArray();
+        int maxLen = 0;
+        for (int i = 0, j = 0; i < S.length; i++) {
+            while (j < S.length && (charCnt[S[j]] > 0 || distinctCnt < 2)) {
+                if (charCnt[S[j]] == 0) distinctCnt++;
+                charCnt[S[j]]++;
+                j++;
+            }
+            maxLen = Math.max(maxLen, j - i);
+            charCnt[S[i]]--;
+            if (charCnt[S[i]] == 0) distinctCnt--;
+        }
+        return maxLen;
+    }
+}

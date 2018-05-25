@@ -33,3 +33,24 @@ class Solution {
     }
 }
 
+class SolutionII {
+    public List<List<Integer>> getFactors(int n) {
+        List<List<Integer>> result = new ArrayList<>();
+        dfs(result, new ArrayList<>(), n, 2);
+        return result;
+    }
+
+    private void dfs(List<List<Integer>> result, List<Integer> current, int remain, int start) {
+        for (int i = start; i * i <= remain; i++) {
+            if (remain % i == 0) {
+                current.add(i);
+                current.add(remain / i);
+                result.add(new ArrayList<>(current));
+                current.remove(current.size() - 1);
+                dfs(result, current, remain / i, i);
+                current.remove(current.size() - 1);
+            }
+        }
+    }
+}
+

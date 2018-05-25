@@ -16,18 +16,18 @@ public class Solution {
         return res;
     }
 
-    void dfs(int[] candidates, int left, int target, int pos, int currSum, ArrayList<Integer> currRes, List<List<Integer>> res) {
-        if (currSum == target && left == 0) {
-            res.add(new ArrayList<Integer>(currRes));
+    void dfs(int[] candidates, int k, int target, int pos, int currSum, ArrayList<Integer> path, List<List<Integer>> res) {
+        if (currSum == target && k == 0) {
+            res.add(new ArrayList<Integer>(path));
         }
-        else if (left < 0 || currSum > target) {
+        else if (k < 0 || currSum > target) {
             return;
         }
 
         for (int i = pos; i < candidates.length; i++) {
-            currRes.add(candidates[i]);
-            dfs(candidates, left - 1, target, i + 1, currSum + candidates[i], currRes, res);
-            currRes.remove(currRes.size() - 1);
+            path.add(candidates[i]);
+            dfs(candidates, k - 1, target, i + 1, currSum + candidates[i], path, res);
+            path.remove(path.size() - 1);
         }
     }
 

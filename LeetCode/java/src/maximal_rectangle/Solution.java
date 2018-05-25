@@ -83,37 +83,29 @@ class SolutionII {
 
         int m = matrix.length;
         int n = matrix[0].length;
-        int[][] height = new int[m][n + 1];
 
+        int maxArea = 0;
+        int[] heights = new int[n];
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < n; j++) {
-                if (matrix[i][j] == '0') {
-                    height[i][j] = 0;
-                } else {
-                    height[i][j] = (i == 0) ? 1 : height[i - 1][j] + 1;
-                }
+                heights[j] = matrix[i][j] == '0' ? 0 : heights[j] + 1;
             }
+            maxArea = Math.max(maxArea, largestRectangleArea(heights));
         }
-
-        int max = 0;
-        for (int i = 0; i < m; i++) {
-            int area = maxAreaInHistgram(height[i]);
-            max = Math.max(max, area);
-        }
-        return max;
+        return maxArea;
     }
 
     // Same as LC84. Largest Rectangle in Histogram
     // time: O(n)
     // space: O(n)
-    private int maxAreaInHistgram(int[] height) {
+    private int largestRectangleArea(int[] heights) {
         Stack<Integer> stack = new Stack<>();
 
         int max = 0;
-        for (int i = 0; i <= height.length; i++) {
-            int curr = (i == height.length) ? 0 : height[i];
-            while (!stack.isEmpty() && curr < height[stack.peek()]) {
-                int length = height[stack.pop()];
+        for (int i = 0; i <= heights.length; i++) {
+            int curr = (i == heights.length) ? 0 : heights[i];
+            while (!stack.isEmpty() && curr < heights[stack.peek()]) {
+                int length = heights[stack.pop()];
                 int width = stack.isEmpty() ? i : i - 1 - stack.peek();
                 max = Math.max(max, length * width);
             }

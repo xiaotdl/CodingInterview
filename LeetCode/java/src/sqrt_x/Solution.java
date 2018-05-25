@@ -26,3 +26,26 @@ public class Solution {
         return (int) l;
     }
 }
+
+class SolutionII {
+    // both input and output are double
+    // tag: binary search
+    // time: O(logn)
+    // space: O(1)
+    public double sqrt(double x) {
+        double l = 0;
+        double r = (x < 1.0) ? 1.0 : x;
+        double eps = 1e-12;
+        while (r - l > eps) {
+            double m = l + (r - l) / 2;
+            if (m*m < x) {
+                l = m;
+            } else if (m*m > x) {
+                r = m;
+            } else {
+                return m;
+            }
+        }
+        return r;
+    }
+}

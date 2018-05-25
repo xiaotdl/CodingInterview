@@ -36,3 +36,35 @@ public class Solution {
         return res;
     }
 }
+
+class SolutionII {
+    // tag: array
+    // time: O(n)
+    // space: O(1)
+    public List<String> summaryRanges(int[] nums) {
+        List<String> res = new ArrayList<>();
+
+        Stack<int[]> stack = new Stack<>();
+        for (int num : nums) {
+            if (stack.isEmpty()) {
+                stack.push(new int[]{num, num});
+            }
+            else {
+                if (num == stack.peek()[1] + 1) {
+                    stack.peek()[1] = num;
+                    continue;
+                }
+
+                int[] range = stack.pop();
+                res.add(range[0] == range[1] ? "" + range[0] : range[0] + "->" + range[1]);
+
+                stack.push(new int[]{num, num});
+            }
+        }
+        if (!stack.isEmpty()) {
+            int[] range = stack.pop();
+            res.add(range[0] == range[1] ? "" + range[0] : range[0] + "->" + range[1]);
+        }
+        return res;
+    }
+}

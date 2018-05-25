@@ -60,3 +60,29 @@ class SolutionII {
                 : "/";
     }
 }
+
+class SolutionIII {
+    // NOTE: the path is always absolute path
+    // Special test case: /... => /...
+    // tag: str, stack
+    // time: O(n)
+    // space: O(n)
+    public String simplifyPath(String path) {
+        Stack<String> stack = new Stack<>();
+        for (String dir : path.split("/")) {
+            if (dir.equals("") || dir.equals(".")) continue;
+            else if (dir.equals("..")) {
+                if (!stack.isEmpty()) stack.pop();
+            }
+            else {
+                stack.push(dir);
+            }
+        }
+        StringBuilder sb = new StringBuilder();
+        while (!stack.isEmpty()) {
+            sb.insert(0, "/" + stack.pop());
+        }
+        String res = sb.toString();
+        return res.equals("") ? "/" : res;
+    }
+}

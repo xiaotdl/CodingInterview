@@ -77,3 +77,25 @@ class SolutionII {
         return max == Integer.MIN_VALUE ? maxDistinctCharCnt : max;
     }
 }
+
+class SolutionIII {
+    // sliding window
+    public int lengthOfLongestSubstringKDistinct(String s, int k) {
+        int[] charCnt = new int[256];
+        int distinctCnt = 0;
+        char[] S = s.toCharArray();
+        int maxLen = 0;
+        for (int i = 0, j = 0; i < S.length; i++) {
+            while (j < S.length && distinctCnt <= k) {
+                if (distinctCnt == k && charCnt[S[j]] == 0) break;
+                if (charCnt[S[j]] == 0) distinctCnt++;
+                charCnt[S[j]]++;
+                j++;
+            }
+            maxLen = Math.max(maxLen, j - i);
+            charCnt[S[i]]--;
+            if (charCnt[S[i]] == 0) distinctCnt--;
+        }
+        return maxLen;
+    }
+}

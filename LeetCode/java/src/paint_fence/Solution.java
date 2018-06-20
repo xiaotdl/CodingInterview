@@ -3,10 +3,10 @@ package paint_fence;
 /**
  * Created by Xiaotian on 12/27/16.
  */
-// tag: dp
-// time: O(n)
-// space: O(n)
 public class Solution {
+    // tag: dp
+    // time: O(n)
+    // space: O(n)
     public int numWays(int n, int k) {
         if (n <= 0 || k <= 0) return 0;
         if (n == 1) return k;

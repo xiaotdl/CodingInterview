@@ -12,7 +12,7 @@ public class Solution {
         char[] S = s.toCharArray();
 
         int maxLen = 0;
-        int majorCnt = 1;
+        int majorCnt = 1; # max majorCnt so far
         int l, r;
         for (l = 0, r = 0; l < S.length && r < S.length; l++) {
             while (r < S.length) {

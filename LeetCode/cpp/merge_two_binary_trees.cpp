@@ -9,6 +9,10 @@
  *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
  * };
  */
+
+// tag: tree, dfs
+// time: O(n), n is the number of total tree nodes
+// space: O(n), n is the number of total tree nodes
 class Solution {
 public:
     TreeNode* mergeTrees(TreeNode* root1, TreeNode* root2) {

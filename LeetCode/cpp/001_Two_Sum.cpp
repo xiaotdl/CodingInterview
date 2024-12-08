@@ -14,3 +14,21 @@ public:
         return {};
     }
 };
+
+// tag: hash table
+// time: O(n)
+// space: O(n)
+class Solution {
+public:
+    vector<int> twoSum(vector<int>& nums, int target) {
+        std::map<int, int> prevValues; // {key = prev value, val = index}
+        for (int i = 0; i < nums.size(); ++i) {
+            if (auto found = prevValues.find(target - nums[i]); found != prevValues.end()) {
+                int j = found->second;
+                return {j, i};
+            }
+            prevValues[nums[i]] = i;
+        }
+        return {};
+    }
+};

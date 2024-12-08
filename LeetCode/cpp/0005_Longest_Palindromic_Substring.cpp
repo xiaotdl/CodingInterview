@@ -1,5 +1,5 @@
 // tag: brutal force
-// time: O(n^2)
+// time: O(n^3), O(n^2) enumerating all substrs, O(n) check isPalindrome.
 // space: O(1)
 class Solution {
 public:

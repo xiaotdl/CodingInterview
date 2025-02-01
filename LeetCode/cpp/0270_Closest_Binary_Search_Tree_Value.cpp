@@ -17,7 +17,7 @@ public:
     int closestValue(TreeNode* root, double target) {
         if (!root) return -1;
 
-        double minDiff = std::numeric_limits<double>::max(); // XXX
+        double minDiff = std::numeric_limits<double>::max(); // XXX: can't be int type, otherwise round down error
         int result = -1;
         dfs(root, target, minDiff, result);
         return result;
@@ -43,5 +43,34 @@ public:
         } else {
             dfs(node->left, target, minDiff, result);
         }
+    }
+};
+
+// tag: binary search, iterative
+// time: O(logn)
+// space: O(1)
+class Solution {
+public:
+    int closestValue(TreeNode* root, double target) {
+        if (!root) return -1;
+
+        double minDiff = std::numeric_limits<double>::max();
+        int result = -1;
+        while (root) {
+            if (root->val == target) return target;
+            double diff = abs(root->val - target);
+            if (diff < minDiff) {
+                result = root->val;
+                minDiff = diff;
+            } else if (diff == minDiff) {
+                result = min(result, root->val);
+            }
+            if (root->val > target) {
+                root = root->left;
+            } else {
+                root = root->right;
+            }
+        }
+        return result;
     }
 };

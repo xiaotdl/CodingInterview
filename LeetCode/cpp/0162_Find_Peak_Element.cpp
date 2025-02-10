@@ -12,3 +12,27 @@ public:
         return -1;
     }
 };
+
+// tag: binary search
+// time: O(logn)
+// space: O(1)
+class Solution {
+public:
+    int findPeakElement(vector<int>& nums) {
+        int l = 0;
+        int r = nums.size() - 1;
+        while (l <= r) {
+            int m = l + (r - l) / 2;
+            if ((m == 0 || nums[m - 1] < nums[m]) && (m == nums.size() - 1 || nums[m] > nums[m + 1])) {
+                return m;
+            }
+            if (m == 0 || nums[m - 1] < nums[m]) {
+                l = m + 1;
+            } else {
+                r = m - 1;
+            }
+        }
+        
+        return -1;
+    }
+};
